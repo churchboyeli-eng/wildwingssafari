@@ -1,7 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ArrowRight, CalendarDays, Check, Route } from 'lucide-react';
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { itineraryCategories, topPackages } from '../data/content';
+import { getPackageStartingPrice, itineraryCategories, topPackages } from '../data/content';
 
 const pageCopy = {
   all: {
@@ -73,7 +73,15 @@ export default function Tours() {
     return filtered;
   }, [availablePackages, durationFilter, sortOrder]);
 
+  useEffect(() => {
+    setDurationFilter('all');
+    setFiltersOpen(false);
+  }, [categoryKey]);
+
   if (categoryKey && !activeCategory) return <Navigate to="/itineraries" replace />;
+
+  const activeDurationLabel = durationFilters.find((filter) => filter.key === durationFilter)?.label;
+  const resultCount = `${matchingPackages.length} ${matchingPackages.length === 1 ? 'sample itinerary' : 'sample itineraries'}`;
 
   return (
     <div className="page-enter itinerary-listing-page">
@@ -96,15 +104,15 @@ export default function Tours() {
 
       <section className="itinerary-listing-content" aria-labelledby="itinerary-list-heading">
         <button type="button" className="itinerary-mobile-filter-toggle" aria-expanded={filtersOpen} aria-controls="itinerary-filters" onClick={() => setFiltersOpen((open) => !open)}>
-          {filtersOpen ? 'Close filters' : 'Filter itineraries'} <span>{durationFilter === 'all' ? 'All lengths' : durationFilters.find((filter) => filter.key === durationFilter)?.label}</span>
+          {filtersOpen ? 'Close filters' : 'Filter itineraries'} <span>{activeDurationLabel}</span>
         </button>
         <aside id="itinerary-filters" className={`itinerary-filter-rail ${filtersOpen ? 'is-open' : ''}`} aria-label="Filter itineraries">
           <div className="itinerary-filter-group">
             <p>Type</p>
             <nav>
-              <Link to="/itineraries" className={!activeCategory ? 'is-active' : ''}>All itineraries <span>{topPackages.length}</span></Link>
+              <Link to="/itineraries" className={!activeCategory ? 'is-active' : ''} aria-current={!activeCategory ? 'page' : undefined}>All itineraries <span>{topPackages.length}</span></Link>
               {itineraryCategories.map((category) => (
-                <Link key={category.key} to={`/itineraries/${category.key}`} className={category.key === activeCategory?.key ? 'is-active' : ''}>{category.name} <span>{category.packageKeys.length}</span></Link>
+                <Link key={category.key} to={`/itineraries/${category.key}`} className={category.key === activeCategory?.key ? 'is-active' : ''} aria-current={category.key === activeCategory?.key ? 'page' : undefined}>{category.name} <span>{category.packageKeys.length}</span></Link>
               ))}
             </nav>
           </div>
@@ -112,7 +120,7 @@ export default function Tours() {
             <p>Travel time</p>
             <div className="itinerary-duration-filters">
               {durationFilters.map((filter) => (
-                <button type="button" key={filter.key} className={durationFilter === filter.key ? 'is-active' : ''} onClick={() => setDurationFilter(filter.key)}>{filter.label}</button>
+                <button type="button" key={filter.key} className={durationFilter === filter.key ? 'is-active' : ''} aria-pressed={durationFilter === filter.key} onClick={() => setDurationFilter(filter.key)}>{filter.label}</button>
               ))}
             </div>
           </div>
@@ -123,7 +131,11 @@ export default function Tours() {
             <p><strong>These are sample itineraries.</strong> We adjust the route, number of nights and accommodation to fit your dates, interests and travel style.</p>
           </div>
           <header className="itinerary-list-heading">
-            <div><p className="eyebrow">{copy.eyebrow}</p><h2 id="itinerary-list-heading">{copy.listTitle}</h2></div>
+            <div>
+              <p className="eyebrow">{copy.eyebrow}</p>
+              <h2 id="itinerary-list-heading">{copy.listTitle}</h2>
+              <p className="itinerary-result-count" role="status">Showing {resultCount}{durationFilter !== 'all' ? ` for ${activeDurationLabel.toLowerCase()}` : ''}</p>
+            </div>
             <label className="itinerary-sort-control">Sort by
               <select value={sortOrder} onChange={(event) => setSortOrder(event.target.value)}>
                 <option value="recommended">Recommended</option>
@@ -134,28 +146,42 @@ export default function Tours() {
           </header>
 
           <div className="itinerary-list-cards">
-            {matchingPackages.map((tourPackage, index) => (
-              <article className="itinerary-list-card" key={tourPackage.key}>
-                <div className="itinerary-list-route-panel">
-                  <span>{String(index + 1).padStart(2, '0')}</span>
-                  <p>{tourPackage.tag}</p>
-                  <div><Route aria-hidden="true" size={16} strokeWidth={1.8} /><small>{tourPackage.route}</small></div>
-                </div>
-                <div className="itinerary-list-card-main">
-                  <div className="itinerary-list-card-meta"><span>{tourPackage.popular ? 'Traveller favourite' : 'Private itinerary'}</span><span><CalendarDays aria-hidden="true" size={14} />{tourPackage.duration}</span></div>
-                  <h3>{tourPackage.name}</h3>
-                  <p>{tourPackage.copy}</p>
-                  <ul>
-                    <li><Check aria-hidden="true" size={14} />{tourPackage.bestFor}</li>
-                    <li><Check aria-hidden="true" size={14} />{tourPackage.includes}</li>
-                  </ul>
-                  <Link to={`/tours/${tourPackage.key}`} className="itinerary-list-card-action">View this itinerary <ArrowRight aria-hidden="true" size={16} /></Link>
-                </div>
-              </article>
-            ))}
+            {matchingPackages.map((tourPackage, index) => {
+              const startingPrice = getPackageStartingPrice(tourPackage);
+              return (
+                <article className="itinerary-list-card" key={tourPackage.key}>
+                  <div className="itinerary-list-route-panel">
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                    <p>{tourPackage.tag}</p>
+                    <div><Route aria-hidden="true" size={16} strokeWidth={1.8} /><small>{tourPackage.route}</small></div>
+                  </div>
+                  <div className="itinerary-list-card-main">
+                    <div className="itinerary-list-card-meta"><span>{tourPackage.popular ? 'Traveller favourite' : 'Private itinerary'}</span><span><CalendarDays aria-hidden="true" size={14} />{tourPackage.duration}</span></div>
+                    <h3>{tourPackage.name}</h3>
+                    <p>{tourPackage.copy}</p>
+                    <ul>
+                      <li><Check aria-hidden="true" size={14} />{tourPackage.bestFor}</li>
+                      <li><Check aria-hidden="true" size={14} />{tourPackage.includes}</li>
+                    </ul>
+                    {startingPrice && (
+                      <div className="itinerary-list-card-price">
+                        <span>Price starts from</span>
+                        <strong>{startingPrice} <small>USD pp</small></strong>
+                      </div>
+                    )}
+                    <Link to={`/tours/${tourPackage.key}`} className="itinerary-list-card-action">View this itinerary <ArrowRight aria-hidden="true" size={16} /></Link>
+                  </div>
+                </article>
+              );
+            })}
           </div>
 
-          {matchingPackages.length === 0 && <p className="itinerary-empty">No routes match that travel time yet. Choose another length or ask us to design one for you.</p>}
+          {matchingPackages.length === 0 && (
+            <div className="itinerary-empty">
+              <p>No routes match that travel time yet. Try another length, or ask us to design one for you.</p>
+              <button type="button" onClick={() => setDurationFilter('all')}>Show all itineraries</button>
+            </div>
+          )}
         </div>
       </section>
 

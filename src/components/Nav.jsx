@@ -1,35 +1,89 @@
 import { useRef, useState } from 'react';
-import { ArrowRight, ChevronDown, Globe2, Menu, MessageCircle, X } from 'lucide-react';
+import {
+  ArrowRight,
+  BedDouble,
+  Binoculars,
+  BookOpen,
+  ChevronDown,
+  Globe2,
+  Map,
+  Menu,
+  MessageCircle,
+  Sparkles,
+  Star,
+  Trees,
+  Waves,
+  X,
+} from 'lucide-react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { itineraryCategories, waHref } from '../data/content';
 
 const links = [
-  { to: '/', label: 'Home', end: true },
-  { to: '/destinations', label: 'Destinations' },
   { to: '/plan-a-journey', label: 'Plan your trip' },
   { to: '/about', label: 'About' },
   { to: '/gallery', label: 'Journal' },
 ];
 
+const discoverLinks = [
+  { to: '/tanzania-travel-guide', title: 'Inside Tanzania', sub: 'Route logic, park history and source-linked field notes.', icon: Map },
+  { to: '/tanzania-travel-guide#parks', title: 'Park field notes', sub: 'Serengeti, crater, elephants, river country and space.', icon: Trees },
+  { to: '/tanzania-travel-guide#islands', title: 'Zanzibar and coast', sub: 'Stone Town, spice culture, reef days and recovery.', icon: Waves },
+  { to: '/tanzania-travel-guide#stays', title: 'Where to stay', sub: 'How comfort, location and pace change the route.', icon: BedDouble },
+  { to: '/tanzania-travel-guide#activities', title: 'Activities by route', sub: 'Drive, float, walk, learn, climb and recover.', icon: Binoculars },
+  { to: '/itineraries/safaris', title: 'Migration timing', sub: 'Month-led Serengeti route ideas.', icon: Star },
+  { to: '/gallery', title: 'Field journal', sub: 'Planning notes and travel ideas.', icon: BookOpen },
+  { to: '/enquire', title: 'Request a route', sub: 'Send dates and receive a private proposal.', icon: Sparkles },
+];
+
+const routeMoods = [
+  'Wildlife first',
+  'Safari plus coast',
+  'Quiet southern route',
+  'Summit and recovery',
+  'Family pace',
+];
+
 export default function Nav() {
   const [toursOpen, setToursOpen] = useState(false);
+  const [discoverOpen, setDiscoverOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const closeTimer = useRef(null);
+  const toursCloseTimer = useRef(null);
+  const discoverCloseTimer = useRef(null);
   const toursTriggerRef = useRef(null);
+  const discoverTriggerRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
   const isTours = location.pathname.startsWith('/itineraries') || location.pathname.startsWith('/tours');
+  const isDiscover = location.pathname.startsWith('/tanzania-travel-guide') || location.pathname.startsWith('/tanzania-compass') || location.pathname.startsWith('/discover-tanzania') || location.pathname.startsWith('/destinations');
 
   const openTours = () => {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
+    if (mobileOpen) return;
+    if (toursCloseTimer.current) clearTimeout(toursCloseTimer.current);
+    setDiscoverOpen(false);
     setToursOpen(true);
   };
   const closeTours = () => {
-    closeTimer.current = setTimeout(() => setToursOpen(false), 80);
+    if (mobileOpen) return;
+    toursCloseTimer.current = setTimeout(() => setToursOpen(false), 80);
+  };
+
+  const openDiscover = () => {
+    if (mobileOpen) return;
+    if (discoverCloseTimer.current) clearTimeout(discoverCloseTimer.current);
+    setToursOpen(false);
+    setDiscoverOpen(true);
+  };
+  const closeDiscover = () => {
+    if (mobileOpen) return;
+    discoverCloseTimer.current = setTimeout(() => setDiscoverOpen(false), 80);
   };
 
   const handleToursBlur = (event) => {
     if (!event.currentTarget.contains(event.relatedTarget)) setToursOpen(false);
+  };
+
+  const handleDiscoverBlur = (event) => {
+    if (!event.currentTarget.contains(event.relatedTarget)) setDiscoverOpen(false);
   };
 
   const handleToursKeyDown = (event) => {
@@ -39,13 +93,24 @@ export default function Nav() {
     }
   };
 
+  const handleDiscoverKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      setDiscoverOpen(false);
+      discoverTriggerRef.current?.focus();
+    }
+  };
+
   const selectAndGo = (key) => {
     setToursOpen(false);
     setMobileOpen(false);
     navigate(`/itineraries/${key}`);
   };
 
-  const closeMobileNav = () => setMobileOpen(false);
+  const closeMobileNav = () => {
+    setMobileOpen(false);
+    setToursOpen(false);
+    setDiscoverOpen(false);
+  };
 
   return (
     <header className="site-header">
@@ -78,7 +143,37 @@ export default function Nav() {
         <NavLink to="/itineraries/safaris" className={({ isActive }) => `site-nav-link ${isActive ? 'is-active' : ''}`} onClick={closeMobileNav}>Safaris</NavLink>
         <NavLink to="/itineraries/kilimanjaro" className={({ isActive }) => `site-nav-link ${isActive ? 'is-active' : ''}`} onClick={closeMobileNav}>Kilimanjaro</NavLink>
         <NavLink to="/itineraries/zanzibar" className={({ isActive }) => `site-nav-link ${isActive ? 'is-active' : ''}`} onClick={closeMobileNav}>Zanzibar</NavLink>
-        {links.slice(1).map((link) => <NavLink key={link.to} to={link.to} className={({ isActive }) => `site-nav-link ${isActive ? 'is-active' : ''}`} onClick={closeMobileNav}>{link.label}</NavLink>)}
+        <div className="discover-menu" onMouseEnter={openDiscover} onMouseLeave={closeDiscover} onBlur={handleDiscoverBlur} onKeyDown={handleDiscoverKeyDown}>
+          <div className="tour-menu-trigger">
+            <NavLink to="/tanzania-travel-guide" className={`site-nav-link ${isDiscover ? 'is-active' : ''}`} onClick={closeMobileNav}>Inside Tanzania</NavLink>
+            <button ref={discoverTriggerRef} type="button" className={`tour-disclosure ${discoverOpen ? 'is-open' : ''}`} aria-label="Show Inside Tanzania menu" aria-expanded={discoverOpen} aria-controls="inside-tanzania-menu" onClick={() => { setToursOpen(false); setDiscoverOpen((open) => !open); }}><ChevronDown aria-hidden="true" size={15} /></button>
+          </div>
+          {discoverOpen && (
+            <div id="inside-tanzania-menu" className="discover-flyout">
+              <div className="discover-flyout-main">
+                <p>Wild Wings route tools</p>
+                <div className="discover-flyout-grid">
+                  {discoverLinks.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <Link to={item.to} key={item.title} className="discover-flyout-choice" onClick={closeMobileNav}>
+                        <span><Icon aria-hidden="true" size={17} /></span>
+                        <span><strong>{item.title}</strong><small>{item.sub}</small></span>
+                        <ArrowRight aria-hidden="true" size={14} />
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+              <aside className="discover-flyout-side">
+                <p>Start with a mood</p>
+                {routeMoods.map((place) => <Link to="/tanzania-travel-guide#tanzania-compass" key={place} onClick={closeMobileNav}>{place}</Link>)}
+                <Link to="/enquire" className="discover-flyout-request" onClick={closeMobileNav}>Request a trip plan <ArrowRight aria-hidden="true" size={14} /></Link>
+              </aside>
+            </div>
+          )}
+        </div>
+        {links.map((link) => <NavLink key={link.to} to={link.to} className={({ isActive }) => `site-nav-link ${isActive ? 'is-active' : ''}`} onClick={closeMobileNav}>{link.label}</NavLink>)}
         <Link to="/enquire" className="mobile-enquire" onClick={closeMobileNav}>Get a quote <ArrowRight aria-hidden="true" size={15} /></Link>
       </nav>
 

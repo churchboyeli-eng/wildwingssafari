@@ -53,7 +53,262 @@ export const tourDifferentiators = [
   { pillar: 'More from every day', icon: 'palmtree', title: 'A softer landing at the coast', copy: 'When Zanzibar is part of the journey, we leave room to slow down rather than rush straight home.' },
 ];
 
+export const homeOfferPackageKeys = ['tarangire-day-trip', 'explore-serengeti', 'serengeti-ngorongoro', 'tanzania-mid-range'];
+
+export const getPackageStartingPrice = (tourPackage) => {
+  const values = tourPackage?.pricing?.rows
+    ?.flatMap((row) => row.prices || [])
+    .map((price) => Number(String(price.amount).replace(/[^0-9.]/g, '')))
+    .filter((amount) => Number.isFinite(amount));
+
+  if (!values?.length) return null;
+
+  return `$${Math.min(...values).toLocaleString('en-US')}`;
+};
+
+const suppliedSafariPackages = [
+  {
+    key: 'tarangire-day-trip',
+    types: ['safaris', 'zanzibar', 'tanzania'],
+    num: '01',
+    tag: 'Tarangire day trip',
+    name: '1-Day Elephant Safari',
+    duration: '1 day',
+    route: 'Zanzibar · Arusha · Tarangire',
+    stops: ['Zanzibar', 'Arusha', 'Tarangire National Park', 'Zanzibar'],
+    bestFor: 'Zanzibar guests with one spare day',
+    includes: 'Return flights, private 4×4, lunch and park fees',
+    copy: 'A same-day fly-in safari from Zanzibar into Tarangire’s elephant country, built for travellers who want one powerful wildlife day without changing hotels.',
+    homeHighlights: ['Return Zanzibar flights', 'Private pop-up 4×4', 'Lunch inside Tarangire'],
+    popular: false,
+    overview: 'This day trip is designed for guests already staying in Zanzibar who want a real mainland safari without adding overnight logistics. You fly to Arusha, meet your private driver-guide and continue straight into Tarangire National Park for baobabs, open savannah and excellent elephant viewing before flying back to the island the same evening.',
+    suitability: 'Best for travellers short on time, beach guests who want a mainland wildlife chapter, or couples and families who want a private safari add-on from Zanzibar.',
+    facts: [['Safari style', 'Private day trip safari'], ['Starts / ends', 'Zanzibar'], ['Destination', 'Tarangire National Park'], ['Meals', 'Lunch']],
+    days: [
+      {
+        label: 'Day trip',
+        title: 'Zanzibar flight, Tarangire game drive and return',
+        location: 'Zanzibar → Arusha → Tarangire',
+        stay: 'No overnight stay',
+        meals: 'Lunch',
+        note: 'Flight timing and transfers are confirmed before booking',
+        copy: 'Begin with hotel pickup in Zanzibar and a scheduled flight to Arusha. Your driver-guide meets you on arrival and drives through Maasai landscapes to Tarangire National Park. Spend the day game driving among baobabs, elephant herds, lions, buffalo, giraffes, zebras, wildebeest and rich birdlife, with a picnic lunch served inside the park. In the late afternoon, return to Arusha or Kilimanjaro Airport for the flight back to Zanzibar and a hotel transfer on arrival.',
+      },
+    ],
+    inclusions: ['Return domestic flights: Zanzibar → Arusha and Arusha/Kilimanjaro → Zanzibar', 'All Tarangire National Park entry fees', 'Private 4×4 safari vehicle with pop-up roof', 'Professional English-speaking driver-guide', 'Picnic lunch and bottled drinking water during the game drive', 'Airport and hotel transfers in Zanzibar and Arusha', 'Government taxes and statutory charges'],
+    exclusions: ['International flights', 'Tanzania visa fees', 'Travel and medical insurance', 'Soft drinks and alcoholic beverages', 'Tips and gratuities for driver-guide and staff', 'Personal expenses such as souvenirs, laundry and phone calls', 'Optional activities not mentioned in the itinerary'],
+    pricing: {
+      label: 'Supplied package rate',
+      title: 'Price per person',
+      note: '*Indicative cost per person in USD from the supplied package sheet. Final quote depends on confirmed travel date, flight timing and availability.',
+      rows: [
+        {
+          label: 'Private day-trip rate',
+          prices: [
+            { persons: '2 adults', room: '1 double room', amount: '746' },
+            { persons: '4 adults', room: '4 double rooms', amount: '645' },
+            { persons: '6 adults', room: '3 double rooms', amount: '612' },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    key: 'explore-serengeti',
+    types: ['safaris', 'zanzibar', 'tanzania'],
+    num: '02',
+    tag: 'Fly-in Serengeti',
+    name: '2-Day Explore Serengeti',
+    duration: '2 days / 1 night',
+    route: 'Zanzibar · Central Serengeti · Zanzibar',
+    stops: ['Zanzibar', 'Seronera Airstrip', 'Central Serengeti', 'Zanzibar'],
+    bestFor: 'A short Serengeti escape from Zanzibar',
+    includes: 'Return Serengeti flights, Golden Safari Camp and game drives',
+    copy: 'A compact fly-in/fly-out Serengeti safari that skips the long road transfer and puts guests into the Seronera Valley fast.',
+    homeHighlights: ['Seronera Airstrip access', 'Golden Safari Camp', 'Two game-drive chapters'],
+    popular: true,
+    overview: 'This two-day itinerary is built to maximise time in the wilderness for travellers starting from Zanzibar. Fly into the Serengeti, land close to the Central Serengeti’s wildlife-rich Seronera area and begin game viewing almost immediately. It gives guests an afternoon and evening game drive on Day 1, then a fuller Central Serengeti game-drive day before flying back to the coast.',
+    suitability: 'Best for Zanzibar-based travellers who want the Serengeti experience but do not have enough time for a longer northern-circuit safari.',
+    facts: [['Safari style', 'Private fly-in safari'], ['Starts / ends', 'Zanzibar'], ['Destination', 'Central Serengeti National Park'], ['Accommodation', 'Golden Safari Camp']],
+    days: [
+      {
+        label: 'Day 1',
+        title: 'Fly from Zanzibar to Central Serengeti',
+        location: 'Zanzibar → Seronera',
+        stay: 'Golden Safari Camp',
+        meals: 'Lunch & dinner',
+        note: 'Your safari starts almost immediately after landing',
+        copy: 'Transfer from your Zanzibar hotel to Abeid Amani Karume International Airport for the scheduled flight to the Serengeti. On arrival at Seronera Airstrip, meet your professional safari driver-guide and begin your first game drive through the Seronera Valley and surrounding plains. Search for lions, leopards, cheetahs, elephants, giraffes, buffalo, zebras and wildebeest, with migration sightings possible by season. Continue into the afternoon and evening before checking in at Golden Safari Camp for dinner under the Serengeti sky.',
+      },
+      {
+        label: 'Day 2',
+        title: 'Full-day Central Serengeti game drive and fly back',
+        location: 'Central Serengeti → Zanzibar',
+        stay: 'No accommodation — end of safari',
+        meals: 'Breakfast & lunch',
+        note: 'Game drive timing works around the return flight',
+        copy: 'Wake early for breakfast and head back into Central Serengeti while predators are active and the plains are cool. Your guide explores the Seronera Valley and nearby wildlife areas, using permanent water sources and current sightings to shape the day. Enjoy a picnic lunch in the park, continue with more wildlife viewing, then return to Seronera Airstrip for the afternoon flight to Zanzibar and hotel transfer.',
+      },
+    ],
+    inclusions: ['Return domestic flights Zanzibar → Serengeti → Zanzibar', 'Airport transfers in Zanzibar and private airstrip transfers', 'Private 4×4 safari vehicle with pop-up roof', 'Professional English-speaking safari driver-guide', '1 night accommodation at Golden Safari Camp', 'All meals indicated in the itinerary', 'All Serengeti National Park entrance and conservation fees', 'Afternoon/evening game drive on Day 1 and full-day game drive on Day 2', 'Bottled drinking water, picnic lunch, vehicle fuel and operational costs', '24/7 ground support throughout the safari'],
+    exclusions: ['International flights', 'Tanzania visa fees', 'Travel and medical insurance', 'Alcoholic beverages and soft drinks', 'Tips and gratuities for safari guide and lodge staff', 'Laundry, telephone and internet charges', 'Personal shopping and souvenirs', 'Hot-air balloon safari', 'Maasai village or cultural visits', 'Additional accommodation in Zanzibar before or after the safari'],
+    pricing: {
+      label: 'Supplied package rate',
+      title: 'Price per person',
+      note: '*Indicative cost per person in USD from the supplied package sheet. Final quote depends on confirmed travel date, flight timing, rooming and lodge availability.',
+      rows: [
+        {
+          label: 'Private fly-in safari rate',
+          prices: [
+            { persons: '2 adults', room: '1 double room', amount: '1,640' },
+            { persons: '4 adults', room: '4 double rooms', amount: '1,390' },
+            { persons: '6 adults', room: '3 double rooms', amount: '1,304' },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    key: 'serengeti-ngorongoro',
+    types: ['safaris', 'zanzibar', 'tanzania'],
+    num: '03',
+    tag: 'Serengeti + Crater',
+    name: '3-Day Serengeti & Ngorongoro',
+    duration: '3 days / 2 nights',
+    route: 'Zanzibar · Arusha · Serengeti · Ngorongoro',
+    stops: ['Zanzibar', 'Arusha', 'Central Serengeti', 'Ngorongoro Crater', 'Zanzibar'],
+    bestFor: 'Big icons in a short northern safari',
+    includes: 'Serengeti, Ngorongoro, camp stay and park fees',
+    copy: 'A short but serious northern-circuit safari with two Serengeti nights and a Ngorongoro Crater finish.',
+    homeHighlights: ['Central Serengeti big cats', 'Ngorongoro Crater descent', 'Sightseeing Luxury Tented Camp'],
+    popular: false,
+    overview: 'This safari combines the endless plains of Central Serengeti with the world-famous Ngorongoro Crater. It is designed for travellers who want the two headline wildlife areas in a short route: a scenic transfer from Arusha into Serengeti, one full day in the Seronera region, then a crater descent before returning toward Arusha and Zanzibar.',
+    suitability: 'Best for guests who want a compact northern safari from Zanzibar with real Serengeti time and a Ngorongoro Crater day.',
+    facts: [['Safari style', 'Private safari'], ['Starts / ends', 'Zanzibar'], ['Destinations', 'Serengeti and Ngorongoro Crater'], ['Accommodation', 'Sightseeing Luxury Tented Camp']],
+    days: [
+      {
+        label: 'Day 1',
+        title: 'Fly to Arusha and drive into Central Serengeti',
+        location: 'Zanzibar → Arusha → Central Serengeti',
+        stay: 'Sightseeing Luxury Tented Camp',
+        meals: 'Lunch & dinner',
+        note: 'Possible Ngorongoro viewpoint stop depends on timing',
+        copy: 'Take a scheduled morning flight from Zanzibar to Arusha Airport and meet your driver-guide for a short safari briefing. Travel across the Great Rift Valley and Karatu highlands toward Serengeti National Park, with a possible Ngorongoro Crater viewpoint stop for photos. Enter the Serengeti with an en-route game drive, looking for elephants, giraffes, buffalo and big cats before arriving at camp in the late afternoon.',
+      },
+      {
+        label: 'Day 2',
+        title: 'Full-day game drive in Central Serengeti',
+        location: 'Central Serengeti',
+        stay: 'Sightseeing Luxury Tented Camp',
+        meals: 'Breakfast, lunch & dinner',
+        note: 'The Seronera region is strong for resident wildlife',
+        copy: 'Spend the full day in the Seronera region, one of the Serengeti’s most productive wildlife areas. Your guide looks for lions, cheetahs, leopards, buffalo, wildebeest and gazelles while adapting the route to sightings and light. Return to camp for dinner and a quiet night surrounded by the sounds of the Serengeti.',
+      },
+      {
+        label: 'Day 3',
+        title: 'Ngorongoro Crater tour and return to Zanzibar',
+        location: 'Serengeti → Ngorongoro → Arusha → Zanzibar',
+        stay: 'No accommodation — end of safari',
+        meals: 'Breakfast & lunch',
+        note: 'Crater descent and return flight timing are coordinated together',
+        copy: 'After early breakfast, drive toward the Ngorongoro Conservation Area with a packed lunch and descend 600 metres into the crater. Explore open grasslands, acacia forest and soda-lake habitats where lions, elephants, buffalo, zebras, hippos and rare black rhino may be seen. After lunch, ascend to the rim and continue to Arusha or Kilimanjaro International Airport for the scheduled flight back to Zanzibar and hotel transfer.',
+      },
+    ],
+    inclusions: ['All Serengeti and Ngorongoro park and conservation entry fees', '4×4 safari vehicle with pop-up roof, charging ports and fridge', 'Professional English-speaking driver-guide', 'Private safari experience', 'Accommodation in the listed midrange camp', 'All meals during safari as per meal plan', 'Drinking water during game drives'],
+    exclusions: ['International flights not listed in the itinerary', 'Visa fees for Tanzania', 'Travel and medical insurance', 'Drinks at lodges and camps', 'Tips for safari guide, driver and lodge staff', 'Personal expenses such as souvenirs, laundry or phone calls', 'Optional cultural visits such as Maasai village', 'Hot-air balloon safari'],
+    pricing: {
+      label: 'Supplied package rate',
+      title: 'Price per person',
+      note: '*Indicative cost per person in USD from the supplied package sheet. Final quote depends on confirmed travel date, flight timing, rooming and lodge availability.',
+      rows: [
+        {
+          label: 'Private northern safari rate',
+          prices: [
+            { persons: '2 adults', room: '1 double room', amount: '1,973' },
+            { persons: '4 adults', room: '4 double rooms', amount: '1,633' },
+            { persons: '6 adults', room: '3 double rooms', amount: '1,520' },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    key: 'tanzania-mid-range',
+    types: ['safaris', 'tanzania'],
+    num: '04',
+    tag: 'Mid-range safari',
+    name: '4-Day Tanzania Mid-Range Safari',
+    duration: '4 days / 3 nights',
+    route: 'Arusha · Tarangire · Serengeti · Ngorongoro',
+    stops: ['Arusha', 'Tarangire National Park', 'Mto wa Mbu', 'Central Serengeti', 'Ngorongoro'],
+    bestFor: 'A fuller short safari with varied landscapes',
+    includes: 'Airport transfers, lodges, private 4×4 and park fees',
+    copy: 'A four-day northern safari through Tarangire, Central Serengeti and Ngorongoro, with more time for landscape variety and proper game drives.',
+    homeHighlights: ['Tarangire elephants and baobabs', 'Full Serengeti day', 'Ngorongoro finish'],
+    popular: false,
+    overview: 'This four-day safari gives the northern circuit a fuller rhythm. Start with Tarangire’s baobabs and elephant herds, continue through the Ngorongoro highlands into Central Serengeti for resident wildlife and predator viewing, then close the journey via Ngorongoro and onward departure toward Arusha or Kilimanjaro.',
+    suitability: 'Best for travellers who want a short safari that still feels complete, with varied parks, a full Serengeti day and a comfortable mid-range camp/lodge setup.',
+    facts: [['Safari style', 'Private 4×4 safari'], ['Starts', 'Arusha Airport'], ['Ends', 'Arusha or Kilimanjaro Airport'], ['Accommodation', 'Ikumbi Safari Lodge and Sightseeing Luxury Camp']],
+    days: [
+      {
+        label: 'Day 1',
+        title: 'Arusha to Tarangire National Park and Mto wa Mbu',
+        location: 'Arusha → Tarangire → Mto wa Mbu',
+        stay: 'Ikumbi Safari Lodge',
+        meals: 'Lunch & dinner',
+        note: 'First wildlife day focuses on elephants, baobabs and the Tarangire River',
+        copy: 'Meet your safari guide at Arusha Airport and drive to Tarangire National Park. Explore ancient baobab landscapes, elephant herds and wildlife such as lions, leopards, buffalo, giraffes and abundant birdlife. After a game drive along the Tarangire River, continue to Mto wa Mbu at the base of the Great Rift Valley escarpment for dinner and overnight.',
+      },
+      {
+        label: 'Day 2',
+        title: 'Karatu highlands to Central Serengeti',
+        location: 'Karatu → Central Serengeti',
+        stay: 'Sightseeing Luxury Camp',
+        meals: 'Breakfast, lunch & dinner',
+        note: 'Packed lunch and game drive en route into the Serengeti',
+        copy: 'After breakfast, depart with packed lunch toward the Serengeti via the scenic Ngorongoro highlands. Enter Central Serengeti and game drive en route through the Seronera area, known for resident wildlife, open plains and strong predator sightings.',
+      },
+      {
+        label: 'Day 3',
+        title: 'Full day exploring the Serengeti',
+        location: 'Central Serengeti',
+        stay: 'Sightseeing Luxury Camp',
+        meals: 'Breakfast, lunch & dinner',
+        note: 'A full day protects prime wildlife-viewing time',
+        copy: 'Spend the day immersed in Central Serengeti. Begin early when predators are most active and the savannah glows in soft light. Look for lions on kopjes, cheetahs on the grasslands, giraffes browsing acacia and elephants along the Seronera River. After a picnic lunch, continue the afternoon game drive for hippos, zebras, wildebeest and birdlife before returning to camp.',
+      },
+      {
+        label: 'Day 4',
+        title: 'Serengeti to Ngorongoro and onward departure',
+        location: 'Serengeti → Ngorongoro → Arusha / Kilimanjaro',
+        stay: 'No accommodation — end of tour',
+        meals: 'Breakfast & lunch',
+        note: 'Drop-off is arranged for onward travel',
+        copy: 'After early breakfast, leave the Serengeti with a final en-route game drive and continue toward the Ngorongoro Conservation Area through scenic highland landscapes. By early afternoon, proceed to Arusha or Kilimanjaro International Airport for your onward flight, bringing the safari to a close.',
+      },
+    ],
+    inclusions: ['All airport transfers for pick-up and drop-off', 'Accommodation as per itinerary', 'Meals as indicated in the itinerary', 'Private 4×4 safari vehicle with pop-up roof', 'Professional English-speaking safari driver-guide', 'Unlimited game drives in all national parks', 'All park fees and conservation fees', 'Ngorongoro crater descent fee', '1.5 litres bottled drinking water per person per day'],
+    exclusions: ['International and domestic flights', 'Travel insurance', 'Visa fees for Tanzania', 'Optional activities such as balloon safari, Maasai village visit and walking safari', 'Drinks at lodges', 'Personal expenses such as tips, laundry and telephone costs', 'Accommodation before or after safari unless mentioned'],
+    pricing: {
+      label: 'Supplied package rate',
+      title: 'Price per person',
+      note: '*Indicative cost per person in USD from the supplied package sheet. Final quote depends on confirmed travel date, rooming and lodge availability.',
+      rows: [
+        {
+          label: 'Private mid-range safari rate',
+          prices: [
+            { persons: '2 adults', room: '1 double room', amount: '1,790' },
+            { persons: '4 adults', room: '4 double rooms', amount: '1,425' },
+            { persons: '6 adults', room: '3 double rooms', amount: '1,305' },
+          ],
+        },
+      ],
+    },
+  },
+];
+
 export const topPackages = [
+  ...suppliedSafariPackages,
   {
     key: 'serengeti7', types: ['tanzania', 'migration', 'family'], tag: 'Northern Circuit', name: '7-Day Serengeti & Ngorongoro', duration: '7 days', route: 'Tarangire · Serengeti · Ngorongoro', stops: ['Arusha', 'Tarangire', 'Serengeti', 'Ngorongoro'], bestFor: 'A first Tanzania safari', includes: 'Private 4×4 and guide', copy: 'The classic Northern safari through Tanzania’s best-known parks, shaped around the best game-viewing hours.', popular: true,
     overview: 'This is the classic first Tanzania safari, paced to give each major park room to breathe. It pairs elephant-rich Tarangire, long game drives in the Serengeti and the concentrated wildlife of the Ngorongoro Crater, with the order and overnight stops adapted to your flight times.',
@@ -191,7 +446,7 @@ export const itineraryCategories = [
     sub: 'Wildlife, wide horizons and private guiding',
     blurb: 'From the Serengeti and Ngorongoro to the spacious south, choose the wildlife rhythm that feels right for you.',
     points: ['Classic Northern Circuit', 'Southern Tanzania escapes', 'Migration-led routing'],
-    packageKeys: ['serengeti7', 'southern', 'migration', 'family'],
+    packageKeys: ['tarangire-day-trip', 'explore-serengeti', 'serengeti-ngorongoro', 'tanzania-mid-range', 'serengeti7', 'southern', 'migration', 'family'],
   },
   {
     key: 'kilimanjaro',
@@ -207,7 +462,7 @@ export const itineraryCategories = [
     sub: 'Beach time that belongs in the journey',
     blurb: 'Build in the Indian Ocean properly—on its own, after a safari, or paired with the quieter parks of the south.',
     points: ['Safari and coast together', 'Island stays with time to slow down', 'Easy southern safari pairing'],
-    packageKeys: ['safarizanz', 'honeymoon', 'southern'],
+    packageKeys: ['tarangire-day-trip', 'explore-serengeti', 'serengeti-ngorongoro', 'safarizanz', 'honeymoon', 'southern'],
   },
 ];
 

@@ -27,7 +27,7 @@ export default function Footer() {
           Explore
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 9, fontSize: 14 }}>
-          <Link to="/destinations" style={{ color: 'var(--ink-soft)' }}>Destinations</Link>
+          <Link to="/tanzania-travel-guide" style={{ color: 'var(--ink-soft)' }}>Inside Tanzania</Link>
           <Link to="/gallery" style={{ color: 'var(--ink-soft)' }}>Journal</Link>
           <Link to="/about" style={{ color: 'var(--ink-soft)' }}>About</Link>
           <Link to="/enquire" style={{ color: 'var(--ink-soft)' }}>Enquire</Link>

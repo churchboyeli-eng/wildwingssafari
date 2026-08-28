@@ -15,10 +15,11 @@ import {
   ShieldCheck,
   Sparkles,
   UtensilsCrossed,
+  Users,
   X,
 } from 'lucide-react';
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { topPackages, tourPlanningQuestions, waHref } from '../data/content';
+import { getPackageStartingPrice, topPackages, tourPlanningQuestions, waHref } from '../data/content';
 
 const itineraryHighlights = [
   'Private guiding and a route shaped around your dates',
@@ -32,9 +33,11 @@ export default function TourDetail() {
   const [openDay, setOpenDay] = useState(0);
   const [allOpen, setAllOpen] = useState(false);
 
-  if (!tour) return <Navigate to="/tours" replace />;
+  if (!tour) return <Navigate to="/itineraries" replace />;
 
   const prefill = `I'm interested in the ${tour.name} itinerary. Please tell me about dates, availability and options.`;
+  const hasPricing = Boolean(tour.pricing?.rows?.length);
+  const startingPrice = getPackageStartingPrice(tour);
   const openAllDays = () => {
     setAllOpen((current) => !current);
     setOpenDay(-1);
@@ -60,13 +63,21 @@ export default function TourDetail() {
             <p>Route at a glance</p>
             <ol>
               {tour.stops.map((stop, index) => (
-                <li key={stop}>
+                <li key={`${stop}-${index}`}>
                   <span>{String(index + 1).padStart(2, '0')}</span>
                   <strong>{stop}</strong>
                 </li>
               ))}
             </ol>
             <small>Every departure is tailored around your dates.</small>
+            {startingPrice && (
+              <div className="tour-hero-price">
+                <span>Price starts from</span>
+                <strong>{startingPrice}</strong>
+                <small>USD per person</small>
+                <a href="#pricing">View prices <ArrowRight aria-hidden="true" size={14} /></a>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -77,6 +88,7 @@ export default function TourDetail() {
           <a href="#route">Route</a>
           <a href="#day-by-day">Day by day</a>
           <a href="#included">What’s included</a>
+          {hasPricing && <a href="#pricing">Price</a>}
           <a href="#planning">Planning</a>
         </div>
       </nav>
@@ -117,7 +129,7 @@ export default function TourDetail() {
           {tour.facts.map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}
         </div>
         <ol className="detail-route-line">
-          {tour.stops.map((stop, index) => <li key={stop}><span>{index + 1}</span><strong>{stop}</strong></li>)}
+          {tour.stops.map((stop, index) => <li key={`${stop}-${index}`}><span>{index + 1}</span><strong>{stop}</strong></li>)}
         </ol>
       </section>
 
@@ -147,8 +159,8 @@ export default function TourDetail() {
                     <p>{day.copy}</p>
                     <div className="day-detail-row">
                       <span><BedDouble aria-hidden="true" size={16} /><b>Stay</b> {day.stay}</span>
-                      <span><UtensilsCrossed aria-hidden="true" size={16} /><b>Meals</b> As confirmed in your proposal</span>
-                      <span><Clock3 aria-hidden="true" size={16} /><b>Planning note</b> Timings adapt to conditions</span>
+                      <span><UtensilsCrossed aria-hidden="true" size={16} /><b>Meals</b> {day.meals || 'As confirmed in your proposal'}</span>
+                      <span><Clock3 aria-hidden="true" size={16} /><b>Planning note</b> {day.note || 'Timings adapt to conditions'}</span>
                     </div>
                   </div>
                 )}
@@ -174,8 +186,59 @@ export default function TourDetail() {
         <div className="detail-note"><MessageCircle aria-hidden="true" size={18} /><p><strong>Good to know:</strong> We will explain the accommodation level, room setup, luggage considerations and transfer timing before you book.</p></div>
       </section>
 
+      {hasPricing && (
+        <section id="pricing" className="tour-detail-section tour-price-section">
+          <div className="detail-section-heading">
+            <div><p className="eyebrow">Safari Tour Seasons & Pricing</p><h2>Prices by group size.</h2></div>
+            <p>These are the supplied package-sheet rates, presented clearly before enquiry. Your final quote confirms exact dates, rooms, flight timing and lodge availability.</p>
+          </div>
+          <div className="tour-price-toolbar" aria-label="Price settings">
+            <div><span>Currency</span><strong>$ USD</strong></div>
+            <div><span>Rate basis</span><strong>Per person</strong></div>
+            <a href="#planning">Confirm exact date <ArrowRight aria-hidden="true" size={14} /></a>
+          </div>
+          <div className="tour-price-layout">
+            <article className="tour-price-ledger" aria-label={`${tour.name} price guide`}>
+              <div className="tour-price-ledger-head">
+                <span><Users aria-hidden="true" size={15} /> {tour.pricing.label}</span>
+                <strong>From {startingPrice}</strong>
+              </div>
+              {tour.pricing.rows.map((row) => (
+                <div className="tour-price-row" key={row.label}>
+                  <h3>{row.label}</h3>
+                  <div className="tour-price-persons">
+                    {row.prices.map((price) => <span key={price.persons}>{price.persons}</span>)}
+                  </div>
+                  <div className="tour-price-values">
+                    {row.prices.map((price) => (
+                      <div key={`${price.persons}-${price.amount}`}>
+                        <strong>${price.amount} <small>USD*</small></strong>
+                        <span><b>{price.persons}</b>{price.room}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              <p>{tour.pricing.note}</p>
+            </article>
+
+            <aside className="tour-price-side">
+              <p className="eyebrow">How the price works</p>
+              <h3>Group size changes the per-person rate.</h3>
+              <p>The vehicle, guide and transfers are private, so the per-person number becomes better when more travellers share the fixed safari costs.</p>
+              <ul>
+                <li><Check aria-hidden="true" size={14} />Rates are per person in USD</li>
+                <li><Check aria-hidden="true" size={14} />Rooms follow the supplied package sheet</li>
+                <li><Check aria-hidden="true" size={14} />Final quote confirms actual availability</li>
+              </ul>
+              <Link to="/enquire" state={{ prefill }} className="tour-price-action">Request exact quote <ArrowRight aria-hidden="true" size={16} /></Link>
+            </aside>
+          </div>
+        </section>
+      )}
+
       <section id="planning" className="tour-detail-section planning-section">
-        <div className="planning-copy"><p className="eyebrow">Dates, availability & price</p><h2>Designed for your dates and group.</h2><p>We quote this itinerary after we know your travel window, party size and preferred comfort level. That keeps the proposal honest about seasonal availability and what is actually included.</p><Link to="/enquire" state={{ prefill }} className="btn-primary">Ask for dates and availability <ArrowRight aria-hidden="true" size={16} /></Link></div>
+        <div className="planning-copy"><p className="eyebrow">Dates & availability</p><h2>Designed for your dates and group.</h2><p>We confirm the route after we know your travel window, party size and preferred comfort level. That keeps the proposal honest about seasonal availability and what is actually included.</p><Link to="/enquire" state={{ prefill }} className="btn-primary">Ask for dates and availability <ArrowRight aria-hidden="true" size={16} /></Link></div>
         <div className="planning-questions">
           {tourPlanningQuestions.map((item, index) => <div key={item.question}><span>{String(index + 1).padStart(2, '0')}</span><h3>{item.question}</h3><p>{item.answer}</p></div>)}
         </div>

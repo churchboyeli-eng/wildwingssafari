@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { ArrowRight, Check, MessageCircle, Minus, Plus } from 'lucide-react';
+import { ArrowRight, Check, Clock3, MapPin, MessageCircle, Minus, Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ImagePlaceholder from '../components/ImagePlaceholder';
 import PackageGrid from '../components/PackageGrid';
 import {
   featuredTourPackageKeys,
+  getPackageStartingPrice,
+  homeOfferPackageKeys,
   why,
   topPackages,
   testimonials,
@@ -14,20 +16,12 @@ import {
   waHref,
 } from '../data/content';
 
-const whatWeOfferCards = [
-  { key: 'explore-serengeti', num: '01', tag: 'Short safari · 3 days', name: 'Explore Serengeti', copy: 'A compact private safari that pairs the Ngorongoro Crater with the Serengeti in three purposeful days.', highlights: ['Ngorongoro Crater', 'Serengeti game drives', 'Private guide'] },
-  { key: 'northern-classic', num: '02', tag: 'Northern Circuit · 7 days', name: 'Serengeti & Ngorongoro', copy: 'A classic first Tanzania safari through Tarangire, the Serengeti and the Ngorongoro Crater.', highlights: ['Tarangire elephants', 'Long Serengeti days', 'Private 4×4'] },
-  { key: 'migration', num: '03', tag: 'Great Migration · 8 days', name: 'Migration Chasing Safari', copy: 'Eight days in the Serengeti with enough time to follow the herds as conditions and wildlife movement change.', highlights: ['Central to northern Serengeti', 'Mara River country', 'Season-led routing'] },
-  { key: 'southern', num: '04', tag: 'Southern Tanzania · 6 days', name: 'Nyerere & Mikumi Escape', copy: 'Open Mikumi plains, Nyerere’s river country and a more spacious safari rhythm in Tanzania’s south.', highlights: ['Quieter game drives', 'River safari potential', 'Easy coast pairing'] },
-  { key: 'kilimanjaro', num: '05', tag: 'Kilimanjaro · 8 days', name: 'Machame Route Climb', copy: 'A fully supported Kilimanjaro adventure with a patient acclimatisation rhythm and an experienced mountain team.', highlights: ['Scenic Machame route', 'Full support crew', 'Summit guides'] },
-  { key: 'safari-zanzibar', num: '06', tag: 'Safari & beach · 10 days', name: 'Safari & Zanzibar Escape', copy: 'A northern wildlife chapter and Zanzibar coast stay planned as one smooth, well-paced journey.', highlights: ['Safari and sea together', 'Domestic connection planned', 'Time to slow down'] },
-  { key: 'honeymoon', num: '07', tag: 'Honeymoon · 9 days', name: 'Honeymoon Safari & Beach', copy: 'Private game drives, thoughtful lodge stays and easy beach days designed around the two of you.', highlights: ['Private from the start', 'Lodges with character', 'Zanzibar finish'] },
-  { key: 'family', num: '08', tag: 'Family safari · 7 days', name: 'Family Adventure Safari', copy: 'A family-focused private safari with sensible driving days, comfortable stays and room to reset.', highlights: ['Flexible daily pace', 'Family-suitable stays', 'Private vehicle'] },
-];
-
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(-1);
   const featuredPackages = topPackages.filter((tourPackage) => featuredTourPackageKeys.includes(tourPackage.key));
+  const whatWeOfferCards = homeOfferPackageKeys
+    .map((key) => topPackages.find((tourPackage) => tourPackage.key === key))
+    .filter(Boolean);
 
   return (
     <div className="page-enter">
@@ -57,7 +51,7 @@ export default function Home() {
               </p>
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 32 }}>
                 <Link to="/enquire" className="btn">Plan your trip</Link>
-                <Link to="/destinations" className="btn-outline">See safaris</Link>
+                <Link to="/itineraries/safaris" className="btn-outline">See safaris</Link>
               </div>
             </div>
             <div style={{ display: 'flex', gap: 'clamp(20px,3vw,44px)', flexWrap: 'wrap', justifyContent: 'flex-start' }}>
@@ -82,40 +76,55 @@ export default function Home() {
           <header className="home-offerings-heading">
             <div>
               <div className="eyebrow on-dark">What we offer</div>
-              <h2 id="offerings-heading">Choose a journey. Make it yours.</h2>
+              <h2 id="offerings-heading">Choose your safari starting point.</h2>
             </div>
             <div className="home-offerings-intro">
               <p>
-                Eight considered routes across Tanzania, each ready to shape around your dates, pace and travel style.
+                Four supplied packages, cleaned up for guests to scan first. Open any itinerary for the full day-by-day programme, inclusions and price guide.
               </p>
-              <Link to="/tours" className="home-offerings-all">
+              <Link to="/itineraries" className="home-offerings-all">
                 View all trips <ArrowRight aria-hidden="true" size={16} strokeWidth={2} />
               </Link>
             </div>
           </header>
 
           <div className="home-offering-grid">
-            {whatWeOfferCards.map((offer) => (
-              <article className="home-offering-card" key={offer.key}>
-                <div className="home-offering-topline">
-                  <span>{offer.num}</span>
-                  <p>{offer.tag}</p>
-                </div>
-                <h3>{offer.name}</h3>
-                <p className="home-offering-copy">{offer.copy}</p>
-                <ul>
-                  {offer.highlights.map((highlight) => (
-                    <li key={highlight}>
-                      <Check aria-hidden="true" size={13} strokeWidth={2.4} />
-                      {highlight}
-                    </li>
-                  ))}
-                </ul>
-                <Link to="/enquire" className="home-offering-action">
-                  Plan this trip <ArrowRight aria-hidden="true" size={15} strokeWidth={2} />
-                </Link>
-              </article>
-            ))}
+            {whatWeOfferCards.map((offer) => {
+              const startingPrice = getPackageStartingPrice(offer);
+              return (
+                <article className="home-offering-card" key={offer.key}>
+                  <div className="home-offering-topline">
+                    <span>{offer.num}</span>
+                    <p>{offer.tag}</p>
+                  </div>
+                  <h3>{offer.name}</h3>
+                  <p className="home-offering-copy">{offer.copy}</p>
+                  <div className="home-offering-meta" aria-label={`${offer.name} quick facts`}>
+                    <span><Clock3 aria-hidden="true" size={14} /> {offer.duration}</span>
+                    <span><MapPin aria-hidden="true" size={14} /> {offer.route}</span>
+                  </div>
+                  <ul>
+                    {offer.homeHighlights.map((highlight) => (
+                      <li key={highlight}>
+                        <Check aria-hidden="true" size={13} strokeWidth={2.4} />
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="home-offering-footer">
+                    {startingPrice && (
+                      <div className="home-offering-price">
+                        <span>Price starts from</span>
+                        <strong>{startingPrice} <small>USD pp</small></strong>
+                      </div>
+                    )}
+                    <Link to={`/tours/${offer.key}`} className="home-offering-action">
+                      Full itinerary <ArrowRight aria-hidden="true" size={15} strokeWidth={2} />
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -164,7 +173,7 @@ export default function Home() {
                 Six route ideas, from the quieter southern circuit to a complete safari-and-Zanzibar escape. Each becomes a private itinerary shaped around your dates, group and pace.
               </p>
             </div>
-            <Link to="/tours" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontSize: 12, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--terracotta)', fontWeight: 600, borderBottom: '1px solid var(--gold)', paddingBottom: 4 }}>
+            <Link to="/itineraries" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontSize: 12, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--terracotta)', fontWeight: 600, borderBottom: '1px solid var(--gold)', paddingBottom: 4 }}>
               View all packages <ArrowRight aria-hidden="true" size={15} strokeWidth={2} />
             </Link>
           </div>
@@ -320,7 +329,7 @@ export default function Home() {
 
             <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', marginTop: 'clamp(30px,4vw,44px)' }}>
               <Link to="/enquire" className="btn" style={{ textTransform: 'uppercase', letterSpacing: '.08em' }}>Request a travel proposal</Link>
-              <Link to="/destinations" className="btn-outline" style={{ textTransform: 'uppercase', letterSpacing: '.08em' }}>View itineraries</Link>
+              <Link to="/itineraries" className="btn-outline" style={{ textTransform: 'uppercase', letterSpacing: '.08em' }}>View itineraries</Link>
             </div>
           </div>
         </div>

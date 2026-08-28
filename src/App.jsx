@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import Nav from './components/Nav';
 import ScrollToTop from './components/ScrollToTop';
 import About from './pages/About';
+import CompassGuideDetail from './pages/CompassGuideDetail';
 import Destinations from './pages/Destinations';
 import Enquire from './pages/Enquire';
 import Gallery from './pages/Gallery';
@@ -22,7 +23,12 @@ export default function App() {
       <main id="main-content" tabIndex="-1">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/destinations" element={<Destinations />} />
+          <Route path="/tanzania-travel-guide" element={<Destinations />} />
+          <Route path="/tanzania-travel-guide/:guideSlug" element={<CompassGuideDetail />} />
+          <Route path="/tanzania-compass" element={<Navigate to="/tanzania-travel-guide" replace />} />
+          <Route path="/tanzania-compass/:guideSlug" element={<CompassGuideDetail />} />
+          <Route path="/discover-tanzania" element={<Navigate to="/tanzania-travel-guide" replace />} />
+          <Route path="/destinations" element={<Navigate to="/tanzania-travel-guide" replace />} />
           <Route path="/itineraries" element={<Tours />} />
           <Route path="/itineraries/:categoryKey" element={<Tours />} />
           <Route path="/tours" element={<Navigate to="/itineraries" replace />} />
