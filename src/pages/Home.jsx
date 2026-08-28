@@ -80,7 +80,7 @@ export default function Home() {
             </div>
             <div className="home-offerings-intro">
               <p>
-                Four supplied packages, cleaned up for guests to scan first. Open any itinerary for the full day-by-day programme, inclusions and price guide.
+                Six priced safari packages, cleaned up for guests to scan first. Open any itinerary for the full day-by-day programme, inclusions and price guide.
               </p>
               <Link to="/itineraries" className="home-offerings-all">
                 View all trips <ArrowRight aria-hidden="true" size={16} strokeWidth={2} />
@@ -170,7 +170,7 @@ export default function Home() {
                 Our travellers' favourites
               </h2>
               <p style={{ fontSize: 'clamp(14px,1.5vw,17px)', color: 'var(--body)', maxWidth: '52ch', margin: '16px 0 0', lineHeight: 1.55 }}>
-                Six route ideas, from the quieter southern circuit to a complete safari-and-Zanzibar escape. Each becomes a private itinerary shaped around your dates, group and pace.
+                Six ready-to-sell safari packages, from a one-day elephant safari to a focused Serengeti migration route. Each can still be shaped around your dates, group and pace.
               </p>
             </div>
             <Link to="/itineraries" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontSize: 12, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--terracotta)', fontWeight: 600, borderBottom: '1px solid var(--gold)', paddingBottom: 4 }}>

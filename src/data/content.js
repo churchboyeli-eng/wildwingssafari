@@ -53,7 +53,7 @@ export const tourDifferentiators = [
   { pillar: 'More from every day', icon: 'palmtree', title: 'A softer landing at the coast', copy: 'When Zanzibar is part of the journey, we leave room to slow down rather than rush straight home.' },
 ];
 
-export const homeOfferPackageKeys = ['tarangire-day-trip', 'explore-serengeti', 'serengeti-ngorongoro', 'tanzania-mid-range'];
+export const homeOfferPackageKeys = ['tarangire-day-trip', 'explore-serengeti', 'serengeti-ngorongoro', 'tarangire-ngorongoro-arusha', 'tanzania-mid-range', 'tanzania-migration-safari'];
 
 export const getPackageStartingPrice = (tourPackage) => {
   const values = tourPackage?.pricing?.rows
@@ -98,12 +98,12 @@ const suppliedSafariPackages = [
     inclusions: ['Return domestic flights: Zanzibar → Arusha and Arusha/Kilimanjaro → Zanzibar', 'All Tarangire National Park entry fees', 'Private 4×4 safari vehicle with pop-up roof', 'Professional English-speaking driver-guide', 'Picnic lunch and bottled drinking water during the game drive', 'Airport and hotel transfers in Zanzibar and Arusha', 'Government taxes and statutory charges'],
     exclusions: ['International flights', 'Tanzania visa fees', 'Travel and medical insurance', 'Soft drinks and alcoholic beverages', 'Tips and gratuities for driver-guide and staff', 'Personal expenses such as souvenirs, laundry and phone calls', 'Optional activities not mentioned in the itinerary'],
     pricing: {
-      label: 'Supplied package rate',
-      title: 'Price per person',
-      note: '*Indicative cost per person in USD from the supplied package sheet. Final quote depends on confirmed travel date, flight timing and availability.',
+      label: '2026 USD private rate',
+      title: 'Private day-trip safari package',
+      note: '*Indicative cost per person in USD, excluding international airline tickets. Final quote depends on confirmed travel date, flight timing and availability.',
       rows: [
         {
-          label: 'Private day-trip rate',
+          label: 'Private Day-Trip Rate',
           prices: [
             { persons: '2 adults', room: '1 double room', amount: '746' },
             { persons: '4 adults', room: '4 double rooms', amount: '645' },
@@ -153,12 +153,12 @@ const suppliedSafariPackages = [
     inclusions: ['Return domestic flights Zanzibar → Serengeti → Zanzibar', 'Airport transfers in Zanzibar and private airstrip transfers', 'Private 4×4 safari vehicle with pop-up roof', 'Professional English-speaking safari driver-guide', '1 night accommodation at Golden Safari Camp', 'All meals indicated in the itinerary', 'All Serengeti National Park entrance and conservation fees', 'Afternoon/evening game drive on Day 1 and full-day game drive on Day 2', 'Bottled drinking water, picnic lunch, vehicle fuel and operational costs', '24/7 ground support throughout the safari'],
     exclusions: ['International flights', 'Tanzania visa fees', 'Travel and medical insurance', 'Alcoholic beverages and soft drinks', 'Tips and gratuities for safari guide and lodge staff', 'Laundry, telephone and internet charges', 'Personal shopping and souvenirs', 'Hot-air balloon safari', 'Maasai village or cultural visits', 'Additional accommodation in Zanzibar before or after the safari'],
     pricing: {
-      label: 'Supplied package rate',
-      title: 'Price per person',
-      note: '*Indicative cost per person in USD from the supplied package sheet. Final quote depends on confirmed travel date, flight timing, rooming and lodge availability.',
+      label: '2026 USD private rate',
+      title: 'Fly-in Serengeti safari package',
+      note: '*Indicative cost per person in USD, excluding international airline tickets. Final quote depends on confirmed travel date, flight timing, rooming and lodge availability.',
       rows: [
         {
-          label: 'Private fly-in safari rate',
+          label: 'Private Fly-In Safari Rate',
           prices: [
             { persons: '2 adults', room: '1 double room', amount: '1,640' },
             { persons: '4 adults', room: '4 double rooms', amount: '1,390' },
@@ -217,12 +217,12 @@ const suppliedSafariPackages = [
     inclusions: ['All Serengeti and Ngorongoro park and conservation entry fees', '4×4 safari vehicle with pop-up roof, charging ports and fridge', 'Professional English-speaking driver-guide', 'Private safari experience', 'Accommodation in the listed midrange camp', 'All meals during safari as per meal plan', 'Drinking water during game drives'],
     exclusions: ['International flights not listed in the itinerary', 'Visa fees for Tanzania', 'Travel and medical insurance', 'Drinks at lodges and camps', 'Tips for safari guide, driver and lodge staff', 'Personal expenses such as souvenirs, laundry or phone calls', 'Optional cultural visits such as Maasai village', 'Hot-air balloon safari'],
     pricing: {
-      label: 'Supplied package rate',
-      title: 'Price per person',
-      note: '*Indicative cost per person in USD from the supplied package sheet. Final quote depends on confirmed travel date, flight timing, rooming and lodge availability.',
+      label: '2026 USD private rate',
+      title: 'Private northern safari package',
+      note: '*Indicative cost per person in USD, excluding international airline tickets. Final quote depends on confirmed travel date, flight timing, rooming and lodge availability.',
       rows: [
         {
-          label: 'Private northern safari rate',
+          label: 'Private Northern Safari Rate',
           prices: [
             { persons: '2 adults', room: '1 double room', amount: '1,973' },
             { persons: '4 adults', room: '4 double rooms', amount: '1,633' },
@@ -233,9 +233,74 @@ const suppliedSafariPackages = [
     },
   },
   {
-    key: 'tanzania-mid-range',
+    key: 'tarangire-ngorongoro-arusha',
     types: ['safaris', 'tanzania'],
     num: '04',
+    tag: 'Three-park safari',
+    name: '3-Day Tarangire, Ngorongoro & Arusha',
+    duration: '3 days / 2 nights',
+    route: 'Arusha · Tarangire · Ngorongoro · Arusha NP',
+    stops: ['Arusha', 'Tarangire National Park', 'Mto wa Mbu', 'Ngorongoro Crater', 'Arusha National Park'],
+    bestFor: 'A short northern safari with three different landscapes',
+    includes: 'Tarangire, Ngorongoro, Arusha National Park, lodges and park fees',
+    copy: 'A compact northern-circuit safari with elephant country, a crater descent and a Mount Meru-side finale in only three days.',
+    homeHighlights: ['Tarangire elephant country', 'Ngorongoro Crater descent', 'Arusha National Park finale'],
+    popular: false,
+    overview: 'This three-day safari is built for travellers who want a short route with real variety. Begin in Tarangire among baobabs, elephants and the Tarangire River, descend into the wildlife-rich Ngorongoro Crater, then finish with Arusha National Park’s forests, Momella Lakes, giraffes, birdlife and Mount Meru scenery before departure.',
+    suitability: 'Best for guests with limited time who still want more than one ecosystem, comfortable overnights and a safari finale close to Arusha or Kilimanjaro Airport.',
+    facts: [['Safari style', 'Private northern safari'], ['Starts / ends', 'Arusha'], ['Destinations', 'Tarangire, Ngorongoro and Arusha National Park'], ['Accommodation', 'Ikumbi Safari Lodge and Njiro Legacy']],
+    days: [
+      {
+        label: 'Day 1',
+        title: 'Arusha to Tarangire National Park',
+        location: 'Arusha → Tarangire → Mto wa Mbu',
+        stay: 'Ikumbi Safari Lodge',
+        meals: 'Lunch & dinner',
+        note: 'Elephant herds, baobabs and the Tarangire River set the opening day',
+        copy: 'After breakfast, leave Arusha and travel through Maasai steppe and traditional villages toward Tarangire National Park. Game drive through baobab-studded landscapes where elephants, buffalo, zebras, wildebeest, giraffes and predators may be seen. Enjoy a picnic lunch inside the park, continue the afternoon game drive, then exit toward Mto wa Mbu for dinner and overnight at Ikumbi Safari Lodge.',
+      },
+      {
+        label: 'Day 2',
+        title: 'Ngorongoro Crater game drive and Arusha overnight',
+        location: 'Mto wa Mbu → Ngorongoro Crater → Arusha',
+        stay: 'Njiro Legacy',
+        meals: 'Breakfast, lunch & dinner',
+        note: 'A full crater-floor wildlife day with a picnic lunch near the hippo pool',
+        copy: 'After breakfast, descend 600 metres into the Ngorongoro Crater, a UNESCO World Heritage Site and one of Tanzania’s most wildlife-dense landscapes. Spend the day exploring grassland, forest and lake habitats for lions, elephants, buffalo, hyenas, hippos, zebras and, with luck, black rhino. After lunch, ascend from the crater and return to Arusha for check-in, relaxation and dinner.',
+      },
+      {
+        label: 'Day 3',
+        title: 'Arusha National Park and departure',
+        location: 'Arusha → Arusha National Park → Airport',
+        stay: 'No accommodation — end of tour',
+        meals: 'Breakfast & lunch',
+        note: 'A scenic final safari day close to Arusha and Kilimanjaro Airport',
+        copy: 'After an early breakfast, drive to Arusha National Park for a final game drive across montane forest, open savannah and the Momella Lakes beneath Mount Meru. Look for giraffes, buffalo, zebras, warthogs, waterbucks and rich birdlife. Time permitting, a ranger-led walking safari can be arranged at extra cost. Later, return to Arusha or transfer to the airport for your onward flight.',
+      },
+    ],
+    inclusions: ['All park and conservation entry fees for Tarangire, Ngorongoro and Arusha National Park', 'Private 4×4 safari vehicle with pop-up roof, charging ports and fridge', 'Professional English-speaking driver-guide', 'Accommodation as listed in the itinerary', 'All meals during safari as per meal plan', 'Drinking water during game drives', 'Airport or Arusha transfer for departure'],
+    exclusions: ['International and local flights not listed in the itinerary', 'Visa fees for Tanzania', 'Travel and medical insurance', 'Soft drinks and alcoholic beverages at lodges', 'Tips for safari guide, driver and lodge staff', 'Personal expenses such as souvenirs, laundry or phone calls', 'Walking safari and boat safari in Arusha National Park', 'Optional cultural visits such as a Maasai village'],
+    pricing: {
+      label: '2026 USD private rate',
+      title: 'Short northern safari package',
+      note: '*Indicative cost per person in USD, excluding international airline tickets. Final quote depends on confirmed travel date, rooming and lodge availability.',
+      rows: [
+        {
+          label: 'Private Three-Park Safari Rate',
+          period: '2026 · USD per person',
+          prices: [
+            { persons: '2 adults', room: '1 double room', amount: '1,055' },
+            { persons: '4 adults', room: '4 double rooms', amount: '760' },
+            { persons: '6 adults', room: '3 double rooms', amount: '658' },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    key: 'tanzania-mid-range',
+    types: ['safaris', 'tanzania'],
+    num: '05',
     tag: 'Mid-range safari',
     name: '4-Day Tanzania Mid-Range Safari',
     duration: '4 days / 3 nights',
@@ -290,16 +355,99 @@ const suppliedSafariPackages = [
     inclusions: ['All airport transfers for pick-up and drop-off', 'Accommodation as per itinerary', 'Meals as indicated in the itinerary', 'Private 4×4 safari vehicle with pop-up roof', 'Professional English-speaking safari driver-guide', 'Unlimited game drives in all national parks', 'All park fees and conservation fees', 'Ngorongoro crater descent fee', '1.5 litres bottled drinking water per person per day'],
     exclusions: ['International and domestic flights', 'Travel insurance', 'Visa fees for Tanzania', 'Optional activities such as balloon safari, Maasai village visit and walking safari', 'Drinks at lodges', 'Personal expenses such as tips, laundry and telephone costs', 'Accommodation before or after safari unless mentioned'],
     pricing: {
-      label: 'Supplied package rate',
-      title: 'Price per person',
-      note: '*Indicative cost per person in USD from the supplied package sheet. Final quote depends on confirmed travel date, rooming and lodge availability.',
+      label: '2026 USD private rate',
+      title: 'Mid-range private safari package',
+      note: '*Indicative cost per person in USD, excluding international airline tickets. Final quote depends on confirmed travel date, rooming and lodge availability.',
       rows: [
         {
-          label: 'Private mid-range safari rate',
+          label: 'Private Mid-Range Safari Rate',
           prices: [
             { persons: '2 adults', room: '1 double room', amount: '1,790' },
             { persons: '4 adults', room: '4 double rooms', amount: '1,425' },
             { persons: '6 adults', room: '3 double rooms', amount: '1,305' },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    key: 'tanzania-migration-safari',
+    types: ['safaris', 'migration', 'tanzania'],
+    num: '06',
+    tag: 'Migration focus',
+    name: '5-Day Tanzania Migration Safari',
+    duration: '5 days / 4 nights',
+    route: 'Central Serengeti · Northern Serengeti · Ngorongoro',
+    stops: ['Arusha', 'Central Serengeti', 'Northern Serengeti', 'Central Serengeti', 'Ngorongoro Crater'],
+    bestFor: 'Migration-season travellers who want serious Serengeti time',
+    includes: 'Central/North Serengeti, Ngorongoro, mid-range camps and park fees',
+    copy: 'A focused Serengeti migration route with time in both Central and Northern Serengeti, finishing with Ngorongoro Crater.',
+    homeHighlights: ['Central and North Serengeti', 'Mara River migration focus', 'Ngorongoro Crater finish'],
+    popular: true,
+    overview: 'This five-day safari is designed around the drama of the Serengeti during migration season. Start in Central Serengeti for resident wildlife and predator viewing, continue north toward the Mara River region for migration possibilities, then return through Central Serengeti before ending with a Ngorongoro Crater game drive and onward transfer.',
+    suitability: 'Best for wildlife-focused travellers who want more Serengeti time than a short fly-in safari and who understand that migration sightings depend on season, weather and herd movement.',
+    facts: [['Safari style', 'Private migration-focused safari'], ['Starts / ends', 'Arusha'], ['Destinations', 'Central Serengeti, Northern Serengeti and Ngorongoro'], ['Accommodation', 'Tukaone Serengeti Camp and Sero Tented Camp']],
+    days: [
+      {
+        label: 'Day 1',
+        title: 'Arusha to Central Serengeti',
+        location: 'Arusha → Central Serengeti',
+        stay: 'Tukaone Serengeti Camp',
+        meals: 'Lunch & dinner',
+        note: 'Scenic transfer through Karatu highlands with game drive on arrival',
+        copy: 'After breakfast, meet your driver-guide in Arusha or at Arusha Airport for a safari briefing. Travel through the Great Rift Valley and Karatu highlands, with a possible Ngorongoro viewpoint stop depending on timing. Enter Serengeti National Park and begin an en-route game drive through the Seronera region, known for strong resident wildlife, big cats and leopard sightings along the riverine areas.',
+      },
+      {
+        label: 'Day 2',
+        title: 'Central Serengeti to Northern Serengeti',
+        location: 'Central Serengeti → Northern Serengeti',
+        stay: 'Sero Tented Camp',
+        meals: 'Breakfast, lunch & dinner',
+        note: 'A full transfer day that stays productive with game viewing en route',
+        copy: 'Leave Central Serengeti after breakfast and drive north through changing Serengeti landscapes. Game view en route as you search for elephants, giraffes, lions, zebras and wildebeest herds moving through the plains. Arrive in Northern Serengeti for an afternoon game-drive chapter before settling into camp for dinner and overnight.',
+      },
+      {
+        label: 'Day 3',
+        title: 'Full-day game drive in Northern Serengeti',
+        location: 'Northern Serengeti',
+        stay: 'Sero Tented Camp',
+        meals: 'Breakfast, lunch & dinner',
+        note: 'The day focuses on migration movement and Mara River-area wildlife',
+        copy: 'Spend the day exploring Northern Serengeti’s remote plains, riverbanks and rolling hills. This region is especially known for Mara River crossing possibilities during the right season, while also offering excellent resident wildlife. Your guide balances patience near promising areas with broader game viewing for predators, elephants, buffalo and antelope species.',
+      },
+      {
+        label: 'Day 4',
+        title: 'Northern Serengeti back to Central Serengeti',
+        location: 'Northern Serengeti → Central Serengeti',
+        stay: 'Tukaone Serengeti Camp',
+        meals: 'Breakfast, lunch & dinner',
+        note: 'Return south with an en-route game drive across the plains',
+        copy: 'After breakfast, begin the journey back toward Central Serengeti with game viewing along the way. The drive keeps the day flexible for sightings and scenery, returning you to the Seronera area for a final Central Serengeti evening.',
+      },
+      {
+        label: 'Day 5',
+        title: 'Ngorongoro Crater tour and onward transfer',
+        location: 'Central Serengeti → Ngorongoro Crater → Arusha / Kilimanjaro',
+        stay: 'No accommodation — end of safari',
+        meals: 'Breakfast & lunch',
+        note: 'Crater descent and onward airport timing are coordinated together',
+        copy: 'Leave Central Serengeti early with a packed lunch and continue toward the Ngorongoro Conservation Area. Descend 600 metres into the crater for a concentrated wildlife drive across grasslands, forests and lake edges, looking for lions, elephants, buffalo, zebras, hippos and possible black rhino. After lunch, ascend to the rim and continue to Arusha or Kilimanjaro International Airport.',
+      },
+    ],
+    inclusions: ['All park and conservation entry fees for Serengeti and Ngorongoro Crater', 'Private 4×4 safari vehicle with pop-up roof, charging ports and fridge', 'Professional English-speaking driver-guide', 'Accommodation in the listed mid-range camps', 'All meals during safari as per meal plan', 'Drinking water during game drives', 'Airport or Arusha transfer at the end of safari'],
+    exclusions: ['International flights not listed in the itinerary', 'Visa fees for Tanzania', 'Travel and medical insurance', 'Soft drinks and alcoholic beverages at lodges or camps', 'Tips for safari guide, driver and lodge staff', 'Personal expenses such as souvenirs, laundry or phone calls', 'Optional cultural visits such as a Maasai village'],
+    pricing: {
+      label: '2026 USD private rate',
+      title: 'Migration-season Serengeti package',
+      note: '*Indicative cost per person in USD, excluding international airline tickets. Final quote depends on confirmed travel date, rooming, migration location and lodge availability.',
+      rows: [
+        {
+          label: 'Migration Safari Rate',
+          period: '2026 · USD per person',
+          prices: [
+            { persons: '2 adults', room: '1 double room', amount: '2,380' },
+            { persons: '4 adults', room: '4 double rooms', amount: '1,960' },
+            { persons: '6 adults', room: '3 double rooms', amount: '1,821' },
           ],
         },
       ],
@@ -414,7 +562,7 @@ export const topPackages = [
   },
 ];
 
-export const featuredTourPackageKeys = ['serengeti7', 'southern', 'safarizanz', 'migration', 'honeymoon', 'family'];
+export const featuredTourPackageKeys = ['tarangire-day-trip', 'explore-serengeti', 'serengeti-ngorongoro', 'tarangire-ngorongoro-arusha', 'tanzania-mid-range', 'tanzania-migration-safari'];
 
 export const tourPlanningQuestions = [
   { question: 'Can this route be changed?', answer: 'Yes. These are well-tested starting points, not fixed departures. We can adjust nights, lodge style, internal flights and the order of parks around your dates and priorities.' },
@@ -446,7 +594,7 @@ export const itineraryCategories = [
     sub: 'Wildlife, wide horizons and private guiding',
     blurb: 'From the Serengeti and Ngorongoro to the spacious south, choose the wildlife rhythm that feels right for you.',
     points: ['Classic Northern Circuit', 'Southern Tanzania escapes', 'Migration-led routing'],
-    packageKeys: ['tarangire-day-trip', 'explore-serengeti', 'serengeti-ngorongoro', 'tanzania-mid-range', 'serengeti7', 'southern', 'migration', 'family'],
+    packageKeys: ['tarangire-day-trip', 'explore-serengeti', 'serengeti-ngorongoro', 'tarangire-ngorongoro-arusha', 'tanzania-mid-range', 'tanzania-migration-safari', 'serengeti7', 'southern', 'migration', 'family'],
   },
   {
     key: 'kilimanjaro',
