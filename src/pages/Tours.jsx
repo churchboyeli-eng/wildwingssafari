@@ -59,6 +59,7 @@ export default function Tours() {
   const [sortOrder, setSortOrder] = useState('recommended');
   const [filtersOpen, setFiltersOpen] = useState(false);
   const activeCategory = categoryKey ? itineraryCategories.find((category) => category.key === categoryKey) : null;
+  const showTypeFilter = !activeCategory;
   const copy = pageCopy[activeCategory?.key || 'all'];
   const availablePackages = useMemo(
     () => (activeCategory
@@ -106,16 +107,18 @@ export default function Tours() {
         <button type="button" className="itinerary-mobile-filter-toggle" aria-expanded={filtersOpen} aria-controls="itinerary-filters" onClick={() => setFiltersOpen((open) => !open)}>
           {filtersOpen ? 'Close filters' : 'Filter itineraries'} <span>{activeDurationLabel}</span>
         </button>
-        <aside id="itinerary-filters" className={`itinerary-filter-rail ${filtersOpen ? 'is-open' : ''}`} aria-label="Filter itineraries">
-          <div className="itinerary-filter-group">
-            <p>Type</p>
-            <nav>
-              <Link to="/itineraries" className={!activeCategory ? 'is-active' : ''} aria-current={!activeCategory ? 'page' : undefined}>All itineraries <span>{topPackages.length}</span></Link>
-              {itineraryCategories.map((category) => (
-                <Link key={category.key} to={`/itineraries/${category.key}`} className={category.key === activeCategory?.key ? 'is-active' : ''} aria-current={category.key === activeCategory?.key ? 'page' : undefined}>{category.name} <span>{category.packageKeys.length}</span></Link>
-              ))}
-            </nav>
-          </div>
+        <aside id="itinerary-filters" className={`itinerary-filter-rail ${filtersOpen ? 'is-open' : ''}`} aria-label={showTypeFilter ? 'Filter itineraries' : 'Filter itinerary length'}>
+          {showTypeFilter && (
+            <div className="itinerary-filter-group">
+              <p>Type</p>
+              <nav>
+                <Link to="/itineraries" className="is-active" aria-current="page">All itineraries <span>{topPackages.length}</span></Link>
+                {itineraryCategories.map((category) => (
+                  <Link key={category.key} to={`/itineraries/${category.key}`}>{category.name} <span>{category.packageKeys.length}</span></Link>
+                ))}
+              </nav>
+            </div>
+          )}
           <div className="itinerary-filter-group">
             <p>Travel time</p>
             <div className="itinerary-duration-filters">
