@@ -133,25 +133,25 @@ export default function Home() {
       <section style={{ background: 'var(--bg-paper)', padding: 'clamp(54px,8vw,110px) clamp(28px,6vw,90px)' }}>
         <div style={{ maxWidth: 1300, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,300px),1fr))', gap: 'clamp(32px,5vw,72px)', alignItems: 'start' }}>
           <div style={{ position: 'sticky', top: 96 }}>
-            <div className="eyebrow" style={{ marginBottom: 20 }}>Why travel with us</div>
-            <h2 style={{ fontFamily: 'var(--serif)', fontWeight: 500, fontSize: 'clamp(32px,4.6vw,56px)', lineHeight: 1.04, margin: 0, color: 'var(--ink)' }}>
+            <div className="eyebrow" style={{ marginBottom: 20, fontSize: 13 }}>Why travel with us</div>
+            <h2 style={{ fontFamily: 'var(--serif)', fontWeight: 600, fontSize: 'clamp(40px,5.2vw,68px)', lineHeight: 1.02, letterSpacing: '-.045em', margin: 0, color: 'var(--ink)', textWrap: 'balance' }}>
               A safari is a big decision. We make it the easy part.
             </h2>
-            <p style={{ fontSize: 'clamp(15px,1.7vw,18px)', lineHeight: 1.6, color: 'var(--body)', maxWidth: '42ch', margin: '22px 0 30px' }}>
+            <p style={{ fontSize: 'clamp(17px,1.8vw,20px)', lineHeight: 1.62, color: 'var(--body)', maxWidth: '44ch', margin: '24px 0 34px', textWrap: 'pretty' }}>
               You're trusting us with a once-in-a-lifetime trip. Here's why thousands of travellers put that trust in a locally owned team who calls Tanzania home.
             </p>
             <Link to="/enquire" className="btn-dark">Start planning with us</Link>
           </div>
           <div>
             {why.map((w) => (
-              <div key={w.num} style={{ display: 'flex', gap: 20, alignItems: 'flex-start', padding: '22px 0', borderTop: '1px solid var(--border)' }}>
-                <div style={{ flex: 'none', width: 46, height: 46, borderRadius: '50%', border: '1px solid var(--gold)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--serif)', fontSize: 20, color: 'var(--terracotta)' }}>
+              <div key={w.num} style={{ display: 'flex', gap: 24, alignItems: 'flex-start', padding: '28px 0', borderTop: '1px solid var(--border)' }}>
+                <div style={{ flex: 'none', width: 54, height: 54, borderRadius: '50%', border: '1px solid var(--gold)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--serif)', fontSize: 24, color: 'var(--terracotta)' }}>
                   {w.num}
                 </div>
                 <div>
-                  <h3 style={{ fontFamily: 'var(--serif)', fontWeight: 600, fontSize: 22, margin: '0 0 4px', color: 'var(--ink)', lineHeight: 1.1 }}>{w.title}</h3>
-                  <div style={{ fontSize: 12, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--terracotta)', marginBottom: 8, fontWeight: 600 }}>{w.lead}</div>
-                  <p style={{ fontSize: 14.5, lineHeight: 1.6, color: 'var(--body)', margin: 0, maxWidth: '52ch' }}>{w.copy}</p>
+                  <h3 style={{ fontFamily: 'var(--serif)', fontWeight: 700, fontSize: 'clamp(25px,2.4vw,32px)', margin: '0 0 7px', color: 'var(--ink)', lineHeight: 1.08, letterSpacing: '-.035em', textWrap: 'balance' }}>{w.title}</h3>
+                  <div style={{ fontSize: 13, letterSpacing: '.07em', textTransform: 'uppercase', color: 'var(--terracotta)', marginBottom: 10, fontWeight: 800 }}>{w.lead}</div>
+                  <p style={{ fontSize: 'clamp(16px,1.4vw,18px)', lineHeight: 1.62, color: 'var(--body)', margin: 0, maxWidth: '56ch', textWrap: 'pretty' }}>{w.copy}</p>
                 </div>
               </div>
             ))}
