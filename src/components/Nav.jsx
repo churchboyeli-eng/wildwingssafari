@@ -21,7 +21,7 @@ import { itineraryCategories, waHref } from '../data/content';
 const links = [
   { to: '/plan-a-journey', label: 'Plan your trip' },
   { to: '/about', label: 'About' },
-  { to: '/gallery', label: 'Journal' },
+  { to: '/booking', label: 'Booking' },
 ];
 
 const discoverLinks = [
@@ -31,7 +31,7 @@ const discoverLinks = [
   { to: '/tanzania-travel-guide#stays', title: 'Where to stay', sub: 'How comfort, location and pace change the route.', icon: BedDouble },
   { to: '/tanzania-travel-guide#activities', title: 'Activities by route', sub: 'Drive, float, walk, learn, climb and recover.', icon: Binoculars },
   { to: '/itineraries/safaris', title: 'Migration timing', sub: 'Month-led Serengeti route ideas.', icon: Star },
-  { to: '/gallery', title: 'Field journal', sub: 'Planning notes and travel ideas.', icon: BookOpen },
+  { to: '/booking', title: 'Booking steps', sub: 'What to send, how quotes work and how to confirm.', icon: BookOpen },
   { to: '/enquire', title: 'Request a route', sub: 'Send dates and receive a private proposal.', icon: Sparkles },
 ];
 

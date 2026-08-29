@@ -87,7 +87,6 @@ export default function TourDetail() {
         <div>
           <a href="#overview">Overview</a>
           {hasPricing && <a href="#pricing">Price</a>}
-          <a href="#route">Route</a>
           <a href="#day-by-day">Day by day</a>
           <a href="#included">What’s included</a>
           <a href="#planning">Planning</a>
@@ -158,19 +157,6 @@ export default function TourDetail() {
           </div>
         </section>
       )}
-
-      <section id="route" className="tour-detail-section detail-route-section">
-        <div className="detail-section-heading">
-          <div><p className="eyebrow">Before you go</p><h2>The practical shape of the route.</h2></div>
-          <p>These planning details set expectations early. Your final proposal confirms the exact travel times, stays and service level.</p>
-        </div>
-        <div className="route-fact-grid">
-          {tour.facts.map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}
-        </div>
-        <ol className="detail-route-line">
-          {tour.stops.map((stop, index) => <li key={`${stop}-${index}`}><span>{index + 1}</span><strong>{stop}</strong></li>)}
-        </ol>
-      </section>
 
       <section id="day-by-day" className="tour-detail-section itinerary-section">
         <div className="detail-section-heading itinerary-heading">

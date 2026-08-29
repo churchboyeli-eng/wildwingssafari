@@ -36,6 +36,7 @@ export default function App() {
           <Route path="/plan-a-journey" element={<JourneyBuilder />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/about" element={<About />} />
+          <Route path="/booking" element={<Enquire />} />
           <Route path="/enquire" element={<Enquire />} />
           <Route path="/safari-packages" element={<Navigate to="/itineraries" replace />} />
           <Route path="/safari-from-zanzibar" element={<Navigate to="/itineraries/zanzibar" replace />} />
