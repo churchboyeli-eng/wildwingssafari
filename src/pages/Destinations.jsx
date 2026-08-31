@@ -19,7 +19,7 @@ const compassChoices = [
   {
     title: 'I want the classic first safari',
     label: 'Wildlife first',
-    copy: 'Start with Serengeti, Ngorongoro and Tarangire when the dream is big wildlife, dramatic landscapes and a first Tanzania story that feels complete.',
+    copy: 'Start with Serengeti, Ngorongoro and Tarangire when you want big wildlife, varied country and a first Tanzania safari with enough time in each park.',
     bestFor: 'First-time safari, families, photographers',
     route: 'Arusha · Tarangire · Serengeti · Ngorongoro',
     icon: Binoculars,
@@ -28,7 +28,7 @@ const compassChoices = [
   {
     title: 'I want safari, then the ocean',
     label: 'Bush and beach',
-    copy: 'Let the safari carry the adventure, then use Zanzibar as the softer landing. The win is in the sequence: flights, transfers and beach days planned as one route.',
+    copy: 'Let the safari carry the adventure, then use Zanzibar for slower days. The sequence matters, so flights, transfers and beach time are planned as one route.',
     bestFor: 'Honeymoons, celebrations, slow endings',
     route: 'Northern parks or Nyerere · Zanzibar',
     icon: Waves,
@@ -46,7 +46,7 @@ const compassChoices = [
   {
     title: 'I want a summit in the story',
     label: 'Mountain chapter',
-    copy: 'Kilimanjaro should not be squeezed in like a small extra. Build in route choice, acclimatisation, descent recovery and a softer finish.',
+    copy: 'Kilimanjaro needs its own pace. Choose the route, allow time to acclimatise, then plan recovery after the descent and a gentler finish.',
     bestFor: 'Active travellers and small groups',
     route: 'Moshi climb · safari or Zanzibar recovery',
     icon: Mountain,
@@ -69,7 +69,7 @@ const routeStories = [
     points: ['Best first safari', 'Strong history layer', 'Easy Arusha start'],
   },
   {
-    title: 'The south is not a backup plan.',
+    title: 'The south has its own reason to go.',
     tone: 'River, miombo, room to breathe',
     copy: 'Nyerere and Mikumi make sense when the guest wants Rufiji water safaris, walking options, big skies, Dar es Salaam access and a route that can connect cleanly to Zanzibar.',
     points: ['Nyerere and Mikumi', 'Strong coast pairing', 'Less crowded rhythm'],
@@ -99,7 +99,7 @@ const referenceSections = [
     id: 'activities',
     title: 'Activities',
     icon: Map,
-    description: 'How each experience changes the itinerary, not just what it is called.',
+    description: 'How each activity changes the itinerary and where it fits.',
   },
   {
     id: 'islands',
@@ -120,7 +120,7 @@ const experienceLanes = [
     num: '01',
     title: 'Drive',
     label: 'Game-drive rhythm',
-    copy: 'Use long, protected field windows instead of rushing park names. Serengeti, Tarangire, Mikumi and Nyerere each need a different drive rhythm.',
+    copy: 'Use long, protected field windows. Serengeti, Tarangire, Mikumi and Nyerere each need a different drive rhythm.',
     points: ['Morning and late light', 'Guide-led patience', 'Respectful sightings'],
     to: '/tanzania-travel-guide/game-drives',
   },
@@ -136,7 +136,7 @@ const experienceLanes = [
     num: '03',
     title: 'Walk',
     label: 'Tracks and interpretation',
-    copy: 'Walking is not a casual add-on. It belongs where guides, permits and lodge programmes support a safe, detailed bush interpretation.',
+    copy: 'Walking belongs where guides, permits and lodge programmes support a safe, detailed bush interpretation.',
     points: ['Tracks and plants', 'Approved areas', 'Ranger-led where required'],
     to: '/tanzania-travel-guide/walking-safaris',
   },
@@ -144,7 +144,7 @@ const experienceLanes = [
     num: '04',
     title: 'Learn',
     label: 'Culture and heritage',
-    copy: 'Olduvai, Laetoli, Ngorongoro and Stone Town give clients a reason to remember more than animal names.',
+    copy: 'Olduvai, Laetoli, Ngorongoro and Stone Town connect the route to archaeology, geology and living culture as well as wildlife.',
     points: ['Human-history context', 'Swahili coast', 'Geology and archaeology'],
     to: '/tanzania-travel-guide/cultural-heritage-days',
   },
@@ -172,10 +172,10 @@ export default function Destinations() {
       <section className="discover-hero" aria-labelledby="discover-heading">
         <div className="discover-hero-copy">
           <p className="eyebrow">Inside Tanzania</p>
-          <h1 id="discover-heading">A travel guide with route sense.</h1>
-          <p>Start with the story behind the place: why Serengeti needs time, why Ngorongoro is more than a crater, why Nyerere changes safari pace, and where Zanzibar becomes culture, sea or recovery.</p>
+          <h1 id="discover-heading">A guide to choosing your route.</h1>
+          <p>Start with the story behind the place: why Serengeti needs time, how Ngorongoro connects wildlife and geology, why Nyerere changes safari pace, and where Zanzibar adds culture, sea or recovery.</p>
           <div className="discover-hero-actions">
-            <a href="#tanzania-compass" className="btn-primary">Find your route logic <ArrowRight aria-hidden="true" size={16} /></a>
+            <a href="#tanzania-compass" className="btn-primary">Find the right route <ArrowRight aria-hidden="true" size={16} /></a>
             <a href="#field-notes" className="btn-quiet">Open field notes <ArrowRight aria-hidden="true" size={16} /></a>
           </div>
         </div>
@@ -185,7 +185,7 @@ export default function Destinations() {
             <Compass aria-hidden="true" size={24} />
             <div>
               <p>Wild Wings field map</p>
-              <h2>Four regions. Better questions.</h2>
+              <h2>Four regions. Different routes.</h2>
             </div>
           </div>
           <div className="discover-compass-map" aria-hidden="true">
@@ -193,7 +193,7 @@ export default function Destinations() {
             <span>South</span>
             <span>Coast</span>
             <span>Summit</span>
-            <strong>Route logic</strong>
+            <strong>How they connect</strong>
           </div>
           <div className="discover-plan-steps">
             {planningSteps.map((step) => (
@@ -204,8 +204,8 @@ export default function Destinations() {
             ))}
           </div>
           <ul className="discover-proof-list">
-            <li><Check aria-hidden="true" size={15} /> Private trips shaped around pace, not brochure order</li>
-            <li><Check aria-hidden="true" size={15} /> Field notes link into deeper client reading</li>
+            <li><Check aria-hidden="true" size={15} /> Private trips shaped around your pace</li>
+            <li><Check aria-hidden="true" size={15} /> Field notes for the details behind each route</li>
             <li><Check aria-hidden="true" size={15} /> Safari, Zanzibar and Kilimanjaro connected in one plan</li>
           </ul>
         </aside>
@@ -214,7 +214,7 @@ export default function Destinations() {
       <section className="discover-compass" id="tanzania-compass" aria-labelledby="discover-compass-heading">
         <header className="discover-section-heading">
           <div>
-            <p className="eyebrow">The route compass</p>
+            <p className="eyebrow">Choose a direction</p>
             <h2 id="discover-compass-heading">Pick the question that sounds like your trip.</h2>
           </div>
           <p>Most safari pages start with place names. We start with intent, then show which parks, coast days and activities actually support that trip.</p>
@@ -245,8 +245,8 @@ export default function Destinations() {
 
       <section className="discover-unveiled" aria-labelledby="discover-unveiled-heading">
         <div className="discover-unveiled-copy">
-          <p className="eyebrow">Route intelligence</p>
-          <h2 id="discover-unveiled-heading">The place is only half the decision.</h2>
+          <p className="eyebrow">How the regions work together</p>
+          <h2 id="discover-unveiled-heading">Where you go changes the whole route.</h2>
           <p>The better question is what each place does for the whole journey. Does it add wildlife density, geological history, a river activity, culture, recovery or a smarter transfer?</p>
         </div>
         <div className="discover-story-grid">
@@ -270,7 +270,7 @@ export default function Destinations() {
         <header className="discover-section-heading">
           <div>
             <p className="eyebrow">Field notes library</p>
-            <h2 id="discover-reference-heading">Give clients somewhere deeper to click.</h2>
+            <h2 id="discover-reference-heading">Read the details behind the route.</h2>
           </div>
           <p>Quick orientation on the hub, then deeper guide pages for clients who want park history, activity logic, Zanzibar context and stay advice before they enquire.</p>
         </header>
@@ -307,9 +307,9 @@ export default function Destinations() {
         <header className="discover-section-heading">
           <div>
             <p className="eyebrow">Activities with a reason</p>
-            <h2 id="experience-lanes-heading">Sell the experience, not just the park name.</h2>
+            <h2 id="experience-lanes-heading">Choose the activity that fits the route.</h2>
           </div>
-          <p>A client should understand what they can actually do: drive, float, walk, learn, climb and recover. That is where Wild Wings starts sounding like a planner, not a copied operator.</p>
+          <p>Know what the route lets you do: drive, float, walk, learn, climb and recover. Each activity changes the parks, timing and stays we recommend.</p>
         </header>
 
         <div className="discover-route-grid">
@@ -325,7 +325,7 @@ export default function Destinations() {
                 {lane.points.map((point) => <li key={point}><Check aria-hidden="true" size={14} />{point}</li>)}
               </ul>
               <div className="discover-route-footer">
-                <span><Route aria-hidden="true" size={14} /> Route logic</span>
+                <span><Route aria-hidden="true" size={14} /> Where it fits</span>
                 <Link to={lane.to}>Read note <ArrowRight aria-hidden="true" size={14} /></Link>
               </div>
             </article>
@@ -336,8 +336,8 @@ export default function Destinations() {
       <section className="discover-closing">
         <div>
           <p className="eyebrow">Make it private</p>
-          <h2>Bring us the parks, the pace and the feeling.</h2>
-          <p>Maybe it is Serengeti with enough time, Ngorongoro with archaeology, Tarangire elephants, a Rufiji boat safari, Zanzibar reef days or Kilimanjaro with space to recover. We will turn the pieces into one private route.</p>
+          <h2>Tell us the parks, pace and dates.</h2>
+          <p>It could be Serengeti with enough time, Ngorongoro with archaeology, Tarangire elephants, a Rufiji boat safari, Zanzibar reef days or Kilimanjaro with room to recover. We will join the pieces into one private route.</p>
         </div>
         <div className="discover-closing-actions">
           <Link to="/enquire" className="btn-primary">Request a route proposal <ArrowRight aria-hidden="true" size={16} /></Link>

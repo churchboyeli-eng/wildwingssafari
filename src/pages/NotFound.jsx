@@ -16,10 +16,10 @@ export default function NotFound() {
     >
       <div className="eyebrow" style={{ marginBottom: 16 }}>404</div>
       <h1 style={{ fontFamily: 'var(--serif)', fontWeight: 500, fontSize: 'clamp(36px,6vw,64px)', margin: '0 0 16px' }}>
-        This trail doesn’t exist.
+        This trail doesn't exist.
       </h1>
       <p style={{ color: 'var(--body)', maxWidth: '44ch', margin: '0 0 30px', lineHeight: 1.6 }}>
-        The page you’re looking for wandered off. Let’s get you back on track.
+        That page isn't here. Head back to the home page and choose a route.
       </p>
       <Link to="/" className="btn">Back to home</Link>
     </div>

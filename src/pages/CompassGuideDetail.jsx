@@ -36,8 +36,8 @@ export default function CompassGuideDetail() {
       <section className="compass-detail-layout">
         <aside className="compass-source-card">
           <p className="eyebrow">Source note</p>
-          <h2>Official context, rewritten for planning.</h2>
-          <p>This field note uses source-owner material for facts, then translates it into route advice for Wild Wings clients.</p>
+          <h2>Facts first, then route advice.</h2>
+          <p>We use the park's own information for facts, then add practical advice for your route.</p>
           <p><strong>Source:</strong> {guide.sourceName}</p>
           {isInternalSource ? (
             <Link to={guide.sourceUrl}>Ask us about this <ArrowRight aria-hidden="true" size={14} /></Link>
@@ -67,7 +67,7 @@ export default function CompassGuideDetail() {
 
           <section>
             <p className="eyebrow">Useful details</p>
-            <h2>What the client should know</h2>
+            <h2>What to know before you go</h2>
             <ul>
               {guide.details.map((detail) => <li key={detail}><Check aria-hidden="true" size={15} />{detail}</li>)}
             </ul>
@@ -78,7 +78,7 @@ export default function CompassGuideDetail() {
       <section className="compass-detail-closing">
         <div>
           <p className="eyebrow">Build around this</p>
-          <h2>Want this included in your Tanzania route?</h2>
+          <h2>Want to include this in your route?</h2>
           <p>Send your dates, travel style and must-see places. We will tell you where this fits, how long to allow and what to combine it with.</p>
         </div>
         <Link to="/enquire" className="btn-primary">Request a route proposal <ArrowRight aria-hidden="true" size={16} /></Link>

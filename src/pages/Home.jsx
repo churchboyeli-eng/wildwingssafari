@@ -27,7 +27,7 @@ export default function Home() {
     <div className="page-enter">
       {/* HERO */}
       <section style={{ position: 'relative', minHeight: 'clamp(560px,92svh,1000px)', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', background: '#17140d' }}>
-        <ImagePlaceholder label="Video hero — Serengeti at golden hour" />
+        <ImagePlaceholder label="Video hero: Serengeti at golden hour" />
         <div
           style={{
             position: 'absolute',
@@ -47,7 +47,7 @@ export default function Home() {
                 Your gateway to the wilderness.
               </h1>
               <p style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 'clamp(18px,2.2vw,26px)', color: '#e7ddca', maxWidth: '40ch', margin: '20px 0 0', fontWeight: 400 }}>
-                We don't just plan trips — we create experiences.
+                We plan the details so you can stay present in Tanzania.
               </p>
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 32 }}>
                 <Link to="/enquire" className="btn">Plan your trip</Link>
@@ -57,7 +57,7 @@ export default function Home() {
             <div style={{ display: 'flex', gap: 'clamp(20px,3vw,44px)', flexWrap: 'wrap', justifyContent: 'flex-start' }}>
               {[
                 ['6', 'Signature journeys'],
-                ['100%', 'Custom-built'],
+                ['100%', 'Private routes'],
                 ['Local', 'Owned & guided'],
               ].map(([n, l]) => (
                 <div key={l} style={{ borderLeft: '1px solid rgba(230,211,180,.35)', paddingLeft: 16 }}>
@@ -80,7 +80,7 @@ export default function Home() {
             </div>
             <div className="home-offerings-intro">
               <p>
-                Six priced safari packages, cleaned up for guests to scan first. Open any itinerary for the full day-by-day programme, inclusions and price guide.
+                Start with one of six sample routes. Each page shows the daily plan, what is included and a per-person price guide.
               </p>
               <Link to="/itineraries" className="home-offerings-all">
                 View all trips <ArrowRight aria-hidden="true" size={16} strokeWidth={2} />
@@ -135,10 +135,10 @@ export default function Home() {
           <div style={{ position: 'sticky', top: 96 }}>
             <div className="eyebrow" style={{ marginBottom: 20, fontSize: 13 }}>Why travel with us</div>
             <h2 style={{ fontFamily: 'var(--serif)', fontWeight: 600, fontSize: 'clamp(40px,5.2vw,68px)', lineHeight: 1.02, letterSpacing: '-.045em', margin: 0, color: 'var(--ink)', textWrap: 'balance' }}>
-              A safari is a big decision. We make it the easy part.
+              We make the planning part clear.
             </h2>
             <p style={{ fontSize: 'clamp(17px,1.8vw,20px)', lineHeight: 1.62, color: 'var(--body)', maxWidth: '44ch', margin: '24px 0 34px', textWrap: 'pretty' }}>
-              You're trusting us with a once-in-a-lifetime trip. Here's why thousands of travellers put that trust in a locally owned team who calls Tanzania home.
+              You can see the route, price and practical details before you decide. Our team is based in Tanzania and stays close to the trip from the first message onward.
             </p>
             <Link to="/enquire" className="btn-dark">Start planning with us</Link>
           </div>
@@ -167,10 +167,10 @@ export default function Home() {
             <div>
               <div className="eyebrow" style={{ marginBottom: 14 }}>Top tour packages</div>
               <h2 style={{ fontFamily: 'var(--serif)', fontWeight: 500, fontSize: 'clamp(32px,4.6vw,56px)', margin: 0, lineHeight: 1, color: 'var(--ink)' }}>
-                Our travellers' favourites
+                Routes guests ask for most
               </h2>
               <p style={{ fontSize: 'clamp(14px,1.5vw,17px)', color: 'var(--body)', maxWidth: '52ch', margin: '16px 0 0', lineHeight: 1.55 }}>
-                Six ready-to-sell safari packages, from a one-day elephant safari to a focused Serengeti migration route. Each can still be shaped around your dates, group and pace.
+                These six sample routes cover short fly-in safaris, the Northern Circuit and a migration-focused week. We can change the nights, stops and pace around your dates.
               </p>
             </div>
             <Link to="/itineraries" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontSize: 12, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--terracotta)', fontWeight: 600, borderBottom: '1px solid var(--gold)', paddingBottom: 4 }}>
@@ -186,11 +186,11 @@ export default function Home() {
         <div style={{ maxWidth: 1320, margin: '0 auto' }}>
           <div style={{ fontSize: 11, letterSpacing: '.28em', textTransform: 'uppercase', color: 'var(--terracotta)', marginBottom: 14 }}>What travellers say</div>
           <h2 style={{ fontFamily: 'var(--serif)', fontWeight: 600, fontSize: 'clamp(34px,5vw,60px)', lineHeight: 1, margin: 0, color: 'var(--ink)' }}>
-            200+ Verified Reviews
+            Guest notes from recent trips
           </h2>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', justifyContent: 'center', marginTop: 18 }}>
             <span style={{ color: 'var(--gold)', fontSize: 20, letterSpacing: 2 }}>★★★★★</span>
-            <span style={{ fontSize: 15, color: 'var(--body)' }}>5.0 average · TripAdvisor · SafariBookings · Google</span>
+            <span style={{ fontSize: 15, color: 'var(--body)' }}>Reviews on TripAdvisor, SafariBookings and Google</span>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))', gap: 'clamp(16px,2vw,24px)', marginTop: 'clamp(36px,4.5vw,56px)', textAlign: 'left' }}>
@@ -236,7 +236,7 @@ export default function Home() {
               Tanzania safari, answered.
             </h2>
             <p style={{ fontSize: 'clamp(15px,1.7vw,18px)', lineHeight: 1.6, color: 'var(--body)', maxWidth: '38ch', margin: '22px 0 30px' }}>
-              Everything you need to know before booking your trip. Still have a question? We're a message away.
+              Answers to the questions we hear most. If yours is missing, send us a WhatsApp message.
             </p>
             <a
               href={waHref}
@@ -308,12 +308,12 @@ export default function Home() {
           </div>
 
           <div>
-            <div className="eyebrow on-dark" style={{ marginBottom: 18 }}>The expert with in-depth knowledge</div>
+            <div className="eyebrow on-dark" style={{ marginBottom: 18 }}>Built around Tanzania</div>
             <h2 style={{ fontFamily: 'var(--serif)', fontWeight: 500, fontSize: 'clamp(32px,4.6vw,56px)', lineHeight: 1.02, margin: 0, color: '#FBF8F1' }}>
               Why travellers choose Wild Wings
             </h2>
             <p style={{ fontSize: 'clamp(15px,1.6vw,18px)', lineHeight: 1.7, color: '#c3ccba', maxWidth: '52ch', margin: '20px 0 0' }}>
-              Professional private guides, comfortable private vehicles, and flexible itineraries — meticulously prepared so you travel stress-free, with top-notch service from first message to final memory.
+              Private guides, comfortable vehicles and flexible days. We prepare the route with you, then stay available while you travel.
             </p>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: '0 clamp(24px,3vw,48px)', marginTop: 'clamp(28px,3.5vw,40px)' }}>
@@ -328,7 +328,7 @@ export default function Home() {
             </div>
 
             <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', marginTop: 'clamp(30px,4vw,44px)' }}>
-              <Link to="/enquire" className="btn" style={{ textTransform: 'uppercase', letterSpacing: '.08em' }}>Request a travel proposal</Link>
+              <Link to="/enquire" className="btn" style={{ textTransform: 'uppercase', letterSpacing: '.08em' }}>Request a proposal</Link>
               <Link to="/itineraries" className="btn-outline" style={{ textTransform: 'uppercase', letterSpacing: '.08em' }}>View itineraries</Link>
             </div>
           </div>

@@ -1,40 +1,41 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowRight, CalendarDays, Check, Route } from 'lucide-react';
+import { ArrowRight, CalendarDays, Check, LayoutGrid, List, Route } from 'lucide-react';
 import { Link, Navigate, useParams } from 'react-router-dom';
+import { Badge } from '@/components/ui/badge';
 import { getPackageStartingPrice, itineraryCategories, topPackages } from '../data/content';
 
 const pageCopy = {
   all: {
     eyebrow: 'Itineraries',
     title: 'Tanzania itineraries',
-    lead: 'Choose from private safari, Kilimanjaro and Zanzibar starting points. Every route is flexible, then planned around your dates, pace and the parts of Tanzania you most want to experience.',
+    lead: 'Choose a private safari, a Kilimanjaro climb or time on Zanzibar. We then set the route around your dates, pace and priorities.',
     listTitle: 'Sample Tanzania itineraries',
-    afterTitle: 'A trip that fits the whole journey.',
-    afterCopy: 'Start with a proven route, then make it specific. We adjust the order of parks, number of nights, accommodation style and connections before you commit.',
+    afterTitle: 'A route that fits your time.',
+    afterCopy: 'Use a sample route as a starting point. We can change the park order, number of nights, accommodation and connections before you book.',
   },
   safaris: {
     eyebrow: 'Safaris',
     title: 'Tanzania safari itineraries',
-    lead: 'From the classic Northern Circuit to the quieter south, our private safari routes put wildlife time first. We match the parks, overnight rhythm and guide to your dates and priorities.',
+    lead: 'Choose the classic Northern Circuit or a quieter southern route. We match the parks, overnight rhythm and guide to your dates and what you want to see.',
     listTitle: 'Sample safari itineraries',
-    afterTitle: 'A safari should have time to breathe.',
-    afterCopy: 'A good route is about more than ticking off parks. We protect game-viewing time, choose a sensible driving rhythm and recommend the right safari region for the season.',
+    afterTitle: 'Leave room for the good sightings.',
+    afterCopy: 'We protect game-drive time, keep the driving rhythm sensible and point you to the region that fits your travel month.',
   },
   kilimanjaro: {
     eyebrow: 'Kilimanjaro',
     title: 'Kilimanjaro climbing itineraries',
-    lead: 'A successful climb begins with the right route, a patient acclimatisation plan and an experienced mountain crew. These are private starting points to build around your preparation and time.',
+    lead: 'A safe climb needs the right route, time to acclimatise and a trained mountain crew. Use these plans as a starting point for your preparation and available days.',
     listTitle: 'Sample Kilimanjaro itineraries',
-    afterTitle: 'The right climb begins before the mountain.',
-    afterCopy: 'We help you decide on a route, prepare properly and understand the day-to-day rhythm before you arrive in Moshi. A safari or Zanzibar stay can follow when it suits your plans.',
+    afterTitle: 'Your climb starts before Moshi.',
+    afterCopy: 'We help you choose a route, prepare for the days on the mountain and plan the safari or Zanzibar stay that follows.',
   },
   zanzibar: {
     eyebrow: 'Zanzibar',
     title: 'Zanzibar holiday itineraries',
-    lead: 'Make the coast a real part of the journey. Choose slow beach days, Stone Town or a seamless safari-and-island combination with all domestic connections considered together.',
+    lead: 'Make time for Stone Town, the beach or both. We can pair Zanzibar with a safari and plan the domestic connections as one booking.',
     listTitle: 'Sample Zanzibar itineraries',
-    afterTitle: 'The coast deserves its own time.',
-    afterCopy: 'Zanzibar works best when it is planned as more than a final stop. We give the island enough room to slow down, then connect it naturally to your safari or onward travel.',
+    afterTitle: 'Give Zanzibar enough time.',
+    afterCopy: 'Plan the island as part of the trip. We leave room to slow down and connect it cleanly with your safari or onward flight.',
   },
 };
 
@@ -57,6 +58,7 @@ export default function Tours() {
   const { categoryKey } = useParams();
   const [durationFilter, setDurationFilter] = useState('all');
   const [sortOrder, setSortOrder] = useState('recommended');
+  const [viewMode, setViewMode] = useState('grid');
   const [filtersOpen, setFiltersOpen] = useState(false);
   const activeCategory = categoryKey ? itineraryCategories.find((category) => category.key === categoryKey) : null;
   const showTypeFilter = !activeCategory;
@@ -92,10 +94,10 @@ export default function Tours() {
             <p className="eyebrow">{copy.eyebrow}</p>
             <h1 id="itinerary-listing-heading">{copy.title}</h1>
             <p>{copy.lead}</p>
-            <Link to="/enquire" className="itinerary-listing-hero-action">Ask for a tailored itinerary <ArrowRight aria-hidden="true" size={16} /></Link>
+            <Link to="/enquire" className="itinerary-listing-hero-action">Ask for your itinerary <ArrowRight aria-hidden="true" size={16} /></Link>
           </div>
           <div className="itinerary-listing-proof" aria-label="Wild Wings planning principles">
-            <p>Private travel, properly planned</p>
+            <p>Private travel, clearly planned</p>
             <span><Check aria-hidden="true" size={15} />Customised around your dates</span>
             <span><Check aria-hidden="true" size={15} />Dedicated guide or mountain team</span>
             <span><Check aria-hidden="true" size={15} />Clear proposal before booking</span>
@@ -103,7 +105,7 @@ export default function Tours() {
         </div>
       </section>
 
-      <section className="itinerary-listing-content" aria-labelledby="itinerary-list-heading">
+      <section className={`itinerary-listing-content ${activeCategory ? 'is-category' : ''}`} aria-labelledby="itinerary-list-heading">
         <button type="button" className="itinerary-mobile-filter-toggle" aria-expanded={filtersOpen} aria-controls="itinerary-filters" onClick={() => setFiltersOpen((open) => !open)}>
           {filtersOpen ? 'Close filters' : 'Filter itineraries'} <span>{activeDurationLabel}</span>
         </button>
@@ -139,16 +141,22 @@ export default function Tours() {
               <h2 id="itinerary-list-heading">{copy.listTitle}</h2>
               <p className="itinerary-result-count" role="status">Showing {resultCount}{durationFilter !== 'all' ? ` for ${activeDurationLabel.toLowerCase()}` : ''}</p>
             </div>
-            <label className="itinerary-sort-control">Sort by
-              <select value={sortOrder} onChange={(event) => setSortOrder(event.target.value)}>
-                <option value="recommended">Recommended</option>
-                <option value="shortest">Shortest duration</option>
-                <option value="longest">Longest duration</option>
-              </select>
-            </label>
+            <div className="itinerary-list-heading-tools">
+              <label className="itinerary-sort-control">Sort by
+                <select value={sortOrder} onChange={(event) => setSortOrder(event.target.value)}>
+                  <option value="recommended">Recommended</option>
+                  <option value="shortest">Shortest duration</option>
+                  <option value="longest">Longest duration</option>
+                </select>
+              </label>
+              <div className="itinerary-view-toggle" role="group" aria-label="Itinerary view">
+                <button type="button" className={viewMode === 'grid' ? 'is-active' : ''} aria-pressed={viewMode === 'grid'} onClick={() => setViewMode('grid')}><LayoutGrid aria-hidden="true" size={14} /> Grid</button>
+                <button type="button" className={viewMode === 'list' ? 'is-active' : ''} aria-pressed={viewMode === 'list'} onClick={() => setViewMode('list')}><List aria-hidden="true" size={14} /> List</button>
+              </div>
+            </div>
           </header>
 
-          <div className="itinerary-list-cards">
+          <div className={`itinerary-list-cards itinerary-catalog-${viewMode}`}>
             {matchingPackages.map((tourPackage, index) => {
               const startingPrice = getPackageStartingPrice(tourPackage);
               return (
@@ -159,7 +167,7 @@ export default function Tours() {
                     <div><Route aria-hidden="true" size={16} strokeWidth={1.8} /><small>{tourPackage.route}</small></div>
                   </div>
                   <div className="itinerary-list-card-main">
-                    <div className="itinerary-list-card-meta"><span>{tourPackage.popular ? 'Traveller favourite' : 'Private itinerary'}</span><span><CalendarDays aria-hidden="true" size={14} />{tourPackage.duration}</span></div>
+                    <div className="itinerary-list-card-meta"><Badge variant={tourPackage.popular ? 'default' : 'outline'}>{tourPackage.popular ? 'Traveller favourite' : 'Private itinerary'}</Badge><span><CalendarDays aria-hidden="true" size={14} />{tourPackage.duration}</span></div>
                     <h3>{tourPackage.name}</h3>
                     <p>{tourPackage.copy}</p>
                     <ul>
@@ -177,6 +185,14 @@ export default function Tours() {
                 </article>
               );
             })}
+            {activeCategory && matchingPackages.length === 1 && (
+              <article className="itinerary-solo-card">
+                <p className="eyebrow">More ways to travel</p>
+                <h3>Compare the full catalogue.</h3>
+                <p>This page shows the current {activeCategory.name.toLowerCase()} route. Browse the other itineraries to compare safari, mountain and coast combinations.</p>
+                <Link to="/itineraries" className="itinerary-solo-action">View all itineraries <ArrowRight aria-hidden="true" size={15} /></Link>
+              </article>
+            )}
           </div>
 
           {matchingPackages.length === 0 && (

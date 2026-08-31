@@ -10,6 +10,8 @@ import Enquire from './pages/Enquire';
 import Gallery from './pages/Gallery';
 import Home from './pages/Home';
 import JourneyBuilder from './pages/JourneyBuilder';
+import Kilimanjaro from './pages/Kilimanjaro';
+import KilimanjaroRouteDetail from './pages/KilimanjaroRouteDetail';
 import NotFound from './pages/NotFound';
 import TourDetail from './pages/TourDetail';
 import Tours from './pages/Tours';
@@ -30,6 +32,8 @@ export default function App() {
           <Route path="/discover-tanzania" element={<Navigate to="/tanzania-travel-guide" replace />} />
           <Route path="/destinations" element={<Navigate to="/tanzania-travel-guide" replace />} />
           <Route path="/itineraries" element={<Tours />} />
+          <Route path="/itineraries/kilimanjaro/:routeKey" element={<KilimanjaroRouteDetail />} />
+          <Route path="/itineraries/kilimanjaro" element={<Kilimanjaro />} />
           <Route path="/itineraries/:categoryKey" element={<Tours />} />
           <Route path="/tours" element={<Navigate to="/itineraries" replace />} />
           <Route path="/tours/:tourId" element={<TourDetail />} />

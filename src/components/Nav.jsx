@@ -21,11 +21,10 @@ import { itineraryCategories, waHref } from '../data/content';
 const links = [
   { to: '/plan-a-journey', label: 'Plan your trip' },
   { to: '/about', label: 'About' },
-  { to: '/booking', label: 'Booking' },
 ];
 
 const discoverLinks = [
-  { to: '/tanzania-travel-guide', title: 'Inside Tanzania', sub: 'Route logic, park history and source-linked field notes.', icon: Map },
+  { to: '/tanzania-travel-guide', title: 'Inside Tanzania', sub: 'Region notes, park history and source-linked field notes.', icon: Map },
   { to: '/tanzania-travel-guide#parks', title: 'Park field notes', sub: 'Serengeti, crater, elephants, river country and space.', icon: Trees },
   { to: '/tanzania-travel-guide#islands', title: 'Zanzibar and coast', sub: 'Stone Town, spice culture, reef days and recovery.', icon: Waves },
   { to: '/tanzania-travel-guide#stays', title: 'Where to stay', sub: 'How comfort, location and pace change the route.', icon: BedDouble },
@@ -123,7 +122,7 @@ export default function Nav() {
         <NavLink to="/" end className={({ isActive }) => `site-nav-link ${isActive ? 'is-active' : ''}`} onClick={closeMobileNav}>Home</NavLink>
         <div className="tour-menu" onMouseEnter={openTours} onMouseLeave={closeTours} onBlur={handleToursBlur} onKeyDown={handleToursKeyDown}>
           <div className="tour-menu-trigger">
-            <NavLink to="/itineraries" className={`site-nav-link ${isTours ? 'is-active' : ''}`} onClick={closeMobileNav}>Itineraries</NavLink>
+            <NavLink to="/itineraries" className={`site-nav-link itinerary-nav-link ${isTours ? 'is-active' : ''}`} onClick={closeMobileNav}>Itineraries</NavLink>
             <button ref={toursTriggerRef} type="button" className={`tour-disclosure ${toursOpen ? 'is-open' : ''}`} aria-label="Show itinerary categories" aria-expanded={toursOpen} aria-controls="safari-types-menu" onClick={() => setToursOpen((open) => !open)}><ChevronDown aria-hidden="true" size={15} /></button>
           </div>
           {toursOpen && (
@@ -140,7 +139,7 @@ export default function Nav() {
             </div>
           )}
         </div>
-        <NavLink to="/itineraries/safaris" className={({ isActive }) => `site-nav-link ${isActive ? 'is-active' : ''}`} onClick={closeMobileNav}>Safaris</NavLink>
+        <NavLink to="/itineraries/safaris" className={({ isActive }) => `site-nav-link safari-nav-link ${isActive ? 'is-active' : ''}`} onClick={closeMobileNav}>Safaris</NavLink>
         <NavLink to="/itineraries/kilimanjaro" className={({ isActive }) => `site-nav-link ${isActive ? 'is-active' : ''}`} onClick={closeMobileNav}>Kilimanjaro</NavLink>
         <NavLink to="/itineraries/zanzibar" className={({ isActive }) => `site-nav-link ${isActive ? 'is-active' : ''}`} onClick={closeMobileNav}>Zanzibar</NavLink>
         <div className="discover-menu" onMouseEnter={openDiscover} onMouseLeave={closeDiscover} onBlur={handleDiscoverBlur} onKeyDown={handleDiscoverKeyDown}>
@@ -151,7 +150,7 @@ export default function Nav() {
           {discoverOpen && (
             <div id="inside-tanzania-menu" className="discover-flyout">
               <div className="discover-flyout-main">
-                <p>Wild Wings route tools</p>
+                <p>Plan by region and activity</p>
                 <div className="discover-flyout-grid">
                   {discoverLinks.map((item) => {
                     const Icon = item.icon;
@@ -166,21 +165,21 @@ export default function Nav() {
                 </div>
               </div>
               <aside className="discover-flyout-side">
-                <p>Start with a mood</p>
+                <p>Start with a route idea</p>
                 {routeMoods.map((place) => <Link to="/tanzania-travel-guide#tanzania-compass" key={place} onClick={closeMobileNav}>{place}</Link>)}
-                <Link to="/enquire" className="discover-flyout-request" onClick={closeMobileNav}>Request a trip plan <ArrowRight aria-hidden="true" size={14} /></Link>
+                <Link to="/enquire" className="discover-flyout-request" onClick={closeMobileNav}>Request a route <ArrowRight aria-hidden="true" size={14} /></Link>
               </aside>
             </div>
           )}
         </div>
         {links.map((link) => <NavLink key={link.to} to={link.to} className={({ isActive }) => `site-nav-link ${isActive ? 'is-active' : ''}`} onClick={closeMobileNav}>{link.label}</NavLink>)}
-        <Link to="/enquire" className="mobile-enquire" onClick={closeMobileNav}>Get a quote <ArrowRight aria-hidden="true" size={15} /></Link>
+        <Link to="/booking" className="mobile-enquire" onClick={closeMobileNav}>Book now <ArrowRight aria-hidden="true" size={15} /></Link>
       </nav>
 
       <div className="site-header-actions">
         <span className="language-label"><Globe2 aria-hidden="true" size={16} /> EN</span>
         <a href={waHref} target="_blank" rel="noopener noreferrer" className="site-whatsapp"><MessageCircle aria-hidden="true" size={17} /> WhatsApp</a>
-        <Link to="/enquire" className="site-enquire">Get a quote <ArrowRight aria-hidden="true" size={15} /></Link>
+        <Link to="/booking" className="site-enquire">Book now <ArrowRight aria-hidden="true" size={15} /></Link>
         <button type="button" className="mobile-nav-toggle" aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={mobileOpen} aria-controls="primary-navigation" onClick={() => setMobileOpen((open) => !open)}>{mobileOpen ? <X aria-hidden="true" size={21} /> : <Menu aria-hidden="true" size={21} />}</button>
       </div>
     </header>

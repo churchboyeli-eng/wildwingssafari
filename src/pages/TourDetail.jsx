@@ -54,13 +54,13 @@ export default function TourDetail() {
             <h1>{tour.name}</h1>
             <p className="tour-detail-lead">{tour.copy}</p>
             <div className="tour-detail-actions">
-              <Link to="/enquire" state={{ prefill }} className="btn-primary">Plan this itinerary <ArrowRight aria-hidden="true" size={16} /></Link>
+              <Link to="/booking" state={{ prefill }} className="btn-primary">Book now <ArrowRight aria-hidden="true" size={16} /></Link>
               <a href="#day-by-day" className="btn-quiet">Read the day-by-day <ChevronDown aria-hidden="true" size={16} /></a>
             </div>
           </div>
 
           <div className="tour-route-art" aria-label={`Route: ${tour.route}`}>
-            <div className="tour-route-art-glow" aria-hidden="true" />
+              <div className="tour-route-art-glow" aria-hidden="true" />
             <p>Route at a glance</p>
             <ol>
               {tour.stops.map((stop, index) => (
@@ -88,8 +88,9 @@ export default function TourDetail() {
           <a href="#overview">Overview</a>
           {hasPricing && <a href="#pricing">Price</a>}
           <a href="#day-by-day">Day by day</a>
-          <a href="#included">What’s included</a>
+          <a href="#included">What's included</a>
           <a href="#planning">Planning</a>
+          <Link to="/booking" state={{ prefill }} className="tour-detail-nav-cta">Book now</Link>
         </div>
       </nav>
 
@@ -161,7 +162,7 @@ export default function TourDetail() {
       <section id="day-by-day" className="tour-detail-section itinerary-section">
         <div className="detail-section-heading itinerary-heading">
           <div><p className="eyebrow">Your day-by-day programme</p><h2>See how each day unfolds.</h2></div>
-          <div className="itinerary-heading-actions"><p>The route is a considered starting point. We’ll confirm timings and stays for your exact departure.</p><button type="button" onClick={openAllDays}>{allOpen ? 'Close all days' : 'Open all days'}</button></div>
+          <div className="itinerary-heading-actions"><p>This route is a starting point. We will confirm timings and stays for your departure.</p><button type="button" onClick={openAllDays}>{allOpen ? 'Close all days' : 'Open all days'}</button></div>
         </div>
         <div className="day-list">
           {tour.days.map((day, index) => {
@@ -206,7 +207,7 @@ export default function TourDetail() {
         </div>
         <div className="included-grid">
           <div className="included-card is-included"><div className="included-title"><CircleCheck aria-hidden="true" size={21} /><h3>Included in your tailored proposal</h3></div><ul>{tour.inclusions.map((item) => <li key={item}><Check aria-hidden="true" size={15} />{item}</li>)}</ul></div>
-          <div className="included-card"><div className="included-title"><X aria-hidden="true" size={21} /><h3>Plan for yourself</h3></div><ul>{tour.exclusions.map((item) => <li key={item}><span aria-hidden="true">—</span>{item}</li>)}</ul></div>
+          <div className="included-card"><div className="included-title"><X aria-hidden="true" size={21} /><h3>Plan for yourself</h3></div><ul>{tour.exclusions.map((item) => <li key={item}><span aria-hidden="true">•</span>{item}</li>)}</ul></div>
         </div>
         <div className="detail-note"><MessageCircle aria-hidden="true" size={18} /><p><strong>Good to know:</strong> We will explain the accommodation level, room setup, luggage considerations and transfer timing before you book.</p></div>
       </section>
@@ -219,8 +220,8 @@ export default function TourDetail() {
       </section>
 
       <section className="tour-detail-closing">
-        <div><p className="eyebrow">Ready when you are</p><h2>Let’s make this route yours.</h2><p>Tell us the dates you have in mind, who is travelling and what you want to experience. We’ll shape the details from there.</p></div>
-        <div className="closing-actions"><Link to="/enquire" state={{ prefill }} className="btn-primary">Plan this itinerary <ArrowRight aria-hidden="true" size={16} /></Link><a href={waHref} target="_blank" rel="noopener noreferrer" className="btn-whatsapp"><MessageCircle aria-hidden="true" size={17} /> WhatsApp us</a></div>
+        <div><p className="eyebrow">Ready when you are</p><h2>Let's make this route yours.</h2><p>Tell us the dates you have in mind, who is travelling and what you want to experience. We will shape the details from there.</p></div>
+        <div className="closing-actions"><Link to="/booking" state={{ prefill }} className="btn-primary">Book now <ArrowRight aria-hidden="true" size={16} /></Link><a href={waHref} target="_blank" rel="noopener noreferrer" className="btn-whatsapp"><MessageCircle aria-hidden="true" size={17} /> WhatsApp us</a></div>
       </section>
     </div>
   );
