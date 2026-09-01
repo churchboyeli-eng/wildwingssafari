@@ -58,9 +58,9 @@ export default function Home() {
             </div>
             <div style={{ display: 'flex', gap: 'clamp(20px,3vw,44px)', flexWrap: 'wrap', justifyContent: 'flex-start' }}>
               {[
-                ['6', 'Signature journeys'],
                 ['100%', 'Private routes'],
-                ['Local', 'Owned & guided'],
+                ['Tailor-made', 'Safari'],
+                ['Local', 'Safari experts'],
               ].map(([n, l]) => (
                 <div key={l} style={{ borderLeft: '1px solid rgba(230,211,180,.35)', paddingLeft: 16 }}>
                   <div style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(28px,3.4vw,42px)', color: '#FBF8F1', lineHeight: 1 }}>{n}</div>
