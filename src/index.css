@@ -950,4 +950,55 @@ footer:not(.safari-footer) a { transition: color 150ms ease; }
 .kilimanjaro-route-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .tour-route-art-photo { position: absolute !important; z-index: 0 !important; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .34; mix-blend-mode: screen; }
 .tour-route-art-photo + .tour-route-art-glow { z-index: 0; }
+
+/* Safari catalogue cards use the same full-bleed image language as the reference page. */
+.tour-package-card.has-photo { position: relative; min-height: 510px; border-color: transparent; background: #2b190e; color: #fffaf2; isolation: isolate; }
+.tour-package-card.has-photo::after { position: absolute; z-index: 1; inset: 0; background: linear-gradient(180deg, rgb(22 12 6 / .12) 0%, rgb(22 12 6 / .12) 34%, rgb(22 12 6 / .86) 100%); content: ''; pointer-events: none; }
+.tour-package-card.has-photo .tour-package-photo { position: absolute; z-index: 0; inset: 0; height: 100%; aspect-ratio: auto; }
+.tour-package-card.has-photo .tour-package-photo img { opacity: .86; }
+.tour-package-card.has-photo > .tour-package-topline, .tour-package-card.has-photo > .tour-package-copy { position: relative; z-index: 2; }
+.tour-package-card.has-photo .tour-package-topline { border-bottom-color: rgb(255 244 227 / .2); background: transparent; }
+.tour-package-card.has-photo .tour-package-topline::after { background: rgb(255 213 151 / .8); }
+.tour-package-card.has-photo .tour-package-index, .tour-package-card.has-photo .tour-package-duration { color: #fff7ed; }
+.tour-package-card.has-photo .tour-package-duration svg, .tour-package-card.has-photo .tour-package-route svg, .tour-package-card.has-photo .tour-package-footer > span svg { color: #f5b35e; }
+.tour-package-card.has-photo .tour-package-popular { background: var(--gold); color: var(--gold-ink); }
+.tour-package-card.has-photo .tour-package-copy { justify-content: flex-end; padding: 22px 20px 20px; }
+.tour-package-card.has-photo .tour-package-category { color: #ffc579; }
+.tour-package-card.has-photo .tour-package-copy h3 { color: #fffaf2; }
+.tour-package-card.has-photo .tour-package-copy > p { color: #f1dfcf; }
+.tour-package-card.has-photo .tour-package-route { color: #fff0df; }
+.tour-package-card.has-photo .tour-package-details div { background: rgb(35 19 10 / .34); }
+.tour-package-card.has-photo .tour-package-details dt { color: #e2c6a8; }
+.tour-package-card.has-photo .tour-package-details dd { color: #fff4e8; }
+.tour-package-card.has-photo .tour-package-price { border-color: rgb(255 221 171 / .28); background: rgb(36 19 10 / .52); }
+.tour-package-card.has-photo .tour-package-price span { color: #e2c6a8; }
+.tour-package-card.has-photo .tour-package-price strong { color: #fffaf2; }
+.tour-package-card.has-photo .tour-package-price small { color: #ffc579; }
+.tour-package-card.has-photo .tour-package-footer { border-top-color: rgb(255 244 227 / .23); }
+.tour-package-card.has-photo .tour-package-footer > span { color: #f1dfcf; }
+.tour-package-card.has-photo .tour-package-action { color: #ffc579; }
+
+.itinerary-catalog-grid .itinerary-list-card.has-image { position: relative; min-height: 510px; border-color: transparent; background: #2b190e; isolation: isolate; }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-route-panel { position: absolute; z-index: 0; inset: 0; height: 100%; min-height: 0; }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-route-panel::after { background: linear-gradient(180deg, rgb(26 15 8 / .12) 0%, rgb(26 15 8 / .1) 32%, rgb(26 15 8 / .88) 100%); }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-route-panel > p, .itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-route-panel > div { display: none; }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-main { position: relative; z-index: 2; justify-content: flex-end; min-height: inherit; background: linear-gradient(180deg, transparent 28%, rgb(27 15 8 / .08) 45%, rgb(27 15 8 / .66) 100%); }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-meta { border-bottom-color: rgb(255 244 227 / .24); }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-meta span:last-child { color: #fff2e4; }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-main h3 { color: #fffaf2; }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-main > p { color: #f1dfcf; -webkit-line-clamp: 2; }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-main ul { display: none; }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-price { width: auto; margin-top: 16px; border-left: 0; background: transparent; padding: 0; }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-price span { color: #e2c6a8; }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-price strong { color: #fffaf2; }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-price small { color: #ffc579; }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-action { margin-top: 16px; padding-top: 0; color: #ffc579; }
+
+/* Safari landing hero: a single field photograph gives the category an immediate sense of place. */
+.itinerary-listing-hero.is-safari-hero { position: relative; min-height: clamp(560px, calc(100svh - 76px), 780px); overflow: hidden; isolation: isolate; }
+.itinerary-listing-hero.is-safari-hero::after { position: absolute; z-index: 0; inset: 0; background: linear-gradient(90deg, rgb(22 12 6 / .9) 0%, rgb(22 12 6 / .66) 43%, rgb(22 12 6 / .2) 100%), linear-gradient(0deg, rgb(22 12 6 / .67), transparent 54%); content: ''; pointer-events: none; }
+.itinerary-listing-hero-image { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 45%; }
+.itinerary-listing-hero.is-safari-hero .itinerary-listing-hero-inner { position: relative; z-index: 1; min-height: inherit; }
+
 @media (hover: hover) and (pointer: fine) { .tour-package-card:hover .tour-package-photo img, .journal-image:hover > img { filter: saturate(1.08); transform: scale(1.035); } }
+@media (max-width: 640px) { .tour-package-card.has-photo, .itinerary-catalog-grid .itinerary-list-card.has-image { min-height: 470px; } }

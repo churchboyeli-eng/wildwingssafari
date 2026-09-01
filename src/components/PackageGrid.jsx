@@ -10,7 +10,7 @@ export default function PackageGrid({ packages, featured = false }) {
         const startingPrice = getPackageStartingPrice(p);
         const media = getPackageMedia(p.key);
         return (
-          <article key={p.key} className="tour-package-card">
+          <article key={p.key} className={`tour-package-card ${media ? 'has-photo' : ''}`}>
             {media && (
               <div className="tour-package-photo">
                 <img src={media.src} alt={media.alt} loading={index < 3 ? 'eager' : 'lazy'} decoding="async" />

@@ -3,7 +3,7 @@ import { ArrowRight, CalendarDays, Check, LayoutGrid, List, Route } from 'lucide
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
 import { getPackageStartingPrice, itineraryCategories, topPackages } from '../data/content';
-import { getPackageMedia } from '../data/media';
+import { getPackageMedia, safariMedia } from '../data/media';
 
 const pageCopy = {
   all: {
@@ -89,7 +89,8 @@ export default function Tours() {
 
   return (
     <div className="page-enter itinerary-listing-page">
-      <section className="itinerary-listing-hero" aria-labelledby="itinerary-listing-heading">
+      <section className={`itinerary-listing-hero ${activeCategory?.key === 'safaris' ? 'is-safari-hero' : ''}`} aria-labelledby="itinerary-listing-heading">
+        {activeCategory?.key === 'safaris' && <img className="itinerary-listing-hero-image" src={safariMedia.lions.src} alt="Two lionesses walking across the Serengeti grassland." fetchPriority="high" decoding="async" />}
         <div className="itinerary-listing-hero-inner">
           <div>
             <p className="eyebrow">{copy.eyebrow}</p>
@@ -162,7 +163,7 @@ export default function Tours() {
               const startingPrice = getPackageStartingPrice(tourPackage);
               const media = getPackageMedia(tourPackage.key);
               return (
-                <article className="itinerary-list-card" key={tourPackage.key}>
+                <article className={`itinerary-list-card ${media ? 'has-image' : ''}`} key={tourPackage.key}>
                   <div className={`itinerary-list-route-panel ${media ? 'has-image' : ''}`}>
                     {media && <img className="itinerary-list-route-image" src={media.src} alt="" loading="lazy" decoding="async" />}
                     <span>{String(index + 1).padStart(2, '0')}</span>
