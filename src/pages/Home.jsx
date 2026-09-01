@@ -167,9 +167,9 @@ export default function Home() {
         <div style={{ maxWidth: 1300, margin: '0 auto' }}>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap', marginBottom: 'clamp(28px,3.5vw,46px)' }}>
             <div>
-              <div className="eyebrow" style={{ marginBottom: 14 }}>Most requested safari</div>
+              <div className="eyebrow" style={{ marginBottom: 14 }}>Routes guests ask for most</div>
               <h2 style={{ fontFamily: 'var(--serif)', fontWeight: 500, fontSize: 'clamp(32px,4.6vw,56px)', margin: 0, lineHeight: 1, color: 'var(--ink)' }}>
-                Routes guests ask for most
+                Most requested safari
               </h2>
               <p style={{ fontSize: 'clamp(14px,1.5vw,17px)', color: 'var(--body)', maxWidth: '52ch', margin: '16px 0 0', lineHeight: 1.55 }}>
                 Six clear starting points for short fly-in safaris, Northern Circuit classics and migration weeks. Choose a route, then let us tailor the details around your dates.
