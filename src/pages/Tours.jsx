@@ -90,7 +90,7 @@ export default function Tours() {
   return (
     <div className="page-enter itinerary-listing-page">
       <section className={`itinerary-listing-hero ${activeCategory?.key === 'safaris' ? 'is-safari-hero' : ''}`} aria-labelledby="itinerary-listing-heading">
-        {activeCategory?.key === 'safaris' && <img className="itinerary-listing-hero-image" src={safariMedia.lions.src} alt="Two lionesses walking across the Serengeti grassland." fetchPriority="high" decoding="async" />}
+        {activeCategory?.key === 'safaris' && <img className="itinerary-listing-hero-image" src={safariMedia.elephants.src} alt={safariMedia.elephants.alt} fetchPriority="high" decoding="async" />}
         <div className="itinerary-listing-hero-inner">
           <div>
             <p className="eyebrow">{copy.eyebrow}</p>
