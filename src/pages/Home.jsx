@@ -27,7 +27,9 @@ export default function Home() {
     <div className="page-enter">
       {/* HERO */}
       <section style={{ position: 'relative', minHeight: 'clamp(560px,92svh,1000px)', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', background: '#17140d' }}>
-        <ImagePlaceholder label="Video hero: Serengeti at golden hour" />
+        <video className="home-hero-video" autoPlay loop muted playsInline preload="metadata" poster="/media/wildwings-hero-poster.jpg" aria-hidden="true">
+          <source src="/media/wildwings-hero.mp4" type="video/mp4" />
+        </video>
         <div
           style={{
             position: 'absolute',
