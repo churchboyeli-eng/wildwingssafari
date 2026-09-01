@@ -58,7 +58,7 @@ export default function Home() {
             </div>
             <div style={{ display: 'flex', gap: 'clamp(20px,3vw,44px)', flexWrap: 'wrap', justifyContent: 'flex-start' }}>
               {[
-                ['100%', 'Tailor-made safaris'],
+                ['100%', 'Private routes'],
                 ['Local', 'Safari experts'],
                 ['Most requested', 'Tanzania routes'],
               ].map(([n, l]) => (
