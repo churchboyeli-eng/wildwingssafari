@@ -59,6 +59,7 @@ export default function Home() {
             <div style={{ display: 'flex', gap: 'clamp(20px,3vw,44px)', flexWrap: 'wrap', justifyContent: 'flex-start' }}>
               {[
                 ['100%', 'Private routes'],
+                ['Tailor-made', 'Safari'],
                 ['Local', 'Safari experts'],
               ].map(([n, l]) => (
                 <div key={l} style={{ borderLeft: '1px solid rgba(230,211,180,.35)', paddingLeft: 16 }}>
