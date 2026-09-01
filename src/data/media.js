@@ -116,6 +116,7 @@ const packageMedia = {
   migration: safariMedia.cheetahWalk,
   family: safariMedia.zebras,
   'safari-5-day-classic': safariMedia.ngorongoroZebras,
+  'safari-6-day-tanzania-classic': safariMedia.elephants,
   'safari-6-day-southern-river': safariMedia.wetlands,
   'safari-7-day-signature': safariMedia.restingLion,
   'safari-10-day-serengeti-depth': safariMedia.antelope,
