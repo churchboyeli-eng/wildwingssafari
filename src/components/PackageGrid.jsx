@@ -28,14 +28,14 @@ export default function PackageGrid({ packages, featured = false }) {
               <div className="tour-package-route"><Route aria-hidden="true" size={15} /><span>{p.route}</span></div>
               {startingPrice && (
                 <div className="tour-package-price">
-                  <span>Price starts from</span>
-                  <strong>{startingPrice} <small>USD pp</small></strong>
+                  <span>Starts from</span>
+                  <strong>{startingPrice} <small>per person</small></strong>
                 </div>
               )}
               <dl className="tour-package-details"><div><dt>Best for</dt><dd>{p.bestFor}</dd></div><div><dt>Included</dt><dd>{p.includes}</dd></div></dl>
               <div className="tour-package-footer">
                 <span><Check aria-hidden="true" size={14} /> Private route</span>
-                <Link to={`/tours/${p.key}`} className="tour-package-action">Full itinerary <ArrowRight aria-hidden="true" size={15} strokeWidth={2} /></Link>
+                <Link to={`/tours/${p.key}`} className="tour-package-action">View trip <ArrowRight aria-hidden="true" size={15} strokeWidth={2} /></Link>
               </div>
             </div>
           </article>

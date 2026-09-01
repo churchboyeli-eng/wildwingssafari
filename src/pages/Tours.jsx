@@ -180,11 +180,11 @@ export default function Tours() {
                     </ul>
                     {startingPrice && (
                       <div className="itinerary-list-card-price">
-                        <span>Price starts from</span>
-                        <strong>{startingPrice} <small>USD pp</small></strong>
+                        <span>Starts from</span>
+                        <strong>{startingPrice} <small>per person</small></strong>
                       </div>
                     )}
-                    <Link to={`/tours/${tourPackage.key}`} className="itinerary-list-card-action">View this itinerary <ArrowRight aria-hidden="true" size={16} /></Link>
+                    <Link to={`/tours/${tourPackage.key}`} className="itinerary-list-card-action">{viewMode === 'grid' ? 'View trip' : 'View this itinerary'} <ArrowRight aria-hidden="true" size={16} /></Link>
                   </div>
                 </article>
               );

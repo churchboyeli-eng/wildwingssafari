@@ -994,6 +994,30 @@ footer:not(.safari-footer) a { transition: color 150ms ease; }
 .itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-price small { color: #ffc579; }
 .itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-action { margin-top: 16px; padding-top: 0; color: #ffc579; }
 
+/* Keep catalogue cards to the decision points: name, duration, price and one action. */
+.tour-package-card.has-photo .tour-package-topline { position: absolute; z-index: 2; inset: 20px 20px auto; min-height: 0; padding: 0; border-bottom: 0; }
+.tour-package-card.has-photo .tour-package-topline::after, .tour-package-card.has-photo .tour-package-index, .tour-package-card.has-photo .tour-package-popular { display: none; }
+.tour-package-card.has-photo .tour-package-duration { margin-left: auto; color: #fff7ed; }
+.tour-package-card.has-photo .tour-package-copy { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto 1fr auto; align-content: stretch; padding: 62px 20px 20px; background: linear-gradient(180deg, transparent 28%, rgb(27 15 8 / .08) 45%, rgb(27 15 8 / .66) 100%); }
+.tour-package-card.has-photo .tour-package-category, .tour-package-card.has-photo .tour-package-copy > p, .tour-package-card.has-photo .tour-package-route, .tour-package-card.has-photo .tour-package-details { display: none; }
+.tour-package-card.has-photo .tour-package-copy h3 { grid-column: 1 / -1; grid-row: 1; max-width: 18ch; margin: 0; color: #fffaf2; }
+.tour-package-card.has-photo .tour-package-price { display: grid; grid-column: 1; grid-row: 4; align-self: end; justify-content: start; gap: 3px; margin: 0; border: 0; background: transparent; padding: 0; }
+.tour-package-card.has-photo .tour-package-price span { color: #e2c6a8; }
+.tour-package-card.has-photo .tour-package-price strong { color: #fffaf2; font-size: 28px; line-height: 1; }
+.tour-package-card.has-photo .tour-package-price small { display: block; margin-top: 2px; color: #ffc579; font-size: 10px; }
+.tour-package-card.has-photo .tour-package-footer { grid-column: 2; grid-row: 4; align-self: end; margin: 0; padding: 0; border: 0; }
+.tour-package-card.has-photo .tour-package-footer > span { display: none; }
+.tour-package-card.has-photo .tour-package-action { min-height: 40px; margin-left: auto; border: 1px solid rgb(255 244 227 / .56); border-radius: 999px; padding: 0 16px; color: #fffaf2; font-size: 12px; }
+
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-route-panel > span { display: none; }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-main { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto 1fr auto; align-content: stretch; justify-content: initial; padding: 62px 20px 20px; background: linear-gradient(180deg, transparent 28%, rgb(27 15 8 / .08) 45%, rgb(27 15 8 / .66) 100%); }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-meta { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; padding: 0; border-bottom: 0; }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-meta > span:first-child { display: none; }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-main h3 { grid-column: 1 / -1; grid-row: 1; max-width: 18ch; margin: 0; }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-main > p, .itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-main ul { display: none; }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-price { grid-column: 1; grid-row: 4; align-self: end; margin: 0; }
+.itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-action { grid-column: 2; grid-row: 4; align-self: end; min-height: 40px; margin: 0; border: 1px solid rgb(255 244 227 / .56); border-radius: 999px; padding: 0 16px; color: #fffaf2; }
+
 /* Safari landing hero: a single field photograph gives the category an immediate sense of place. */
 .itinerary-listing-hero.is-safari-hero { position: relative; min-height: clamp(560px, calc(100svh - 76px), 780px); overflow: hidden; isolation: isolate; }
 .itinerary-listing-hero.is-safari-hero::after { position: absolute; z-index: 0; inset: 0; background: linear-gradient(90deg, rgb(22 12 6 / .9) 0%, rgb(22 12 6 / .66) 43%, rgb(22 12 6 / .2) 100%), linear-gradient(0deg, rgb(22 12 6 / .67), transparent 54%); content: ''; pointer-events: none; }
