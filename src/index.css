@@ -1018,6 +1018,18 @@ footer:not(.safari-footer) a { transition: color 150ms ease; }
 .itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-price { grid-column: 1; grid-row: 4; align-self: end; margin: 0; }
 .itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-action { grid-column: 2; grid-row: 4; align-self: end; min-height: 40px; margin: 0; border: 1px solid rgb(255 244 227 / .56); border-radius: 999px; padding: 0 16px; color: #fffaf2; }
 
+/* Small finishing touches keep the photo cards feeling considered at every size. */
+.tour-package-card.has-photo, .itinerary-catalog-grid .itinerary-list-card.has-image { border-radius: 14px; outline: 1px solid oklch(0 0 0 / 0.1); outline-offset: -1px; box-shadow: 0 0 0 1px oklch(0 0 0 / 0.1), 0 14px 30px rgb(37 21 10 / .12); }
+.tour-package-card.has-photo::after, .itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-route-panel::after { background: linear-gradient(180deg, rgb(22 12 6 / .24) 0%, rgb(22 12 6 / .04) 34%, rgb(22 12 6 / .9) 100%); }
+.tour-package-card.has-photo .tour-package-photo img { opacity: .9; filter: saturate(1.03) contrast(1.02); }
+.itinerary-list-route-image { transition: transform 450ms cubic-bezier(.23, 1, .32, 1), filter 450ms ease; }
+.tour-package-card.has-photo .tour-package-copy h3, .itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-main h3 { text-wrap: balance; }
+@media (hover: hover) and (pointer: fine) {
+  .tour-package-card.has-photo:hover, .itinerary-catalog-grid .itinerary-list-card.has-image:hover { box-shadow: 0 0 0 1px oklch(0 0 0 / 0.1), 0 22px 44px rgb(37 21 10 / .18); transform: translateY(-4px); }
+  .tour-package-card.has-photo .tour-package-action:hover, .itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-action:hover { border-color: #fff; background: rgb(255 255 255 / .12); color: #fff; }
+  .itinerary-catalog-grid .itinerary-list-card.has-image:hover .itinerary-list-route-image { filter: saturate(1.06); transform: scale(1.035); }
+}
+
 /* Safari landing hero: a single field photograph gives the category an immediate sense of place. */
 .itinerary-listing-hero.is-safari-hero { position: relative; min-height: clamp(560px, calc(100svh - 76px), 780px); overflow: hidden; isolation: isolate; }
 .itinerary-listing-hero.is-safari-hero::after { position: absolute; z-index: 0; inset: 0; background: linear-gradient(90deg, rgb(22 12 6 / .9) 0%, rgb(22 12 6 / .66) 43%, rgb(22 12 6 / .2) 100%), linear-gradient(0deg, rgb(22 12 6 / .67), transparent 54%); content: ''; pointer-events: none; }
