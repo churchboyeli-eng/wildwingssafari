@@ -1,14 +1,21 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, CalendarDays, Check, Route } from 'lucide-react';
 import { getPackageStartingPrice } from '../data/content';
+import { getPackageMedia } from '../data/media';
 
 export default function PackageGrid({ packages, featured = false }) {
   return (
     <div className={`package-grid package-grid-count-${packages.length} ${featured ? 'package-grid-featured' : ''}`}>
       {packages.map((p, index) => {
         const startingPrice = getPackageStartingPrice(p);
+        const media = getPackageMedia(p.key);
         return (
           <article key={p.key} className="tour-package-card">
+            {media && (
+              <div className="tour-package-photo">
+                <img src={media.src} alt={media.alt} loading={index < 3 ? 'eager' : 'lazy'} decoding="async" />
+              </div>
+            )}
             <header className="tour-package-topline">
               <span className="tour-package-index">{String(index + 1).padStart(2, '0')}</span>
               <span className="tour-package-duration"><CalendarDays aria-hidden="true" size={13} strokeWidth={2} />{p.duration}</span>

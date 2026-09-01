@@ -1,6 +1,7 @@
 /* oxlint-disable react/only-export-components */
 import { ArrowRight, BedDouble, CalendarDays, Check, Footprints, MapPin, Mountain, Route, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { kilimanjaroMedia } from '../data/media';
 
 export const kilimanjaroRoutes = [
   {
@@ -241,6 +242,7 @@ export default function Kilimanjaro() {
         <div className="kilimanjaro-route-grid">
           {kilimanjaroRoutes.map((route) => (
             <article className={`kilimanjaro-route-card route-accent-${route.accent}`} key={route.key}>
+              {kilimanjaroMedia[route.key] && <div className="kilimanjaro-route-photo"><img src={kilimanjaroMedia[route.key].src} alt={kilimanjaroMedia[route.key].alt} loading="lazy" decoding="async" /></div>}
               <div className="kilimanjaro-route-card-topline"><span>{route.number}</span><p>{route.label}</p><Mountain aria-hidden="true" size={20} /></div>
               <h3>{route.name}</h3>
               <p className="kilimanjaro-route-copy">{route.copy}</p>

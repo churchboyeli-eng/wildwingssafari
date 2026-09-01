@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { kilimanjaroRoutes, routeDays } from './Kilimanjaro';
+import { kilimanjaroMedia } from '../data/media';
 
 const routeHighlights = [
   'A licensed mountain guide and support crew throughout the climb',
@@ -47,6 +48,7 @@ export default function KilimanjaroRouteDetail() {
   if (!route) return <Navigate to="/itineraries/kilimanjaro" replace />;
 
   const days = routeDays[route.key] || [];
+  const media = kilimanjaroMedia[route.key];
   const stops = route.route.split(' · ');
   const prefill = `I'm interested in the ${route.name} Kilimanjaro route. Please advise on dates, preparation and the best duration.`;
   const openAllDays = () => {
@@ -83,6 +85,7 @@ export default function KilimanjaroRouteDetail() {
           </div>
 
           <div className="tour-route-art" aria-label={`Route: ${route.route}`}>
+            {media && <img className="tour-route-art-photo" src={media.src} alt="" loading="eager" decoding="async" />}
             <div className="tour-route-art-glow" aria-hidden="true" />
             <p>Route at a glance</p>
             <ol>

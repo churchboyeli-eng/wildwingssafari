@@ -3,6 +3,7 @@ import { ArrowRight, CalendarDays, Check, LayoutGrid, List, Route } from 'lucide
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
 import { getPackageStartingPrice, itineraryCategories, topPackages } from '../data/content';
+import { getPackageMedia } from '../data/media';
 
 const pageCopy = {
   all: {
@@ -159,9 +160,11 @@ export default function Tours() {
           <div className={`itinerary-list-cards itinerary-catalog-${viewMode}`}>
             {matchingPackages.map((tourPackage, index) => {
               const startingPrice = getPackageStartingPrice(tourPackage);
+              const media = getPackageMedia(tourPackage.key);
               return (
                 <article className="itinerary-list-card" key={tourPackage.key}>
-                  <div className="itinerary-list-route-panel">
+                  <div className={`itinerary-list-route-panel ${media ? 'has-image' : ''}`}>
+                    {media && <img className="itinerary-list-route-image" src={media.src} alt="" loading="lazy" decoding="async" />}
                     <span>{String(index + 1).padStart(2, '0')}</span>
                     <p>{tourPackage.tag}</p>
                     <div><Route aria-hidden="true" size={16} strokeWidth={1.8} /><small>{tourPackage.route}</small></div>

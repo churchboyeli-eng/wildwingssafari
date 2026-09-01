@@ -27,7 +27,7 @@ export default function Gallery() {
         <div className="journal-masonry">
           {galleryItems.map((item) => (
             <article key={item.id} className="journal-image" style={{ aspectRatio: item.ratio }}>
-              <ImagePlaceholder />
+              {item.src ? <img src={item.src} alt={item.alt || item.caption} loading="lazy" decoding="async" /> : <ImagePlaceholder />}
               <p>{item.caption}</p>
             </article>
           ))}
