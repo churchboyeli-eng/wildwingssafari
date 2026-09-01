@@ -58,9 +58,9 @@ export default function Home() {
             </div>
             <div style={{ display: 'flex', gap: 'clamp(20px,3vw,44px)', flexWrap: 'wrap', justifyContent: 'flex-start' }}>
               {[
-                ['100%', 'Private routes'],
-                ['Tailor-made', 'Safari'],
+                ['100%', 'Tailor-made safaris'],
                 ['Local', 'Safari experts'],
+                ['Most requested', 'Tanzania routes'],
               ].map(([n, l]) => (
                 <div key={l} style={{ borderLeft: '1px solid rgba(230,211,180,.35)', paddingLeft: 16 }}>
                   <div style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(28px,3.4vw,42px)', color: '#FBF8F1', lineHeight: 1 }}>{n}</div>
@@ -167,12 +167,12 @@ export default function Home() {
         <div style={{ maxWidth: 1300, margin: '0 auto' }}>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap', marginBottom: 'clamp(28px,3.5vw,46px)' }}>
             <div>
-              <div className="eyebrow" style={{ marginBottom: 14 }}>Top tour packages</div>
+              <div className="eyebrow" style={{ marginBottom: 14 }}>Most requested safari</div>
               <h2 style={{ fontFamily: 'var(--serif)', fontWeight: 500, fontSize: 'clamp(32px,4.6vw,56px)', margin: 0, lineHeight: 1, color: 'var(--ink)' }}>
                 Routes guests ask for most
               </h2>
               <p style={{ fontSize: 'clamp(14px,1.5vw,17px)', color: 'var(--body)', maxWidth: '52ch', margin: '16px 0 0', lineHeight: 1.55 }}>
-                These six sample routes cover short fly-in safaris, the Northern Circuit and a migration-focused week. We can change the nights, stops and pace around your dates.
+                Six clear starting points for short fly-in safaris, Northern Circuit classics and migration weeks. Choose a route, then let us tailor the details around your dates.
               </p>
             </div>
             <Link to="/itineraries" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontSize: 12, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--terracotta)', fontWeight: 600, borderBottom: '1px solid var(--gold)', paddingBottom: 4 }}>
