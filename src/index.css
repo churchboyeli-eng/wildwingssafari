@@ -331,7 +331,7 @@ footer:not(.safari-footer) a { transition: color 150ms ease; }
 
 .journey-brief-action, .route-dossier-action { min-height: 44px; padding-inline: 4px; }
 
-/* Homepage offers: six equal, information-led routes rather than image tiles. */
+/* Homepage offers: equal, information-led routes rather than image tiles. */
 .home-offerings { background: #2a190e; color: #fff9f0; }
 .home-offerings-inner { width: min(1180px, 100%); margin: 0 auto; padding: clamp(66px, 9vw, 118px) clamp(20px, 5vw, 42px); }
 .home-offerings-heading { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(280px, .65fr); gap: clamp(28px, 8vw, 118px); align-items: end; padding-bottom: clamp(33px, 4vw, 48px); border-bottom: 1px solid rgb(255 240 221 / .18); }

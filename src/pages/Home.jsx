@@ -82,7 +82,7 @@ export default function Home() {
             </div>
             <div className="home-offerings-intro">
               <p>
-                Start with one of six sample routes. Each page shows the daily plan, what is included and a per-person price guide.
+                Start with one of seven sample routes. Each page shows the daily plan, what is included and a per-person price guide.
               </p>
               <Link to="/itineraries" className="home-offerings-all">
                 View all trips <ArrowRight aria-hidden="true" size={16} strokeWidth={2} />
