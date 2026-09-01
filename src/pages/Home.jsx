@@ -60,7 +60,6 @@ export default function Home() {
               {[
                 ['100%', 'Private routes'],
                 ['Local', 'Safari experts'],
-                ['Most requested', 'Tanzania routes'],
               ].map(([n, l]) => (
                 <div key={l} style={{ borderLeft: '1px solid rgba(230,211,180,.35)', paddingLeft: 16 }}>
                   <div style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(28px,3.4vw,42px)', color: '#FBF8F1', lineHeight: 1 }}>{n}</div>
