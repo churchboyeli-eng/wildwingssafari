@@ -12,6 +12,7 @@ import {
   Compass,
   MapPin,
   MessageCircle,
+  Minus,
   Route,
   ShieldCheck,
   Sparkles,
@@ -207,7 +208,7 @@ export default function TourDetail() {
         </div>
         <div className="included-grid">
           <div className="included-card is-included"><div className="included-title"><CircleCheck aria-hidden="true" size={21} /><h3>Included in your tailored proposal</h3></div><ul>{tour.inclusions.map((item) => <li key={item}><Check aria-hidden="true" size={15} />{item}</li>)}</ul></div>
-          <div className="included-card"><div className="included-title"><X aria-hidden="true" size={21} /><h3>Plan for yourself</h3></div><ul>{tour.exclusions.map((item) => <li key={item}><span aria-hidden="true">•</span>{item}</li>)}</ul></div>
+          <div className="included-card"><div className="included-title"><X aria-hidden="true" size={21} /><h3>Plan for yourself</h3></div><ul>{tour.exclusions.map((item) => <li key={item}><Minus aria-hidden="true" size={15} />{item}</li>)}</ul></div>
         </div>
         <div className="detail-note"><MessageCircle aria-hidden="true" size={18} /><p><strong>Good to know:</strong> We will explain the accommodation level, room setup, luggage considerations and transfer timing before you book.</p></div>
       </section>

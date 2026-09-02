@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, Check, Clock3, MapPin, MessageCircle, Minus, Plus } from 'lucide-react';
+import { ArrowRight, Check, Clock3, MapPin, MessageCircle, Minus, Plus, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ImagePlaceholder from '../components/ImagePlaceholder';
 import PackageGrid from '../components/PackageGrid';
@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <div className="page-enter">
       {/* HERO */}
-      <section style={{ position: 'relative', minHeight: 'clamp(560px,92svh,1000px)', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', background: '#17140d' }}>
+      <section style={{ position: 'relative', minHeight: 'clamp(560px,92svh,1000px)', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', background: 'var(--forest-deep)' }}>
         <video className="home-hero-video" autoPlay loop muted playsInline preload="metadata" poster="/media/wildwings-hero-poster.jpg" aria-hidden="true">
           <source src="/media/wildwings-hero.mp4" type="video/mp4" />
         </video>
@@ -34,7 +34,7 @@ export default function Home() {
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(to top, rgba(20,17,10,.9) 0%, rgba(20,17,10,.25) 48%, rgba(20,17,10,.5) 100%)',
+            background: 'linear-gradient(to top, rgba(12, 30, 23, .9) 0%, rgba(12, 30, 23, .25) 48%, rgba(12, 30, 23, .5) 100%)',
             pointerEvents: 'none',
           }}
         />
@@ -190,7 +190,9 @@ export default function Home() {
             Guest notes from recent trips
           </h2>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', justifyContent: 'center', marginTop: 18 }}>
-            <span style={{ color: 'var(--gold)', fontSize: 20, letterSpacing: 2 }}>★★★★★</span>
+            <span className="review-stars" role="img" aria-label="5 out of 5 stars">
+              {Array.from({ length: 5 }, (_, index) => <Star key={index} aria-hidden="true" size={18} fill="currentColor" strokeWidth={1.8} />)}
+            </span>
             <span style={{ fontSize: 15, color: 'var(--body)' }}>Reviews on TripAdvisor, SafariBookings and Google</span>
           </div>
 
@@ -209,7 +211,9 @@ export default function Home() {
                   </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, marginTop: 20, paddingTop: 16, borderTop: '1px solid var(--border-soft)' }}>
-                  <span style={{ color: 'var(--gold)', fontSize: 14, letterSpacing: 1 }}>★★★★★</span>
+                  <span className="review-stars" role="img" aria-label="5 out of 5 stars">
+                    {Array.from({ length: 5 }, (_, index) => <Star key={index} aria-hidden="true" size={14} fill="currentColor" strokeWidth={1.8} />)}
+                  </span>
                   <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.02em', color: t.sourceColor, background: t.sourceBg, padding: '4px 10px', borderRadius: 20 }}>
                     {t.source}
                   </span>

@@ -67,22 +67,22 @@ button { cursor: pointer; }
 
 /* Shared Wild Wings system. The tour package view establishes the palette for every route. */
 :root {
-  --bg-paper: #fffdfa;
-  --bg-tan: #f7eee4;
-  --ink: #2c1b0f;
-  --ink-soft: #513b2c;
-  --body: #725f51;
-  --muted: #947e6d;
-  --faint: #a89484;
-  --forest: #352114;
-  --forest-deep: #21140b;
-  --gold: #ef9729;
-  --gold-ink: #2c1b0f;
-  --terracotta: #c66c28;
-  --whatsapp: #26c866;
-  --border: #eadfd3;
-  --border-soft: #f1e9e1;
-  --ui-muted: #f7eee4;
+  --bg-paper: #fcfbf8;
+  --bg-tan: #f3eee5;
+  --ink: #223128;
+  --ink-soft: #405347;
+  --body: #5f6f64;
+  --muted: #718077;
+  --faint: #8a9990;
+  --forest: #3d5c4a;
+  --forest-deep: #183027;
+  --gold: #d9922e;
+  --gold-ink: #1b261f;
+  --terracotta: #b6603a;
+  --whatsapp: #1fb95b;
+  --border: #e2e6df;
+  --border-soft: #edf0eb;
+  --ui-muted: #f3eee5;
   --serif: 'Playfair Display', Georgia, serif;
   --sans: 'DM Sans', Arial, sans-serif;
 }
@@ -1038,3 +1038,58 @@ footer:not(.safari-footer) a { transition: color 150ms ease; }
 
 @media (hover: hover) and (pointer: fine) { .tour-package-card:hover .tour-package-photo img, .journal-image:hover > img { filter: saturate(1.08); transform: scale(1.035); } }
 @media (max-width: 640px) { .tour-package-card.has-photo, .itinerary-catalog-grid .itinerary-list-card.has-image { min-height: 470px; } }
+
+/* Color polish: keep the safari palette grounded in evergreen, sand and amber. */
+.home-offerings,
+.journey-standards,
+.about-standards,
+.tour-studio,
+.tour-detail-hero,
+.booking-hero,
+.about-hero,
+.kilimanjaro-hero,
+.journey-summary,
+.route-adjust-callout,
+.booking-aside-card {
+  background-color: var(--forest-deep);
+}
+
+.tour-flyout,
+.discover-flyout,
+.site-links,
+.site-links.is-open {
+  background-color: var(--forest-deep);
+}
+
+.discover-flyout-side { background-color: var(--forest); }
+
+.journeys-hero,
+.home-route-index,
+.journey-proof-section,
+.tour-collection,
+.tour-route-section,
+.destination-routes,
+.itinerary-listing-after,
+footer:not(.safari-footer) {
+  background-color: var(--bg-tan);
+}
+
+.itinerary-category-card.is-active {
+  border-color: var(--forest-deep);
+  background-color: var(--forest-deep);
+}
+
+.itinerary-duration-filters button.is-active,
+.itinerary-list-banner {
+  background-color: var(--forest);
+}
+
+.review-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.review-stars svg { flex: 0 0 auto; }

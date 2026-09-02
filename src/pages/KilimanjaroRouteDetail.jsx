@@ -9,6 +9,7 @@ import {
   Clock3,
   MapPin,
   Mountain,
+  Minus,
   Route as RouteIcon,
   ShieldCheck,
   Sparkles,
@@ -185,7 +186,7 @@ export default function KilimanjaroRouteDetail() {
         </div>
         <div className="included-grid">
           <div className="included-card is-included"><div className="included-title"><ShieldCheck aria-hidden="true" size={21} /><h3>Included in your tailored proposal</h3></div><ul>{inclusions.map((item) => <li key={item}><Check aria-hidden="true" size={15} />{item}</li>)}</ul></div>
-          <div className="included-card"><div className="included-title"><X aria-hidden="true" size={21} /><h3>Plan for yourself</h3></div><ul>{exclusions.map((item) => <li key={item}><span aria-hidden="true">•</span>{item}</li>)}</ul></div>
+          <div className="included-card"><div className="included-title"><X aria-hidden="true" size={21} /><h3>Plan for yourself</h3></div><ul>{exclusions.map((item) => <li key={item}><Minus aria-hidden="true" size={15} />{item}</li>)}</ul></div>
         </div>
       </section>
 
