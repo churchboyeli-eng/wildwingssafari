@@ -84,6 +84,17 @@ button { cursor: pointer; }
   --border: #e2e6df;
   --border-soft: #edf0eb;
   --ui-muted: #f3eee5;
+  /* Card primitives: one quiet geometry system, with surface variants layered on top. */
+  --card-radius: 12px;
+  --card-radius-large: 18px;
+  --card-padding: clamp(20px, 2.4vw, 28px);
+  --card-gap: 14px;
+  --card-border: #e1e6df;
+  --card-shadow: 0 1px 2px rgb(24 48 39 / .04), 0 10px 24px rgb(24 48 39 / .055);
+  --card-shadow-hover: 0 14px 30px rgb(24 48 39 / .1);
+  --card-shadow-dark: 0 1px 1px rgb(0 0 0 / .12), 0 12px 28px rgb(0 0 0 / .16);
+  --card-shadow-dark-hover: 0 16px 34px rgb(0 0 0 / .23);
+  --card-motion: transform 180ms cubic-bezier(.23, 1, .32, 1), border-color 160ms ease, box-shadow 180ms ease, background-color 160ms ease;
   --serif: 'Playfair Display', Georgia, serif;
   --sans: 'DM Sans', Arial, sans-serif;
 }
@@ -1128,4 +1139,170 @@ footer:not(.safari-footer) {
   .home-offering-card, .tour-package-card, .destination-route-card, .itinerary-catalog-grid .itinerary-list-card, .itinerary-solo-card, .itinerary-package-card, .category-package-card { min-height: 0; }
   .tour-package-card.has-photo, .itinerary-catalog-grid .itinerary-list-card.has-image { min-height: 390px; }
   .itinerary-catalog-grid .itinerary-list-route-panel { min-height: 150px; }
+}
+
+/* Card primitives: keep every page in one visual family while preserving each surface's content. */
+:is(
+  .home-offering-card,
+  .tour-package-card,
+  .itinerary-category-card,
+  .itinerary-package-card,
+  .category-package-card,
+  .itinerary-list-card,
+  .itinerary-solo-card,
+  .route-dossier,
+  .destination-card,
+  .destination-route-card,
+  .tour-route-card,
+  .kilimanjaro-route-card,
+  .discover-compass-choice,
+  .discover-route-card,
+  .about-principle-card,
+  .journeys-planning-card,
+  .journey-builder-form,
+  .journey-choice-card,
+  .travel-style-choice,
+  .booking-contact-card,
+  .included-card,
+  .detail-fit-card,
+  .compass-source-card,
+  .discover-plan-card,
+  .discover-reference-panel,
+  .package-card
+) {
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+}
+
+:is(
+  .home-offering-card,
+  .tour-package-card,
+  .itinerary-category-card,
+  .itinerary-package-card,
+  .category-package-card,
+  .itinerary-list-card,
+  .route-dossier,
+  .destination-route-card,
+  .tour-route-card,
+  .kilimanjaro-route-card,
+  .discover-compass-choice,
+  .discover-route-card,
+  .about-principle-card,
+  .journey-choice-card,
+  .travel-style-choice
+) {
+  transition: var(--card-motion);
+}
+
+/* Standalone content cards share a readable padding rhythm; split and photo cards keep their own inner layout. */
+:is(
+  .category-package-card,
+  .itinerary-package-card,
+  .route-dossier,
+  .destination-route-card,
+  .discover-compass-choice,
+  .discover-route-card,
+  .about-principle-card,
+  .journeys-planning-card,
+  .journey-builder-form,
+  .booking-contact-card,
+  .included-card,
+  .detail-fit-card,
+  .compass-source-card,
+  .discover-reference-panel
+) {
+  padding: var(--card-padding);
+}
+
+:is(
+  .itinerary-package-card,
+  .category-package-card,
+  .itinerary-list-card:not(.has-image),
+  .route-dossier,
+  .destination-route-card,
+  .tour-route-card,
+  .discover-compass-choice,
+  .about-principle-card,
+  .journey-builder-form,
+  .journey-choice-card,
+  .travel-style-choice,
+  .booking-contact-card,
+  .included-card,
+  .detail-fit-card,
+  .compass-source-card,
+  .discover-reference-panel
+) {
+  border-color: var(--card-border);
+}
+
+:is(
+  .home-offering-grid,
+  .package-grid,
+  .package-grid-featured,
+  .itinerary-category-grid,
+  .itinerary-package-list,
+  .route-dossier-grid,
+  .category-package-grid,
+  .destination-route-grid,
+  .tour-route-list,
+  .kilimanjaro-route-grid,
+  .discover-compass-grid,
+  .discover-route-grid,
+  .included-grid
+) {
+  gap: var(--card-gap);
+}
+
+:is(
+  .home-offering-card,
+  .tour-package-card.has-photo,
+  .itinerary-list-card.has-image,
+  .discover-route-card
+) {
+  box-shadow: var(--card-shadow-dark);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :is(
+    .home-offering-card,
+    .tour-package-card,
+    .itinerary-category-card,
+    .itinerary-package-card,
+    .category-package-card,
+    .itinerary-list-card,
+    .route-dossier,
+    .destination-route-card,
+    .tour-route-card,
+    .kilimanjaro-route-card,
+    .discover-compass-choice,
+    .discover-route-card,
+    .about-principle-card,
+    .journey-choice-card,
+    .travel-style-choice
+  ):not(.is-active):not(.is-selected):hover {
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-2px);
+  }
+
+  :is(
+    .home-offering-card,
+    .tour-package-card.has-photo,
+    .itinerary-list-card.has-image,
+    .discover-route-card
+  ):not(.is-active):not(.is-selected):hover {
+    box-shadow: var(--card-shadow-dark-hover);
+    transform: translateY(-2px);
+  }
+}
+
+:is(
+  .tour-simple-price-card,
+  .price-card,
+  .journey-summary,
+  .booking-aside-card,
+  .about-hero-card,
+  .kilimanjaro-hero-card,
+  .compass-detail-summary
+) {
+  border-radius: var(--card-radius-large);
 }
