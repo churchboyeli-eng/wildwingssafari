@@ -29,9 +29,40 @@ const itineraryHighlights = [
   'Clear planning before you commit to a trip',
 ];
 
+const factIcons = {
+  accommodation: BedDouble,
+  'best for': Sparkles,
+  'best time': Clock3,
+  'best window': Clock3,
+  connections: Route,
+  destination: Route,
+  destinations: Route,
+  duration: CalendarDays,
+  'drive rhythm': Clock3,
+  ends: MapPin,
+  'family rhythm': Clock3,
+  'game-drive rhythm': Clock3,
+  meals: UtensilsCrossed,
+  'optional add-ons': Sparkles,
+  pace: Clock3,
+  'park count': Route,
+  'park rhythm': Clock3,
+  'physical level': ShieldCheck,
+  'safari style': Compass,
+  'safari focus': Route,
+  'serengeti time': Clock3,
+  'signature experience': Sparkles,
+  'signature experiences': Sparkles,
+  'starts / ends': MapPin,
+  starts: MapPin,
+  'summit target': ShieldCheck,
+  'trip style': Compass,
+  'wildlife regions': Route,
+};
+
 export default function TourDetail() {
-  const { tourId } = useParams();
-  const tour = topPackages.find((tourPackage) => tourPackage.key === tourId);
+  const { itineraryKey } = useParams();
+  const tour = topPackages.find((tourPackage) => tourPackage.key === itineraryKey);
   const [openDay, setOpenDay] = useState(0);
   const [allOpen, setAllOpen] = useState(false);
 
@@ -97,10 +128,15 @@ export default function TourDetail() {
 
       <section className="tour-facts-band" aria-label="Trip facts">
         <div className="tour-facts-grid">
-          <div><CalendarDays aria-hidden="true" size={18} /><span>Duration</span><strong>{tour.duration}</strong></div>
-          <div><Route aria-hidden="true" size={18} /><span>Route</span><strong>{tour.route}</strong></div>
-          <div><Compass aria-hidden="true" size={18} /><span>Best for</span><strong>{tour.bestFor}</strong></div>
-          <div><ShieldCheck aria-hidden="true" size={18} /><span>Format</span><strong>Private & custom</strong></div>
+          {(tour.facts || [
+            ['Duration', tour.duration],
+            ['Route', tour.route],
+            ['Best for', tour.bestFor],
+            ['Format', 'Private & custom'],
+          ]).slice(0, 4).map(([label, value]) => {
+            const FactIcon = factIcons[label.toLowerCase()] || CircleHelp;
+            return <div key={`${label}-${value}`}><FactIcon aria-hidden="true" size={18} /><span>{label}</span><strong>{value}</strong></div>;
+          })}
         </div>
       </section>
 
@@ -181,16 +217,14 @@ export default function TourDetail() {
                   <span className="day-panel-title"><small><MapPin aria-hidden="true" size={14} /> {day.location}</small><strong>{day.title}</strong></span>
                   <ChevronDown aria-hidden="true" size={20} className="day-chevron" />
                 </button>
-                {isOpen && (
-                  <div id={`day-${tour.key}-${index}`} className="day-panel-content">
-                    <p>{day.copy}</p>
-                    <div className="day-detail-row">
-                      <span><BedDouble aria-hidden="true" size={16} /><b>Stay</b> {day.stay}</span>
-                      <span><UtensilsCrossed aria-hidden="true" size={16} /><b>Meals</b> {day.meals || 'As confirmed in your proposal'}</span>
-                      <span><Clock3 aria-hidden="true" size={16} /><b>Planning note</b> {day.note || 'Timings adapt to conditions'}</span>
-                    </div>
+                <div id={`day-${tour.key}-${index}`} className={`day-panel-content ${isOpen ? 'is-open' : ''}`} aria-hidden={!isOpen}>
+                  <p>{day.copy}</p>
+                  <div className="day-detail-row">
+                    <span><BedDouble aria-hidden="true" size={16} /><b>Stay</b> {day.stay}</span>
+                    <span><UtensilsCrossed aria-hidden="true" size={16} /><b>Meals</b> {day.meals || 'As confirmed in your proposal'}</span>
+                    <span><Clock3 aria-hidden="true" size={16} /><b>Planning note</b> {day.note || 'Timings adapt to conditions'}</span>
                   </div>
-                )}
+                </div>
               </article>
             );
           })}

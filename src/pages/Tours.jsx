@@ -4,6 +4,7 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
 import { getPackageStartingPrice, itineraryCategories, topPackages } from '../data/content';
 import { getPackageMedia, safariMedia } from '../data/media';
+import { itineraryPath } from '../lib/routes';
 
 const pageCopy = {
   all: {
@@ -56,7 +57,7 @@ const matchesDuration = (tourPackage, filter) => {
 };
 
 export default function Tours() {
-  const { categoryKey } = useParams();
+  const { itineraryKey: categoryKey } = useParams();
   const [durationFilter, setDurationFilter] = useState('all');
   const [sortOrder, setSortOrder] = useState('recommended');
   const [viewMode, setViewMode] = useState('grid');
@@ -184,7 +185,7 @@ export default function Tours() {
                         <strong>{startingPrice} <small>per person</small></strong>
                       </div>
                     )}
-                    <Link to={`/tours/${tourPackage.key}`} className="itinerary-list-card-action">{viewMode === 'grid' ? 'View trip' : 'View this itinerary'} <ArrowRight aria-hidden="true" size={16} /></Link>
+                    <Link to={itineraryPath(tourPackage.key)} className="itinerary-list-card-action">{viewMode === 'grid' ? 'View trip' : 'View this itinerary'} <ArrowRight aria-hidden="true" size={16} /></Link>
                   </div>
                 </article>
               );

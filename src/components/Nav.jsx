@@ -125,8 +125,7 @@ export default function Nav() {
             <NavLink to="/itineraries" className={`site-nav-link itinerary-nav-link ${isTours ? 'is-active' : ''}`} onClick={closeMobileNav}>Itineraries</NavLink>
             <button ref={toursTriggerRef} type="button" className={`tour-disclosure ${toursOpen ? 'is-open' : ''}`} aria-label="Show itinerary categories" aria-expanded={toursOpen} aria-controls="safari-types-menu" onClick={() => setToursOpen((open) => !open)}><ChevronDown aria-hidden="true" size={15} /></button>
           </div>
-          {toursOpen && (
-            <div id="safari-types-menu" className="tour-flyout">
+          <div id="safari-types-menu" className={`tour-flyout ${toursOpen ? 'is-open' : ''}`} aria-hidden={!toursOpen}>
               <p>Explore itineraries</p>
               {itineraryCategories.map((s, index) => (
                 <button type="button" key={s.key} onClick={() => selectAndGo(s.key)} className="tour-flyout-choice">
@@ -136,8 +135,7 @@ export default function Nav() {
                 </button>
               ))}
               <Link to="/itineraries" onClick={() => { setToursOpen(false); closeMobileNav(); }} className="tour-flyout-all">View all itineraries <ArrowRight aria-hidden="true" size={15} /></Link>
-            </div>
-          )}
+          </div>
         </div>
         <NavLink to="/itineraries/safaris" className={({ isActive }) => `site-nav-link safari-nav-link ${isActive ? 'is-active' : ''}`} onClick={closeMobileNav}>Safaris</NavLink>
         <NavLink to="/itineraries/kilimanjaro" className={({ isActive }) => `site-nav-link ${isActive ? 'is-active' : ''}`} onClick={closeMobileNav}>Kilimanjaro</NavLink>
@@ -147,8 +145,7 @@ export default function Nav() {
             <NavLink to="/tanzania-travel-guide" className={`site-nav-link ${isDiscover ? 'is-active' : ''}`} onClick={closeMobileNav}>Inside Tanzania</NavLink>
             <button ref={discoverTriggerRef} type="button" className={`tour-disclosure ${discoverOpen ? 'is-open' : ''}`} aria-label="Show Inside Tanzania menu" aria-expanded={discoverOpen} aria-controls="inside-tanzania-menu" onClick={() => { setToursOpen(false); setDiscoverOpen((open) => !open); }}><ChevronDown aria-hidden="true" size={15} /></button>
           </div>
-          {discoverOpen && (
-            <div id="inside-tanzania-menu" className="discover-flyout">
+          <div id="inside-tanzania-menu" className={`discover-flyout ${discoverOpen ? 'is-open' : ''}`} aria-hidden={!discoverOpen}>
               <div className="discover-flyout-main">
                 <p>Plan by region and activity</p>
                 <div className="discover-flyout-grid">
@@ -169,8 +166,7 @@ export default function Nav() {
                 {routeMoods.map((place) => <Link to="/tanzania-travel-guide#tanzania-compass" key={place} onClick={closeMobileNav}>{place}</Link>)}
                 <Link to="/enquire" className="discover-flyout-request" onClick={closeMobileNav}>Request a route <ArrowRight aria-hidden="true" size={14} /></Link>
               </aside>
-            </div>
-          )}
+          </div>
         </div>
         {links.map((link) => <NavLink key={link.to} to={link.to} className={({ isActive }) => `site-nav-link ${isActive ? 'is-active' : ''}`} onClick={closeMobileNav}>{link.label}</NavLink>)}
         <Link to="/booking" className="mobile-enquire" onClick={closeMobileNav}>Book now <ArrowRight aria-hidden="true" size={15} /></Link>

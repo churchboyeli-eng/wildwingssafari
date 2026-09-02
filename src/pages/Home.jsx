@@ -3,6 +3,7 @@ import { ArrowRight, Check, Clock3, MapPin, MessageCircle, Minus, Plus, Star } f
 import { Link } from 'react-router-dom';
 import ImagePlaceholder from '../components/ImagePlaceholder';
 import PackageGrid from '../components/PackageGrid';
+import { itineraryPath } from '../lib/routes';
 import {
   featuredTourPackageKeys,
   getPackageStartingPrice,
@@ -119,7 +120,7 @@ export default function Home() {
                         <strong>{startingPrice} <small>USD pp</small></strong>
                       </div>
                     )}
-                    <Link to={`/tours/${offer.key}`} className="home-offering-action">
+                    <Link to={itineraryPath(offer.key)} className="home-offering-action">
                       Full itinerary <ArrowRight aria-hidden="true" size={15} strokeWidth={2} />
                     </Link>
                   </div>
@@ -261,6 +262,7 @@ export default function Home() {
               return (
                 <div key={f.q} style={{ borderBottom: '1px solid var(--border-soft)' }}>
                   <button
+                    type="button"
                     onClick={() => setOpenFaq(open ? -1 : i)}
                     className="accordion-trigger"
                     aria-expanded={open}
@@ -287,11 +289,11 @@ export default function Home() {
                       {open ? <Minus aria-hidden="true" size={18} strokeWidth={2} /> : <Plus aria-hidden="true" size={18} strokeWidth={2} />}
                     </span>
                   </button>
-                  {open && (
-                    <p id={`home-faq-${i}`} style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--body)', margin: 0, padding: '0 44px 24px 0', maxWidth: '62ch' }}>
+                  <div id={`home-faq-${i}`} className={`faq-answer ${open ? 'is-open' : ''}`} aria-hidden={!open}>
+                    <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--body)', margin: 0, padding: '0 44px 24px 0', maxWidth: '62ch' }}>
                       {f.a}
                     </p>
-                  )}
+                  </div>
                 </div>
               );
             })}

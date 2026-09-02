@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, CalendarDays, Check, Route } from 'lucide-react';
 import { getPackageStartingPrice } from '../data/content';
 import { getPackageMedia } from '../data/media';
+import { itineraryPath } from '../lib/routes';
 
 export default function PackageGrid({ packages, featured = false }) {
   return (
@@ -35,7 +36,7 @@ export default function PackageGrid({ packages, featured = false }) {
               <dl className="tour-package-details"><div><dt>Best for</dt><dd>{p.bestFor}</dd></div><div><dt>Included</dt><dd>{p.includes}</dd></div></dl>
               <div className="tour-package-footer">
                 <span><Check aria-hidden="true" size={14} /> Private route</span>
-                <Link to={`/tours/${p.key}`} className="tour-package-action">View trip <ArrowRight aria-hidden="true" size={15} strokeWidth={2} /></Link>
+                <Link to={itineraryPath(p.key)} className="tour-package-action">View trip <ArrowRight aria-hidden="true" size={15} strokeWidth={2} /></Link>
               </div>
             </div>
           </article>

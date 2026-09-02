@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import FloatingActions from './components/FloatingActions';
 import Footer from './components/Footer';
 import Nav from './components/Nav';
@@ -15,6 +15,22 @@ import KilimanjaroRouteDetail from './pages/KilimanjaroRouteDetail';
 import NotFound from './pages/NotFound';
 import TourDetail from './pages/TourDetail';
 import Tours from './pages/Tours';
+import { itineraryCategories, topPackages } from './data/content';
+
+function ItineraryEntry() {
+  const { itineraryKey } = useParams();
+  const isCategory = itineraryCategories.some((category) => category.key === itineraryKey);
+  const isPackage = topPackages.some((tourPackage) => tourPackage.key === itineraryKey);
+
+  if (isCategory) return <Tours />;
+  if (isPackage) return <TourDetail />;
+  return <Navigate to="/itineraries" replace />;
+}
+
+function LegacyTourRedirect() {
+  const { tourId } = useParams();
+  return <Navigate to={`/itineraries/${tourId}`} replace />;
+}
 
 export default function App() {
   return (
@@ -34,9 +50,9 @@ export default function App() {
           <Route path="/itineraries" element={<Tours />} />
           <Route path="/itineraries/kilimanjaro/:routeKey" element={<KilimanjaroRouteDetail />} />
           <Route path="/itineraries/kilimanjaro" element={<Kilimanjaro />} />
-          <Route path="/itineraries/:categoryKey" element={<Tours />} />
+          <Route path="/itineraries/:itineraryKey" element={<ItineraryEntry />} />
           <Route path="/tours" element={<Navigate to="/itineraries" replace />} />
-          <Route path="/tours/:tourId" element={<TourDetail />} />
+          <Route path="/tours/:tourId" element={<LegacyTourRedirect />} />
           <Route path="/plan-a-journey" element={<JourneyBuilder />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/about" element={<About />} />
