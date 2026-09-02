@@ -1114,3 +1114,18 @@ footer:not(.safari-footer) {
   .tour-detail-nav a:hover { color: var(--terracotta); }
   .tour-detail-nav .tour-detail-nav-cta:hover { background: #f3a23c; color: var(--gold-ink); }
 }
+
+/* Compact card scale: keep the catalogue dense without hiding the useful detail. */
+.home-offering-card { min-height: 292px; }
+.tour-package-card { min-height: 364px; }
+.tour-package-card.has-photo { min-height: 430px; }
+.itinerary-package-card, .category-package-card { min-height: 342px; }
+.itinerary-catalog-grid .itinerary-list-card, .itinerary-catalog-grid .itinerary-list-card.has-image, .itinerary-solo-card { min-height: 432px; }
+.itinerary-catalog-grid .itinerary-list-route-panel { min-height: 138px; }
+.itinerary-catalog-grid .itinerary-list-card-main { padding: 18px; }
+.destination-route-card { min-height: 348px; }
+@media (max-width: 700px) {
+  .home-offering-card, .tour-package-card, .destination-route-card, .itinerary-catalog-grid .itinerary-list-card, .itinerary-solo-card, .itinerary-package-card, .category-package-card { min-height: 0; }
+  .tour-package-card.has-photo, .itinerary-catalog-grid .itinerary-list-card.has-image { min-height: 390px; }
+  .itinerary-catalog-grid .itinerary-list-route-panel { min-height: 150px; }
+}
