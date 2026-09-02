@@ -76,6 +76,7 @@ button { cursor: pointer; }
   --faint: #8a9990;
   --forest: #3d5c4a;
   --forest-deep: #183027;
+  --hero-surface: #281d16;
   --gold: #d9922e;
   --gold-ink: #1b261f;
   --terracotta: #b6603a;
@@ -1043,15 +1044,21 @@ footer:not(.safari-footer) a { transition: color 150ms ease; }
 .home-offerings,
 .journey-standards,
 .about-standards,
+.booking-aside-card,
+.journey-summary,
+.route-adjust-callout {
+  background-color: var(--forest-deep);
+}
+
 .tour-studio,
 .tour-detail-hero,
 .booking-hero,
 .about-hero,
 .kilimanjaro-hero,
-.journey-summary,
-.route-adjust-callout,
-.booking-aside-card {
-  background-color: var(--forest-deep);
+.category-hero,
+.itinerary-listing-hero,
+.journal-hero {
+  background-color: var(--hero-surface);
 }
 
 .tour-flyout,

@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <div className="page-enter">
       {/* HERO */}
-      <section style={{ position: 'relative', minHeight: 'clamp(560px,92svh,1000px)', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', background: 'var(--forest-deep)' }}>
+      <section style={{ position: 'relative', minHeight: 'clamp(560px,92svh,1000px)', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', background: 'var(--hero-surface)' }}>
         <video className="home-hero-video" autoPlay loop muted playsInline preload="metadata" poster="/media/wildwings-hero-poster.jpg" aria-hidden="true">
           <source src="/media/wildwings-hero.mp4" type="video/mp4" />
         </video>
@@ -34,7 +34,7 @@ export default function Home() {
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(to top, rgba(12, 30, 23, .9) 0%, rgba(12, 30, 23, .25) 48%, rgba(12, 30, 23, .5) 100%)',
+            background: 'linear-gradient(to top, rgba(24, 16, 11, .9) 0%, rgba(24, 16, 11, .25) 48%, rgba(24, 16, 11, .5) 100%)',
             pointerEvents: 'none',
           }}
         />
