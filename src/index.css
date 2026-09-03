@@ -1141,6 +1141,37 @@ footer:not(.safari-footer) {
   .itinerary-catalog-grid .itinerary-list-route-panel { min-height: 150px; }
 }
 
+/* At phone widths, keep the price and action on their own rows so long labels never collide. */
+@media (max-width: 520px) {
+  .tour-package-card.has-photo .tour-package-copy,
+  .itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-main {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr auto auto;
+  }
+
+  .tour-package-card.has-photo .tour-package-price,
+  .itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-price {
+    grid-column: 1;
+    grid-row: 4;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .tour-package-card.has-photo .tour-package-footer,
+  .itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-action {
+    grid-column: 1;
+    grid-row: 5;
+    justify-self: start;
+    margin-top: 12px;
+  }
+
+  .tour-package-card.has-photo .tour-package-price strong,
+  .itinerary-catalog-grid .itinerary-list-card.has-image .itinerary-list-card-price strong {
+    min-width: 0;
+    white-space: normal;
+  }
+}
+
 /* Card primitives: keep every page in one visual family while preserving each surface's content. */
 :is(
   .home-offering-card,
