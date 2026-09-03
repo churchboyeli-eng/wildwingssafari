@@ -20,7 +20,7 @@ export const safariMedia = {
     alt: 'Wild dogs crossing open safari country.',
   },
   elephants: {
-    src: '/media/safari/safari-elephants.jpg',
+    src: '/media/optimized/safari/safari-elephants.jpg',
     alt: 'An elephant moving through open green woodland.',
   },
   giraffes: {
@@ -32,7 +32,7 @@ export const safariMedia = {
     alt: 'Lions resting beside water in Tarangire.',
   },
   migrationHerd: {
-    src: '/media/safari/migration-herd.jpg',
+    src: '/media/optimized/safari/migration-herd.jpg',
     alt: 'A wildebeest standing on the migration plains.',
   },
   cheetahWalk: {
@@ -70,8 +70,12 @@ export const safariMedia = {
 };
 
 export const kilimanjaroMedia = {
+  highlandRidge: {
+    src: '/media/optimized/kilimanjaro/highland-ridge.jpg',
+    alt: 'Trekkers crossing a high Kilimanjaro ridge above the clouds.',
+  },
   marangu: {
-    src: '/media/kilimanjaro/rainforest-trail.jpg',
+    src: '/media/optimized/kilimanjaro/rainforest-trail.jpg',
     alt: 'Trekkers walking through Kilimanjaro rainforest.',
   },
   machame: {
@@ -122,6 +126,9 @@ const packageMedia = {
   'safari-10-day-serengeti-depth': safariMedia.antelope,
   'safari-8-day-southern-wild-rivers': safariMedia.buffalo,
   'safari-21-day-grand-tanzania': safariMedia.craterView,
+  'safari-7-day-northern-adventure': safariMedia.elephants,
+  'safari-8-day-hiking-wildlife': kilimanjaroMedia.highlandRidge,
+  'safari-10-day-northern-zanzibar': safariMedia.migrationHerd,
   kili: kilimanjaroMedia.summitSnow,
 };
 
