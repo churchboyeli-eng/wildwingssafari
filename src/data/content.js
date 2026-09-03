@@ -53,7 +53,7 @@ export const tourDifferentiators = [
   { pillar: 'During the safari', icon: 'palmtree', title: 'A softer landing at the coast', copy: 'When Zanzibar is part of the journey, we leave room to slow down before you fly home.' },
 ];
 
-export const homeOfferPackageKeys = ['tarangire-day-trip', 'explore-serengeti', 'serengeti-ngorongoro', 'tarangire-ngorongoro-arusha', 'tanzania-mid-range', 'tanzania-migration-safari', 'safari-6-day-tanzania-classic'];
+export const homeOfferPackageKeys = ['tarangire-day-trip', 'explore-serengeti', 'serengeti-ngorongoro', 'tarangire-ngorongoro-arusha', 'tanzania-mid-range', 'tanzania-migration-safari', 'safari-6-day-tanzania-classic', 'ngorongoro-day-trip'];
 
 export const getPackageStartingPrice = (tourPackage) => {
   const values = tourPackage?.pricing?.rows
@@ -453,6 +453,50 @@ const suppliedSafariPackages = [
       ],
     },
   },
+  {
+    key: 'ngorongoro-day-trip',
+    types: ['safaris', 'tanzania'],
+    num: '08',
+    tag: 'Ngorongoro day trip',
+    name: '1-Day Ngorongoro Crater Safari',
+    duration: '1 day',
+    route: 'Arusha · Ngorongoro Crater · Arusha',
+    stops: ['Arusha', 'Ngorongoro Conservation Area', 'Ngorongoro Crater', 'Arusha'],
+    bestFor: 'A full crater day without an overnight stay',
+    includes: 'Private 4×4, guide, picnic meals and park fees',
+    copy: 'Leave Arusha before sunrise for a full day on the Ngorongoro Crater floor, with picnic meals, patient game viewing and a return by evening.',
+    homeHighlights: ['Pre-dawn Arusha departure', 'Crater-floor game drive', 'Picnic breakfast and lunch'],
+    popular: false,
+    overview: 'This early-start day trip is designed for travellers who want to experience the Ngorongoro Crater without adding an overnight stay. Depart Arusha at 5:00 AM and travel for approximately three to four hours to the Ngorongoro Conservation Area gate. After registration and a guide briefing, descend into the crater at around 8:30 AM for a morning game drive, picnic breakfast and lunch, then continue exploring different habitats before ascending and returning to Arusha in the evening.',
+    suitability: 'Best for travellers based in Arusha who want one concentrated wildlife day, a strong chance of seeing the Big Five and the distinctive landscapes of the Ngorongoro Crater.',
+    facts: [['Trip style', 'Private day trip safari'], ['Starts / ends', 'Arusha'], ['Destination', 'Ngorongoro Crater'], ['Trip rhythm', '5:00 AM departure · return around 8:00 PM']],
+    days: [
+      {
+        label: 'Day trip',
+        title: 'Arusha to Ngorongoro Crater and return',
+        location: 'Arusha → Ngorongoro Conservation Area → Arusha',
+        stay: 'No overnight stay',
+        meals: 'Picnic breakfast & packed lunch',
+        note: 'Depart at 5:00 AM · return around 8:00 PM',
+        copy: 'Start early in Arusha so the day is dedicated to the crater. Drive through the highlands to the Ngorongoro Conservation Area, complete entry formalities and meet your guide at the gate. Descend the steep crater walls around 8:30 AM and spend the morning exploring grasslands, woodland and lake edges, looking for lion, elephant, buffalo, rhino, leopard, cheetah, hyena, wildebeest, zebra and birdlife. Enjoy a picnic breakfast at a scenic stop, pause for packed lunch from 1:00 to 2:00 PM, then continue the game drive toward Lake Magadi and the Lerai Forest before ascending at around 4:00 PM. Return to Arusha with a refreshment stop along the way.',
+      },
+    ],
+    inclusions: ['Private 4×4 safari vehicle with pop-up roof', 'Professional English-speaking safari driver-guide', 'All Ngorongoro Conservation Area and crater fees', 'Picnic breakfast and packed lunch', 'Bottled drinking water during the safari', 'Arusha hotel pick-up and drop-off', 'Government taxes and statutory charges'],
+    exclusions: ['International flights', 'Tanzania visa fees', 'Travel and medical insurance', 'Soft drinks and alcoholic beverages', 'Tips and gratuities for guide and staff', 'Personal expenses such as souvenirs and phone calls', 'Accommodation before or after the day trip'],
+    pricing: {
+      label: 'Indicative 2026 USD rate',
+      title: 'Private Ngorongoro day-trip package',
+      note: '*Indicative cost per person in USD, excluding international airline tickets. Final quote depends on confirmed travel date and availability.',
+      rows: [
+        {
+          label: 'Private Day-Trip Rate',
+          prices: [
+            { persons: 'Per person', room: 'Private day trip', amount: '406' },
+          ],
+        },
+      ],
+    },
+  },
 ];
 
 export const topPackages = [
@@ -726,7 +770,7 @@ export const itineraryCategories = [
     sub: 'Wildlife, wide horizons and private guiding',
     blurb: 'From the Serengeti and Ngorongoro to the spacious south, choose the wildlife rhythm that feels right for you.',
     points: ['Classic Northern Circuit', 'Southern Tanzania escapes', 'Migration-led routing'],
-    packageKeys: ['tarangire-day-trip', 'explore-serengeti', 'serengeti-ngorongoro', 'tarangire-ngorongoro-arusha', 'tanzania-mid-range', 'tanzania-migration-safari', 'serengeti7', 'southern', 'migration', 'family', 'safari-5-day-classic', 'safari-6-day-tanzania-classic', 'safari-6-day-southern-river', 'safari-7-day-signature', 'safari-10-day-serengeti-depth', 'safari-8-day-southern-wild-rivers', 'safari-21-day-grand-tanzania', 'safari-12-day-family-zanzibar'],
+    packageKeys: ['tarangire-day-trip', 'explore-serengeti', 'serengeti-ngorongoro', 'ngorongoro-day-trip', 'tarangire-ngorongoro-arusha', 'tanzania-mid-range', 'tanzania-migration-safari', 'serengeti7', 'southern', 'migration', 'family', 'safari-5-day-classic', 'safari-6-day-tanzania-classic', 'safari-6-day-southern-river', 'safari-7-day-signature', 'safari-10-day-serengeti-depth', 'safari-8-day-southern-wild-rivers', 'safari-21-day-grand-tanzania', 'safari-12-day-family-zanzibar'],
   },
   {
     key: 'kilimanjaro',
