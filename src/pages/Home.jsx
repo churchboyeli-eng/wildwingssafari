@@ -82,7 +82,7 @@ export default function Home() {
             </div>
             <div className="home-offerings-intro">
               <p>
-                Start with one of seven sample routes. Each page shows the daily plan, what is included and a per-person price guide.
+                Start with one of eight curated sample routes. Each page shows the daily plan, what is included and a clear price guide.
               </p>
               <Link to="/itineraries" className="home-offerings-all">
                 View all trips <ArrowRight aria-hidden="true" size={16} strokeWidth={2} />
@@ -93,6 +93,7 @@ export default function Home() {
           <div className="home-offering-grid">
             {whatWeOfferCards.map((offer) => {
               const startingPrice = getPackageStartingPrice(offer);
+              const priceLabel = startingPrice || offer.priceLabel;
               return (
                 <article className="home-offering-card" key={offer.key}>
                   <div className="home-offering-topline">
@@ -114,10 +115,10 @@ export default function Home() {
                     ))}
                   </ul>
                   <div className="home-offering-footer">
-                    {startingPrice && (
+                    {priceLabel && (
                       <div className="home-offering-price">
-                        <span>Price starts from</span>
-                        <strong>{startingPrice} <small>USD pp</small></strong>
+                        <span>{startingPrice ? 'Price starts from' : 'Pricing'}</span>
+                        <strong>{priceLabel} {startingPrice && <small>{offer.pricing?.unitShortLabel || 'USD pp'}</small>}</strong>
                       </div>
                     )}
                     <Link to={itineraryPath(offer.key)} className="home-offering-action">

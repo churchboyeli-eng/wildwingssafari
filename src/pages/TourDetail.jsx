@@ -71,6 +71,8 @@ export default function TourDetail() {
   const prefill = `I'm interested in the ${tour.name} itinerary. Please tell me about dates, availability and options.`;
   const hasPricing = Boolean(tour.pricing?.rows?.length);
   const startingPrice = getPackageStartingPrice(tour);
+  const priceLabel = startingPrice || tour.priceLabel;
+  const priceUnit = tour.pricing?.unitLabel || 'per person';
   const openAllDays = () => {
     setAllOpen((current) => !current);
     setOpenDay(-1);
@@ -103,12 +105,12 @@ export default function TourDetail() {
               ))}
             </ol>
             <small>Every departure is tailored around your dates.</small>
-            {startingPrice && (
+            {priceLabel && (
               <div className="tour-hero-price">
-                <span>Price starts from</span>
-                <strong>{startingPrice}</strong>
-                <small>USD per person</small>
-                <a href="#pricing">View prices <ArrowRight aria-hidden="true" size={14} /></a>
+                <span>{startingPrice ? 'Price starts from' : 'Pricing'}</span>
+                <strong>{priceLabel}</strong>
+                <small>{startingPrice ? `USD ${priceUnit}` : 'Final quote on request'}</small>
+                {hasPricing && <a href="#pricing">View prices <ArrowRight aria-hidden="true" size={14} /></a>}
               </div>
             )}
           </div>
@@ -166,7 +168,7 @@ export default function TourDetail() {
                 <p className="eyebrow">Price guide</p>
                 <h2>Tour price</h2>
               </div>
-              <p>Per-person USD rates by group size. The final quote confirms dates, rooms and availability.</p>
+              <p>{priceUnit === 'per group' ? 'Total USD rates by group size.' : 'Per-person USD rates by group size.'} The final quote confirms dates, rooms and availability.</p>
             </div>
 
             <div className="tour-simple-price-list">
@@ -177,7 +179,7 @@ export default function TourDetail() {
                       <Sun aria-hidden="true" size={31} strokeWidth={1.8} />
                       <h3>{row.label}</h3>
                     </div>
-                    <span className="tour-simple-price-period">{row.period || '2026 · USD per person'}</span>
+                    <span className="tour-simple-price-period">{row.period || `2026 · USD ${priceUnit}`}</span>
                     <CircleHelp className="tour-simple-price-help" aria-hidden="true" size={22} strokeWidth={1.8} />
                   </div>
                   <div className="tour-simple-price-grid">

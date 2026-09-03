@@ -162,6 +162,7 @@ export default function Tours() {
           <div className={`itinerary-list-cards itinerary-catalog-${viewMode}`}>
             {matchingPackages.map((tourPackage, index) => {
               const startingPrice = getPackageStartingPrice(tourPackage);
+              const priceLabel = startingPrice || tourPackage.priceLabel;
               const media = getPackageMedia(tourPackage.key);
               return (
                 <article className={`itinerary-list-card ${media ? 'has-image' : ''}`} key={tourPackage.key}>
@@ -179,10 +180,10 @@ export default function Tours() {
                       <li><Check aria-hidden="true" size={14} />{tourPackage.bestFor}</li>
                       <li><Check aria-hidden="true" size={14} />{tourPackage.includes}</li>
                     </ul>
-                    {startingPrice && (
+                    {priceLabel && (
                       <div className="itinerary-list-card-price">
-                        <span>Starts from</span>
-                        <strong>{startingPrice} <small>per person</small></strong>
+                        <span>{startingPrice ? 'Starts from' : 'Pricing'}</span>
+                        <strong>{priceLabel} {startingPrice && <small>{tourPackage.pricing?.unitLabel || 'per person'}</small>}</strong>
                       </div>
                     )}
                     <Link to={itineraryPath(tourPackage.key)} className="itinerary-list-card-action">{viewMode === 'grid' ? 'View trip' : 'View this itinerary'} <ArrowRight aria-hidden="true" size={16} /></Link>

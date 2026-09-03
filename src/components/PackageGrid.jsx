@@ -9,6 +9,7 @@ export default function PackageGrid({ packages, featured = false }) {
     <div className={`package-grid package-grid-count-${packages.length} ${featured ? 'package-grid-featured' : ''}`}>
       {packages.map((p, index) => {
         const startingPrice = getPackageStartingPrice(p);
+        const priceLabel = startingPrice || p.priceLabel;
         const media = getPackageMedia(p.key);
         return (
           <article key={p.key} className={`tour-package-card ${media ? 'has-photo' : ''}`}>
@@ -27,10 +28,10 @@ export default function PackageGrid({ packages, featured = false }) {
               <h3>{p.name}</h3>
               <p>{p.copy}</p>
               <div className="tour-package-route"><Route aria-hidden="true" size={15} /><span>{p.route}</span></div>
-              {startingPrice && (
+              {priceLabel && (
                 <div className="tour-package-price">
-                  <span>Starts from</span>
-                  <strong>{startingPrice} <small>per person</small></strong>
+                  <span>{startingPrice ? 'Starts from' : 'Pricing'}</span>
+                  <strong>{priceLabel} {startingPrice && <small>{p.pricing?.unitLabel || 'per person'}</small>}</strong>
                 </div>
               )}
               <dl className="tour-package-details"><div><dt>Best for</dt><dd>{p.bestFor}</dd></div><div><dt>Included</dt><dd>{p.includes}</dd></div></dl>
