@@ -167,7 +167,7 @@ export default function Tours() {
               return (
                 <article className={`itinerary-list-card ${media ? 'has-image' : ''}`} key={tourPackage.key}>
                   <div className={`itinerary-list-route-panel ${media ? 'has-image' : ''}`}>
-                    {media && <img className="itinerary-list-route-image" src={media.src} alt="" loading="lazy" decoding="async" />}
+                    {media && <img className="itinerary-list-route-image" src={media.src} alt={media.alt} loading="lazy" decoding="async" />}
                     <span>{String(index + 1).padStart(2, '0')}</span>
                     <p>{tourPackage.tag}</p>
                     <div><Route aria-hidden="true" size={16} strokeWidth={1.8} /><small>{tourPackage.route}</small></div>

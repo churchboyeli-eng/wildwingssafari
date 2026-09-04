@@ -1,10 +1,11 @@
 export const contact = {
-  whatsappNumber: '+255 000 000 000',
-  bookingEmail: 'hello@wildwings.example',
-  officeLocation: 'Arusha, Tanzania',
+  whatsappNumber: import.meta.env.VITE_WHATSAPP_NUMBER?.trim() || '',
+  bookingEmail: import.meta.env.VITE_BOOKING_EMAIL?.trim() || '',
+  officeLocation: import.meta.env.VITE_OFFICE_LOCATION?.trim() || 'Arusha, Tanzania',
 };
 
-export const waHref = `https://wa.me/${contact.whatsappNumber.replace(/[^0-9]/g, '') || '255000000000'}`;
+const whatsappDigits = contact.whatsappNumber.replace(/[^0-9]/g, '');
+export const waHref = whatsappDigits ? `https://wa.me/${whatsappDigits}` : '';
 
 export const destinations = [
   { key: 'northern', num: '01', name: 'Northern Circuit safaris', tag: 'Serengeti · Ngorongoro · Tarangire', copy: 'The classic Tanzania route for first-time visitors. Spend time in the Serengeti, Ngorongoro and Tarangire, with the order set by your dates.', highlights: ['A strong first safari', 'Three distinct parks', 'Flexible 5–9 day routes'] },

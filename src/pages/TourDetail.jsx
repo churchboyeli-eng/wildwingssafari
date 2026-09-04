@@ -88,7 +88,7 @@ export default function TourDetail() {
             <h1>{tour.name}</h1>
             <p className="tour-detail-lead">{tour.copy}</p>
             <div className="tour-detail-actions">
-              <Link to="/booking" state={{ prefill }} className="btn-primary">Book now <ArrowRight aria-hidden="true" size={16} /></Link>
+              <Link to="/enquire" state={{ prefill }} className="btn-primary">Book now <ArrowRight aria-hidden="true" size={16} /></Link>
               <a href="#day-by-day" className="btn-quiet">Read the day-by-day <ChevronDown aria-hidden="true" size={16} /></a>
             </div>
           </div>
@@ -124,7 +124,7 @@ export default function TourDetail() {
           <a href="#day-by-day">Day by day</a>
           <a href="#included">What's included</a>
           <a href="#planning">Planning</a>
-          <Link to="/booking" state={{ prefill }} className="tour-detail-nav-cta">Book now</Link>
+          <Link to="/enquire" state={{ prefill }} className="tour-detail-nav-cta">Book now</Link>
         </div>
       </nav>
 
@@ -258,7 +258,7 @@ export default function TourDetail() {
 
       <section className="tour-detail-closing">
         <div><p className="eyebrow">Ready when you are</p><h2>Let's make this route yours.</h2><p>Tell us the dates you have in mind, who is travelling and what you want to experience. We will shape the details from there.</p></div>
-        <div className="closing-actions"><Link to="/booking" state={{ prefill }} className="btn-primary">Book now <ArrowRight aria-hidden="true" size={16} /></Link><a href={waHref} target="_blank" rel="noopener noreferrer" className="btn-whatsapp"><MessageCircle aria-hidden="true" size={17} /> WhatsApp us</a></div>
+        <div className="closing-actions"><Link to="/enquire" state={{ prefill }} className="btn-primary">Book now <ArrowRight aria-hidden="true" size={16} /></Link>{waHref && <a href={waHref} target="_blank" rel="noopener noreferrer" className="btn-whatsapp"><MessageCircle aria-hidden="true" size={17} /> WhatsApp us</a>}</div>
       </section>
     </div>
   );

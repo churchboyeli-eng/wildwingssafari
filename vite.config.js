@@ -9,6 +9,9 @@ const projectRoot = path.dirname(fileURLToPath(import.meta.url))
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  define: {
+    'import.meta.env.VERCEL_PROJECT_PRODUCTION_URL': JSON.stringify(process.env.VERCEL_PROJECT_PRODUCTION_URL || ''),
+  },
   resolve: {
     alias: {
       '@': path.resolve(projectRoot, 'src'),

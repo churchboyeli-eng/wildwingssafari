@@ -142,7 +142,7 @@ export default function JourneyBuilder() {
 
       <section className="journeys-closing" aria-labelledby="journeys-closing-heading">
         <div><p className="eyebrow">Ready when you are</p><h2 id="journeys-closing-heading">Have the dates already?</h2><p>Send us the essentials and we will come back with a route that makes sense for your time, group and budget.</p></div>
-        <Link to="/booking" className="btn-dark">Book your safari <ArrowRight aria-hidden="true" size={16} /></Link>
+        <Link to="/enquire" className="btn-dark">Book your safari <ArrowRight aria-hidden="true" size={16} /></Link>
       </section>
     </div>
   );

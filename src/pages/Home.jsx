@@ -243,19 +243,16 @@ export default function Home() {
               Tanzania safari, answered.
             </h2>
             <p style={{ fontSize: 'clamp(15px,1.7vw,18px)', lineHeight: 1.6, color: 'var(--body)', maxWidth: '38ch', margin: '22px 0 30px' }}>
-              Answers to the questions we hear most. If yours is missing, send us a WhatsApp message.
+              Answers to the questions we hear most. If yours is missing, send us a message.
             </p>
-            <a
-              href={waHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: '#14120E', color: '#FBF8F1', padding: '14px 26px', borderRadius: 30, fontSize: 13, letterSpacing: '.04em', fontWeight: 600 }}
-            >
-              <span style={{ width: 22, height: 22, borderRadius: '50%', background: 'var(--whatsapp)', color: '#0b3d21', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <MessageCircle aria-hidden="true" size={14} strokeWidth={2} />
-              </span>
-              Ask on WhatsApp
-            </a>
+            {waHref ? (
+              <a href={waHref} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: '#14120E', color: '#FBF8F1', padding: '14px 26px', borderRadius: 30, fontSize: 13, letterSpacing: '.04em', fontWeight: 600 }}>
+                <span style={{ width: 22, height: 22, borderRadius: '50%', background: 'var(--whatsapp)', color: '#0b3d21', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><MessageCircle aria-hidden="true" size={14} strokeWidth={2} /></span>
+                Ask on WhatsApp
+              </a>
+            ) : (
+              <Link to="/enquire" className="btn">Ask about your trip</Link>
+            )}
           </div>
           <div style={{ background: '#fff', border: '1px solid var(--border)', borderRadius: 14, padding: 'clamp(8px,1.5vw,20px) clamp(20px,3vw,38px)', boxShadow: '0 24px 60px -30px rgba(46,59,42,.4)' }}>
             {homeFaqs.map((f, i) => {

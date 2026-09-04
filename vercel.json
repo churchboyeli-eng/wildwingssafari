@@ -1,8 +1,53 @@
 {
-  "rewrites": [
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "outputDirectory": "dist",
+  "redirects": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "source": "/tours",
+      "destination": "/itineraries",
+      "permanent": true
+    },
+    {
+      "source": "/tours/:tourId",
+      "destination": "/itineraries/:tourId",
+      "permanent": true
+    },
+    {
+      "source": "/tanzania-compass",
+      "destination": "/tanzania-travel-guide",
+      "permanent": true
+    },
+    {
+      "source": "/tanzania-compass/:guideSlug",
+      "destination": "/tanzania-travel-guide/:guideSlug",
+      "permanent": true
+    },
+    {
+      "source": "/discover-tanzania",
+      "destination": "/tanzania-travel-guide",
+      "permanent": true
+    },
+    {
+      "source": "/destinations",
+      "destination": "/tanzania-travel-guide",
+      "permanent": true
+    },
+    {
+      "source": "/safari-packages",
+      "destination": "/itineraries",
+      "permanent": true
+    },
+    {
+      "source": "/safari-from-zanzibar",
+      "destination": "/itineraries/zanzibar",
+      "permanent": true
+    },
+    {
+      "source": "/booking",
+      "destination": "/enquire",
+      "permanent": true
     }
   ]
 }

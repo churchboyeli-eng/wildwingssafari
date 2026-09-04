@@ -21,7 +21,6 @@ const bookingSteps = [
 
 export default function Enquire() {
   const location = useLocation();
-  const isBooking = location.pathname === '/booking';
   const prefill = location.state?.prefill || '';
   const [sent, setSent] = useState(false);
 
@@ -31,13 +30,13 @@ export default function Enquire() {
   };
 
   return (
-    <div className={`page-enter booking-page ${isBooking ? 'is-booking' : ''}`}>
+    <div className="page-enter booking-page">
       <section className="booking-hero" aria-labelledby="booking-heading">
         <div className="booking-hero-inner">
           <div className="booking-hero-copy">
-            <p className="eyebrow">{isBooking ? 'Safari booking' : 'Start with a conversation'}</p>
-            <h1 id="booking-heading">{isBooking ? 'Book your Tanzania safari.' : 'Tell us about your Tanzania trip.'}</h1>
-            <p>{isBooking ? 'Give us the details that matter and we will come back with a private safari proposal built around your dates, group and pace.' : 'Share a few details and we will turn the first conversation into a clear route and quote.'}</p>
+            <p className="eyebrow">Start with a conversation</p>
+            <h1 id="booking-heading">Tell us about your Tanzania trip.</h1>
+            <p>Share a few details and we will turn the first conversation into a clear route and quote.</p>
           </div>
           <div className="booking-steps" aria-label="Booking steps">
             {bookingSteps.map(([number, title, copy]) => <div className="booking-step" key={number}><span>{number}</span><div><strong>{title}</strong><p>{copy}</p></div></div>)}
@@ -48,7 +47,7 @@ export default function Enquire() {
       <section className="booking-content" aria-labelledby="booking-form-heading">
         <div className="booking-form-column">
           <header className="booking-form-heading">
-            <p className="eyebrow">{isBooking ? 'Your safari brief' : 'Plan your trip'}</p>
+            <p className="eyebrow">Plan your trip</p>
             <h2 id="booking-form-heading">The details we need.</h2>
             <p>These answers help us recommend the right parks, pace and accommodation. Nothing is final until you approve the proposal.</p>
           </header>
@@ -101,8 +100,8 @@ export default function Enquire() {
           <div className="booking-contact-card">
             <p className="eyebrow">Prefer to talk first?</p>
             <h3>We are close to the details.</h3>
-            <a href={waHref} target="_blank" rel="noopener noreferrer"><MessageCircle aria-hidden="true" size={16} /> {contact.whatsappNumber}</a>
-            <a href={`mailto:${contact.bookingEmail}`}><Mail aria-hidden="true" size={16} /> {contact.bookingEmail}</a>
+            {waHref && <a href={waHref} target="_blank" rel="noopener noreferrer"><MessageCircle aria-hidden="true" size={16} /> {contact.whatsappNumber}</a>}
+            {contact.bookingEmail && <a href={`mailto:${contact.bookingEmail}`}><Mail aria-hidden="true" size={16} /> {contact.bookingEmail}</a>}
             <span><MapPin aria-hidden="true" size={16} /> {contact.officeLocation}</span>
           </div>
 

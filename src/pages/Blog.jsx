@@ -51,7 +51,7 @@ function SetupState() {
       <p className="eyebrow">Zenblog is ready</p>
       <h3>Connect your published stories.</h3>
       <p>Add <code>VITE_ZENBLOG_BLOG_ID</code> to the site environment, then publish from Zenblog. Your posts will appear here with their title, excerpt, author and full story.</p>
-      <Link to="/booking" className="blog-state-action">Plan a story-led trip <ArrowRight aria-hidden="true" size={15} /></Link>
+      <Link to="/enquire" className="blog-state-action">Plan a story-led trip <ArrowRight aria-hidden="true" size={15} /></Link>
     </div>
   );
 }
@@ -185,7 +185,7 @@ export default function Blog() {
 
       <section className="blog-closing">
         <div><p className="eyebrow">Need the short version?</p><h2>Tell us what you want to see.</h2><p>We will turn your dates, interests and travel pace into a clear route and a day-by-day plan.</p></div>
-        <Link to="/booking" className="btn-dark">Book now <ArrowRight aria-hidden="true" size={16} /></Link>
+        <Link to="/enquire" className="btn-dark">Book now <ArrowRight aria-hidden="true" size={16} /></Link>
       </section>
     </div>
   );
@@ -230,7 +230,7 @@ export function BlogPost() {
         <div className="blog-post-art"><BlogArt post={post} index={0} detail /></div>
         <div className="blog-post-layout">
           <div className="blog-post-body" dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.htmlContent) }} />
-          <aside className="blog-post-aside"><p className="eyebrow">Keep planning</p><strong>Pair the story with a route.</strong><p>Tell us what caught your eye and we will shape it around your dates.</p><Link to="/booking" className="blog-post-aside-link">Book now <ArrowRight aria-hidden="true" size={15} /></Link></aside>
+          <aside className="blog-post-aside"><p className="eyebrow">Keep planning</p><strong>Pair the story with a route.</strong><p>Tell us what caught your eye and we will shape it around your dates.</p><Link to="/enquire" className="blog-post-aside-link">Book now <ArrowRight aria-hidden="true" size={15} /></Link></aside>
         </div>
       </article>
     </div>

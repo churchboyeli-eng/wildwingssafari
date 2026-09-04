@@ -2,6 +2,8 @@ import { waHref } from '../data/content';
 import { MessageCircle } from 'lucide-react';
 
 export default function FloatingActions() {
+  if (!waHref) return null;
+
   return (
     <div className="floating-actions">
       <a

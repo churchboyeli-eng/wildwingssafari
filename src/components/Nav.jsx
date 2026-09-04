@@ -31,7 +31,7 @@ const discoverLinks = [
   { to: '/tanzania-travel-guide#stays', title: 'Where to stay', sub: 'How comfort, location and pace change the route.', icon: BedDouble },
   { to: '/tanzania-travel-guide#activities', title: 'Activities by route', sub: 'Drive, float, walk, learn, climb and recover.', icon: Binoculars },
   { to: '/itineraries/safaris', title: 'Migration timing', sub: 'Month-led Serengeti route ideas.', icon: Star },
-  { to: '/booking', title: 'Booking steps', sub: 'What to send, how quotes work and how to confirm.', icon: BookOpen },
+  { to: '/enquire', title: 'Booking steps', sub: 'What to send, how quotes work and how to confirm.', icon: BookOpen },
   { to: '/enquire', title: 'Request a route', sub: 'Send dates and receive a private proposal.', icon: Sparkles },
 ];
 
@@ -170,13 +170,13 @@ export default function Nav() {
           </div>
         </div>
         {links.map((link) => <NavLink key={link.to} to={link.to} className={({ isActive }) => `site-nav-link ${isActive ? 'is-active' : ''}`} onClick={closeMobileNav}>{link.label}</NavLink>)}
-        <Link to="/booking" className="mobile-enquire" onClick={closeMobileNav}>Book now <ArrowRight aria-hidden="true" size={15} /></Link>
+        <Link to="/enquire" className="mobile-enquire" onClick={closeMobileNav}>Book now <ArrowRight aria-hidden="true" size={15} /></Link>
       </nav>
 
       <div className="site-header-actions">
         <span className="language-label"><Globe2 aria-hidden="true" size={16} /> EN</span>
-        <a href={waHref} target="_blank" rel="noopener noreferrer" className="site-whatsapp"><MessageCircle aria-hidden="true" size={17} /> WhatsApp</a>
-        <Link to="/booking" className="site-enquire">Book now <ArrowRight aria-hidden="true" size={15} /></Link>
+        {waHref && <a href={waHref} target="_blank" rel="noopener noreferrer" className="site-whatsapp"><MessageCircle aria-hidden="true" size={17} /> WhatsApp</a>}
+        <Link to="/enquire" className="site-enquire">Book now <ArrowRight aria-hidden="true" size={15} /></Link>
         <button type="button" className="mobile-nav-toggle" aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={mobileOpen} aria-controls="primary-navigation" onClick={() => setMobileOpen((open) => !open)}>{mobileOpen ? <X aria-hidden="true" size={21} /> : <Menu aria-hidden="true" size={21} />}</button>
       </div>
     </header>

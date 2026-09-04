@@ -28,7 +28,8 @@ export default function Footer() {
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 9, fontSize: 14 }}>
           <Link to="/tanzania-travel-guide" style={{ color: 'var(--ink-soft)' }}>Inside Tanzania</Link>
-          <Link to="/booking" style={{ color: 'var(--ink-soft)' }}>Booking</Link>
+          <Link to="/blog" style={{ color: 'var(--ink-soft)' }}>Blog</Link>
+          <Link to="/gallery" style={{ color: 'var(--ink-soft)' }}>Gallery</Link>
           <Link to="/about" style={{ color: 'var(--ink-soft)' }}>About</Link>
           <Link to="/enquire" style={{ color: 'var(--ink-soft)' }}>Enquire</Link>
         </div>
@@ -38,8 +39,8 @@ export default function Footer() {
           Contact
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 9, fontSize: 14, color: 'var(--ink-soft)' }}>
-          <a href={waHref} target="_blank" rel="noopener noreferrer">WhatsApp · {contact.whatsappNumber}</a>
-          <a href={`mailto:${contact.bookingEmail}`}>{contact.bookingEmail}</a>
+          {waHref && <a href={waHref} target="_blank" rel="noopener noreferrer">WhatsApp · {contact.whatsappNumber}</a>}
+          {contact.bookingEmail && <a href={`mailto:${contact.bookingEmail}`}>{contact.bookingEmail}</a>}
           <span style={{ color: 'var(--muted)' }}>{contact.officeLocation}</span>
         </div>
       </div>
@@ -48,12 +49,10 @@ export default function Footer() {
           Itineraries
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 9, fontSize: 14, color: 'var(--muted)' }}>
-          <span>Northern Circuit Safaris</span>
-          <span>Nyerere &amp; Mikumi Escapes</span>
-          <span>Zanzibar: Beach, Culture &amp; Sea</span>
-          <span>Safari &amp; Zanzibar Journeys</span>
-          <span>Kilimanjaro &amp; Mount Meru</span>
-          <span>Private Family &amp; Celebration Trips</span>
+          <Link to="/itineraries/safaris">Tanzania safaris</Link>
+          <Link to="/itineraries/kilimanjaro">Kilimanjaro routes</Link>
+          <Link to="/itineraries/zanzibar">Zanzibar itineraries</Link>
+          <Link to="/itineraries">View all itineraries</Link>
         </div>
       </div>
     </footer>

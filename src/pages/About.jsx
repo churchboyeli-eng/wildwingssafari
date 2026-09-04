@@ -103,7 +103,7 @@ export default function About() {
           <h2 id="about-closing-heading">Tell us what you want Tanzania to feel like.</h2>
           <p>Share your dates, the people travelling and the moments you care about. We will take it from there.</p>
         </div>
-        <Link to="/booking" className="about-closing-action">Book your safari <ArrowRight aria-hidden="true" size={16} /></Link>
+        <Link to="/enquire" className="about-closing-action">Book your safari <ArrowRight aria-hidden="true" size={16} /></Link>
       </section>
     </div>
   );

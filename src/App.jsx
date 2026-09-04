@@ -3,6 +3,7 @@ import FloatingActions from './components/FloatingActions';
 import Footer from './components/Footer';
 import Nav from './components/Nav';
 import ScrollToTop from './components/ScrollToTop';
+import SeoHead from './components/SeoHead';
 import About from './pages/About';
 import Blog, { BlogPost } from './pages/Blog';
 import CompassGuideDetail from './pages/CompassGuideDetail';
@@ -33,10 +34,16 @@ function LegacyTourRedirect() {
   return <Navigate to={`/itineraries/${tourId}`} replace />;
 }
 
+function LegacyGuideRedirect() {
+  const { guideSlug } = useParams();
+  return <Navigate to={`/tanzania-travel-guide/${guideSlug}`} replace />;
+}
+
 export default function App() {
   return (
     <div className="site-shell">
       <a className="skip-link" href="#main-content">Skip to content</a>
+      <SeoHead />
       <ScrollToTop />
       <Nav />
       <main id="main-content" tabIndex="-1">
@@ -45,7 +52,7 @@ export default function App() {
           <Route path="/tanzania-travel-guide" element={<Destinations />} />
           <Route path="/tanzania-travel-guide/:guideSlug" element={<CompassGuideDetail />} />
           <Route path="/tanzania-compass" element={<Navigate to="/tanzania-travel-guide" replace />} />
-          <Route path="/tanzania-compass/:guideSlug" element={<CompassGuideDetail />} />
+          <Route path="/tanzania-compass/:guideSlug" element={<LegacyGuideRedirect />} />
           <Route path="/discover-tanzania" element={<Navigate to="/tanzania-travel-guide" replace />} />
           <Route path="/destinations" element={<Navigate to="/tanzania-travel-guide" replace />} />
           <Route path="/itineraries" element={<Tours />} />
@@ -59,7 +66,7 @@ export default function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/about" element={<About />} />
-          <Route path="/booking" element={<Enquire />} />
+          <Route path="/booking" element={<Navigate to="/enquire" replace />} />
           <Route path="/enquire" element={<Enquire />} />
           <Route path="/safari-packages" element={<Navigate to="/itineraries" replace />} />
           <Route path="/safari-from-zanzibar" element={<Navigate to="/itineraries/zanzibar" replace />} />

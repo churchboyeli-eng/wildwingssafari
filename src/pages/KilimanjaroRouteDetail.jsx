@@ -86,7 +86,7 @@ export default function KilimanjaroRouteDetail() {
           </div>
 
           <div className="tour-route-art" aria-label={`Route: ${route.route}`}>
-            {media && <img className="tour-route-art-photo" src={media.src} alt="" loading="eager" decoding="async" />}
+            {media && <img className="tour-route-art-photo" src={media.src} alt={media.alt} loading="eager" decoding="async" />}
             <div className="tour-route-art-glow" aria-hidden="true" />
             <p>Route at a glance</p>
             <ol>
