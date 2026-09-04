@@ -60,7 +60,7 @@ function ErrorState({ onRetry }) {
   return (
     <div className="blog-state blog-state-error" role="alert">
       <span className="blog-state-icon"><RefreshCcw aria-hidden="true" size={21} /></span>
-      <p className="eyebrow">The journal is taking a moment</p>
+      <p className="eyebrow">The blog is taking a moment</p>
       <h3>We could not load the latest posts.</h3>
       <p>Check the connection or try again. Published stories will stay in Zenblog while this page reconnects.</p>
       <button type="button" className="blog-state-action" onClick={onRetry}>Try again <RefreshCcw aria-hidden="true" size={15} /></button>
@@ -70,7 +70,7 @@ function ErrorState({ onRetry }) {
 
 function LoadingState() {
   return (
-    <div className="blog-grid blog-grid-loading" aria-label="Loading journal posts">
+    <div className="blog-grid blog-grid-loading" aria-label="Loading blog posts">
       {Array.from({ length: 3 }, (_, index) => <div className="blog-card blog-card-skeleton" key={index} />)}
     </div>
   );
@@ -132,7 +132,7 @@ export default function Blog() {
       <section className="blog-hero" aria-labelledby="blog-heading">
         <div className="blog-hero-inner">
           <div className="blog-hero-copy">
-            <p className="eyebrow">Wild Wings journal</p>
+            <p className="eyebrow">Wild Wings blog</p>
             <h1 id="blog-heading">Field notes for planning Tanzania.</h1>
             <p>Practical stories from the parks, mountain paths and coast. Use them to choose a season, set a pace and make the route yours.</p>
             <div className="blog-hero-actions">
@@ -159,9 +159,9 @@ export default function Blog() {
 
         {status === 'ready' && (
           <div className="blog-toolbar">
-            <label className="blog-search"><Search aria-hidden="true" size={16} /><span className="sr-only">Search journal</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search the journal" /></label>
+            <label className="blog-search"><Search aria-hidden="true" size={16} /><span className="sr-only">Search blog</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search the blog" /></label>
             {categories.length > 0 && (
-              <div className="blog-category-filters" aria-label="Filter journal by category">
+              <div className="blog-category-filters" aria-label="Filter blog by category">
                 <button type="button" className={activeCategory === 'all' ? 'is-active' : ''} aria-pressed={activeCategory === 'all'} onClick={() => setActiveCategory('all')}>All notes</button>
                 {categories.map((category) => <button type="button" key={category} className={activeCategory === category ? 'is-active' : ''} aria-pressed={activeCategory === category} onClick={() => setActiveCategory(category)}><Tag aria-hidden="true" size={13} />{category}</button>)}
               </div>
@@ -215,13 +215,13 @@ export function BlogPost() {
   if (status === 'loading') return <div className="page-enter blog-post-page"><LoadingState /></div>;
   if (status === 'setup') return <div className="page-enter blog-post-page"><SetupState /></div>;
   if (status === 'error') return <div className="page-enter blog-post-page"><ErrorState onRetry={loadPost} /></div>;
-  if (status === 'missing') return <div className="page-enter blog-post-page"><div className="blog-state"><p className="eyebrow">Story not found</p><h3>That field note is no longer published.</h3><Link to="/blog" className="blog-state-action"><ArrowLeft aria-hidden="true" size={15} /> Back to the journal</Link></div></div>;
+  if (status === 'missing') return <div className="page-enter blog-post-page"><div className="blog-state"><p className="eyebrow">Story not found</p><h3>That field note is no longer published.</h3><Link to="/blog" className="blog-state-action"><ArrowLeft aria-hidden="true" size={15} /> Back to the blog</Link></div></div>;
 
   return (
     <div className="page-enter blog-post-page">
       <article className="blog-post">
         <header className="blog-post-heading">
-          <Link to="/blog" className="blog-back-link"><ArrowLeft aria-hidden="true" size={16} /> Wild Wings journal</Link>
+          <Link to="/blog" className="blog-back-link"><ArrowLeft aria-hidden="true" size={16} /> Wild Wings blog</Link>
           <div className="blog-post-meta"><span>{post.category || 'Field note'}</span><span><CalendarDays aria-hidden="true" size={14} />{formatDate(post.publishedAt)}</span><span><Clock3 aria-hidden="true" size={14} />{post.readTime} min read</span></div>
           <h1>{post.title}</h1>
           {post.excerpt && <p className="blog-post-lead">{post.excerpt}</p>}
