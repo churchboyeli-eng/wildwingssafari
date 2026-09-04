@@ -27,6 +27,15 @@ if (buildEnv.VERCEL_ENV === 'production' && !configuredSiteOrigin) {
 if (buildEnv.VERCEL_ENV === 'production' && !buildEnv.VITE_BOOKING_EMAIL?.trim() && !buildEnv.VITE_WHATSAPP_NUMBER?.trim()) {
   throw new Error('Production builds require VITE_BOOKING_EMAIL or VITE_WHATSAPP_NUMBER so visitors can contact Wild Wings.');
 }
+if (buildEnv.VERCEL_ENV === 'production' && !buildEnv.RESEND_API_KEY?.trim()) {
+  throw new Error('Production builds require RESEND_API_KEY for the enquiry form.');
+}
+if (buildEnv.VERCEL_ENV === 'production' && !buildEnv.ENQUIRY_FROM_EMAIL?.trim()) {
+  throw new Error('Production builds require ENQUIRY_FROM_EMAIL from a verified sending domain.');
+}
+if (buildEnv.VERCEL_ENV === 'production' && !buildEnv.BOOKING_EMAIL?.trim() && !buildEnv.VITE_BOOKING_EMAIL?.trim()) {
+  throw new Error('Production builds require BOOKING_EMAIL or VITE_BOOKING_EMAIL as the enquiry recipient.');
+}
 
 const siteOrigin = configuredSiteOrigin || 'http://localhost:4173';
 const blogId = buildEnv.VITE_ZENBLOG_BLOG_ID?.trim() || '';

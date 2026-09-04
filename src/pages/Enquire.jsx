@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { ArrowRight, CalendarDays, Check, ChevronDown, Mail, MapPin, MessageCircle, ShieldCheck, Sparkles } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -23,10 +23,41 @@ export default function Enquire() {
   const location = useLocation();
   const prefill = location.state?.prefill || '';
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const requestIdRef = useRef('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setSent(true);
+    if (submitting) return;
+
+    const form = event.currentTarget;
+    const formData = Object.fromEntries(new FormData(form).entries());
+    requestIdRef.current ||= globalThis.crypto?.randomUUID?.()
+      || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+    setSubmitting(true);
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('/api/enquire', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ ...formData, requestId: requestIdRef.current }),
+      });
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok || !result?.ok) {
+        throw new Error(result?.message || 'We could not send your request. Please try again.');
+      }
+
+      setSent(true);
+      form.reset();
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : 'We could not send your request. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -64,6 +95,7 @@ export default function Enquire() {
             </div>
           ) : (
             <form className="booking-form" onSubmit={handleSubmit}>
+              <label className="booking-honeypot" aria-hidden="true">Company<input name="company" tabIndex="-1" autoComplete="off" /></label>
               <div className="booking-form-grid">
                 <label>Full name<input required name="name" autoComplete="name" placeholder="Your name" /></label>
                 <label>Email address<input required type="email" name="email" autoComplete="email" placeholder="you@example.com" /></label>
@@ -82,7 +114,11 @@ export default function Enquire() {
                 <label>Travel style<select name="travelStyle" defaultValue="Private safari"><option>Private safari</option><option>Safari + Zanzibar</option><option>Kilimanjaro + safari</option><option>Family-friendly pace</option><option>Honeymoon or celebration</option></select></label>
               </div>
               <label>Anything you want us to plan<textarea name="message" rows="5" defaultValue={prefill} placeholder="Wildlife priorities, celebrations, dietary needs or anything that would make this trip feel like yours." /></label>
-              <Button type="submit" className="booking-submit" size="lg">Send safari request <ArrowRight aria-hidden="true" size={16} /></Button>
+              {errorMessage && <p className="booking-form-error" role="alert">{errorMessage}</p>}
+              <Button type="submit" className="booking-submit" size="lg" disabled={submitting} aria-busy={submitting}>
+                {submitting ? 'Sending your request…' : 'Send safari request'}
+                {!submitting && <ArrowRight aria-hidden="true" size={16} />}
+              </Button>
               <p className="booking-form-note"><ShieldCheck aria-hidden="true" size={15} /> No payment now. We respond with a tailored proposal and a clear price.</p>
             </form>
           )}
