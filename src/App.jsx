@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import Nav from './components/Nav';
 import ScrollToTop from './components/ScrollToTop';
 import About from './pages/About';
+import Blog, { BlogPost } from './pages/Blog';
 import CompassGuideDetail from './pages/CompassGuideDetail';
 import Destinations from './pages/Destinations';
 import Enquire from './pages/Enquire';
@@ -55,6 +56,8 @@ export default function App() {
           <Route path="/tours/:tourId" element={<LegacyTourRedirect />} />
           <Route path="/plan-a-journey" element={<JourneyBuilder />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/about" element={<About />} />
           <Route path="/booking" element={<Enquire />} />
           <Route path="/enquire" element={<Enquire />} />

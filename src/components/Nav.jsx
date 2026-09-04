@@ -19,6 +19,7 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { itineraryCategories, waHref } from '../data/content';
 
 const links = [
+  { to: '/blog', label: 'Journal' },
   { to: '/plan-a-journey', label: 'Plan your trip' },
   { to: '/about', label: 'About' },
 ];
