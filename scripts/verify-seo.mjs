@@ -1,8 +1,11 @@
 import assert from 'node:assert/strict';
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { loadEnv } from 'vite';
 
 const outputDirectory = path.resolve('dist');
+const projectRoot = path.resolve('.');
+const buildEnv = { ...loadEnv(process.env.NODE_ENV || 'production', projectRoot, ''), ...process.env };
 
 const walk = async (directory) => (await Promise.all(
   (await readdir(directory, { withFileTypes: true })).map((entry) => (
@@ -11,7 +14,13 @@ const walk = async (directory) => (await Promise.all(
 )).flat();
 
 const getMatch = (html, pattern) => html.match(pattern)?.[1] || '';
-const htmlFiles = (await walk(outputDirectory)).filter((file) => file.endsWith('.html'));
+const allHtmlFiles = (await walk(outputDirectory)).filter((file) => file.endsWith('.html'));
+const verificationFiles = allHtmlFiles.filter((file) => /^google[^/]*\.html$/i.test(path.basename(file)));
+for (const file of verificationFiles) {
+  const verification = await readFile(file, 'utf8');
+  assert.match(verification, /^google-site-verification:/, `${path.basename(file)} is not a valid Google verification file.`);
+}
+const htmlFiles = allHtmlFiles.filter((file) => !verificationFiles.includes(file));
 assert.ok(htmlFiles.length >= 60, `Expected at least 60 prerendered HTML files, found ${htmlFiles.length}.`);
 
 const pages = [];
@@ -50,7 +59,7 @@ const enquiry = pages.find((page) => page.file === 'enquire.html');
 const blog = pages.find((page) => page.file === 'blog.html');
 assert.match(notFound?.robots || '', /noindex/, '404.html must be noindex.');
 assert.match(enquiry?.robots || '', /noindex/, 'enquire.html must be noindex.');
-if (!process.env.VITE_ZENBLOG_BLOG_ID?.trim()) {
+if (!buildEnv.VITE_ZENBLOG_BLOG_ID?.trim()) {
   assert.match(blog?.robots || '', /noindex/, 'The unconfigured blog must be noindex.');
 }
 

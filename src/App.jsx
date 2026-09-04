@@ -39,11 +39,11 @@ function LegacyGuideRedirect() {
   return <Navigate to={`/tanzania-travel-guide/${guideSlug}`} replace />;
 }
 
-export default function App() {
+export default function App({ initialData = null }) {
   return (
     <div className="site-shell">
       <a className="skip-link" href="#main-content">Skip to content</a>
-      <SeoHead />
+      <SeoHead initialData={initialData} />
       <ScrollToTop />
       <Nav />
       <main id="main-content" tabIndex="-1">
@@ -63,8 +63,8 @@ export default function App() {
           <Route path="/tours/:tourId" element={<LegacyTourRedirect />} />
           <Route path="/plan-a-journey" element={<JourneyBuilder />} />
           <Route path="/gallery" element={<Gallery />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/blog" element={<Blog initialData={initialData?.kind === 'blog-index' ? initialData : null} />} />
+          <Route path="/blog/:slug" element={<BlogPost initialData={initialData?.kind === 'blog-post' ? initialData : null} />} />
           <Route path="/about" element={<About />} />
           <Route path="/booking" element={<Navigate to="/enquire" replace />} />
           <Route path="/enquire" element={<Enquire />} />

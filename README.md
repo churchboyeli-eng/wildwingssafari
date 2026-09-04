@@ -20,6 +20,7 @@ VITE_ZENBLOG_BLOG_ID=
 ```
 
 If `VITE_SITE_URL` is not set on Vercel, the build uses `VERCEL_PROJECT_PRODUCTION_URL` for canonical URLs, Open Graph URLs, `robots.txt`, and the sitemap.
+Production Vercel builds also require at least one working contact channel: `VITE_BOOKING_EMAIL` or `VITE_WHATSAPP_NUMBER`.
 
 ## Production build
 
@@ -30,7 +31,7 @@ npm run verify:seo
 
 The build creates the client bundle, server-renders every public route into `dist/*.html`, writes `dist/404.html`, and generates `sitemap.xml` and `robots.txt`. Vercel serves the generated files with clean URLs and permanent redirects for legacy paths.
 
-The blog is excluded from the sitemap and marked `noindex` until `VITE_ZENBLOG_BLOG_ID` is configured.
+The blog is excluded from the sitemap and marked `noindex` until `VITE_ZENBLOG_BLOG_ID` is configured. Once configured, the build fetches published posts, prerenders each article with its own metadata and structured data, and adds it to the sitemap.
 
 ## Quality checks
 

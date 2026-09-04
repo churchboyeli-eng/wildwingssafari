@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run build:client && npm run build:server && npm run prerender",
+    "build": "npm run build:client && npm run build:server && npm run prerender:pages",
     "build:client": "vite build",
     "build:server": "vite build --ssr src/entry-server.jsx --outDir dist-ssr",
     "lint": "oxlint",
-    "prerender": "node scripts/prerender.mjs",
+    "prerender": "npm run build",
+    "prerender:pages": "node scripts/prerender.mjs",
     "preview": "vite preview",
     "verify:seo": "node scripts/verify-seo.mjs"
   },

@@ -69,6 +69,17 @@ const sentenceDescription = (value, maximumLength = 160) => {
   return `${shortened.slice(0, shortened.lastIndexOf(' ')).replace(/[.,;:]$/, '')}…`;
 };
 
+const titleWithSuffix = (value, suffix, maximumLength = 65) => {
+  const normalized = String(value || '').replace(/\s+/g, ' ').trim();
+  const availableLength = maximumLength - suffix.length;
+  if (normalized.length <= availableLength) return `${normalized}${suffix}`;
+
+  const shortened = normalized.slice(0, availableLength - 1);
+  const wordBoundary = shortened.lastIndexOf(' ');
+  const headline = wordBoundary > 0 ? shortened.slice(0, wordBoundary) : shortened;
+  return `${headline.replace(/[.,;:]$/, '')}…${suffix}`;
+};
+
 export const normalizeSiteOrigin = (value) => {
   const candidate = String(value || '').trim();
   if (!candidate) return '';
@@ -120,7 +131,7 @@ const makeTravelAgencySchema = (siteOrigin) => {
   return schema;
 };
 
-const getDynamicPage = (pathname) => {
+const getDynamicPage = (pathname, options = {}) => {
   const categoryMatch = pathname.match(/^\/itineraries\/([^/]+)$/);
   if (categoryMatch) {
     const category = itineraryCategories.find((item) => item.key === categoryMatch[1]);
@@ -170,6 +181,28 @@ const getDynamicPage = (pathname) => {
     }
   }
 
+  const blogMatch = pathname.match(/^\/blog\/([^/]+)$/);
+  if (blogMatch) {
+    let slug = blogMatch[1];
+    try {
+      slug = decodeURIComponent(slug);
+    } catch {
+      return null;
+    }
+
+    const post = options.blogPosts?.find((item) => item.slug === slug);
+    if (post) {
+      return {
+        title: titleWithSuffix(post.title, ' | Wild Wings Blog'),
+        description: sentenceDescription(post.excerpt),
+        image: post.imageUrl,
+        type: 'article',
+        breadcrumb: ['Blog', post.title],
+        blogPost: post,
+      };
+    }
+  }
+
   return null;
 };
 
@@ -189,7 +222,7 @@ const getBreadcrumbItems = (labels, pathname) => {
 export const getSeoForPath = (pathname, options = {}) => {
   const path = normalizePathname(pathname);
   const siteOrigin = normalizeSiteOrigin(options.siteOrigin) || LOCAL_SITE_ORIGIN;
-  const page = staticPages[path] || getDynamicPage(path);
+  const page = staticPages[path] || getDynamicPage(path, options);
   const isBlogUnavailable = path.startsWith('/blog') && !options.blogConfigured;
 
   if (!page) {
@@ -207,15 +240,38 @@ export const getSeoForPath = (pathname, options = {}) => {
 
   const indexable = page.indexable !== false && !isBlogUnavailable;
   const breadcrumbItems = getBreadcrumbItems(page.breadcrumb, path);
+  const canonical = absoluteUrl(siteOrigin, path);
+  const image = absoluteUrl(siteOrigin, page.image || DEFAULT_IMAGE);
   const schema = [];
   if (path === '/') schema.push(makeTravelAgencySchema(siteOrigin));
   if (breadcrumbItems.length > 1) schema.push(makeBreadcrumbSchema(siteOrigin, breadcrumbItems));
+  if (page.blogPost) {
+    const blogPosting = {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: page.blogPost.title,
+      description: page.description,
+      image,
+      mainEntityOfPage: canonical,
+      publisher: {
+        '@type': 'TravelAgency',
+        '@id': `${siteOrigin}/#organization`,
+        name: SITE_NAME,
+        url: siteOrigin,
+      },
+    };
+    if (page.blogPost.publishedAt) blogPosting.datePublished = page.blogPost.publishedAt;
+    if (page.blogPost.authors?.length) {
+      blogPosting.author = page.blogPost.authors.map((name) => ({ '@type': 'Person', name }));
+    }
+    schema.push(blogPosting);
+  }
 
   return {
     title: page.title,
     description: page.description,
-    canonical: absoluteUrl(siteOrigin, path),
-    image: absoluteUrl(siteOrigin, page.image || DEFAULT_IMAGE),
+    canonical,
+    image,
     robots: indexable ? 'index, follow, max-image-preview:large' : 'noindex, follow',
     type: page.type || 'website',
     schema,
@@ -223,19 +279,19 @@ export const getSeoForPath = (pathname, options = {}) => {
   };
 };
 
-export const getPrerenderRoutes = () => {
+export const getPrerenderRoutes = (options = {}) => {
   const routes = [
     ...Object.keys(staticPages),
     ...itineraryCategories.map((category) => `/itineraries/${category.key}`),
     ...topPackages.map((tourPackage) => `/itineraries/${tourPackage.key}`),
     ...kilimanjaroRoutes.map((route) => `/itineraries/kilimanjaro/${route.key}`),
     ...compassGuideItems.map((guide) => `/tanzania-travel-guide/${guide.slug}`),
+    ...(options.blogPosts || []).map((post) => `/blog/${encodeURIComponent(post.slug)}`),
   ];
 
   return [...new Set(routes)].sort((a, b) => a.localeCompare(b));
 };
 
-export const getSitemapRoutes = (options = {}) => getPrerenderRoutes().filter((path) => (
+export const getSitemapRoutes = (options = {}) => getPrerenderRoutes(options).filter((path) => (
   getSeoForPath(path, options).indexable
 ));
-

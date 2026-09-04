@@ -12,13 +12,17 @@ const appendElement = (tagName, attributes, textContent) => {
   document.head.append(element);
 };
 
-export default function SeoHead() {
+export default function SeoHead({ initialData = null }) {
   const location = useLocation();
 
   useEffect(() => {
+    const blogPosts = initialData?.kind === 'blog-index'
+      ? initialData.posts
+      : (initialData?.kind === 'blog-post' && initialData.post ? [initialData.post] : []);
     const seo = getSeoForPath(location.pathname, {
       siteOrigin: getClientSiteOrigin(),
-      blogConfigured: Boolean(import.meta.env.VITE_ZENBLOG_BLOG_ID),
+      blogConfigured: Boolean(import.meta.env.VITE_ZENBLOG_BLOG_ID?.trim()),
+      blogPosts,
     });
 
     document.head.querySelectorAll(`[${MANAGED_ATTRIBUTE}]`).forEach((element) => element.remove());
@@ -39,8 +43,7 @@ export default function SeoHead() {
     seo.schema.forEach((schema) => {
       appendElement('script', { type: 'application/ld+json' }, JSON.stringify(schema));
     });
-  }, [location.pathname]);
+  }, [initialData, location.pathname]);
 
   return null;
 }
-

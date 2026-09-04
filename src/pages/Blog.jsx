@@ -79,7 +79,7 @@ function LoadingState() {
 function BlogCard({ post, index }) {
   return (
     <article className="blog-card">
-      <Link to={`/blog/${encodeURIComponent(post.slug)}`} className="blog-card-link" aria-label={`Read ${post.title}`}>
+      <a href={`/blog/${encodeURIComponent(post.slug)}`} className="blog-card-link" aria-label={`Read ${post.title}`}>
         <BlogArt post={post} index={index} />
         <div className="blog-card-copy">
           <div className="blog-card-meta">
@@ -90,32 +90,33 @@ function BlogCard({ post, index }) {
           {post.excerpt && <p>{post.excerpt}</p>}
           <span className="blog-card-action">Read story <ArrowRight aria-hidden="true" size={16} /></span>
         </div>
-      </Link>
+      </a>
     </article>
   );
 }
 
-export default function Blog() {
-  const [posts, setPosts] = useState([]);
-  const [status, setStatus] = useState('loading');
+export default function Blog({ initialData = null }) {
+  const hasInitialData = initialData?.kind === 'blog-index';
+  const [posts, setPosts] = useState(hasInitialData ? initialData.posts : []);
+  const [status, setStatus] = useState(hasInitialData ? (initialData.configured ? 'ready' : 'setup') : 'loading');
   const [query, setQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
   const blogId = getZenblogBlogId();
 
-  const loadPosts = useCallback(async () => {
-    setStatus('loading');
+  const loadPosts = useCallback(async ({ preserveContent = false } = {}) => {
+    if (!preserveContent) setStatus('loading');
     try {
       const result = await fetchZenblogPosts({ blogId });
       setPosts(result.posts);
       setStatus(result.configured ? 'ready' : 'setup');
     } catch {
-      setStatus('error');
+      if (!preserveContent) setStatus('error');
     }
   }, [blogId]);
 
   useEffect(() => {
-    loadPosts();
-  }, [loadPosts]);
+    loadPosts({ preserveContent: hasInitialData });
+  }, [hasInitialData, loadPosts]);
 
   const categories = useMemo(() => uniqueCategories(posts), [posts]);
   const filteredPosts = useMemo(() => {
@@ -191,26 +192,27 @@ export default function Blog() {
   );
 }
 
-export function BlogPost() {
+export function BlogPost({ initialData = null }) {
   const { slug } = useParams();
-  const [post, setPost] = useState(null);
-  const [status, setStatus] = useState('loading');
+  const hasInitialData = initialData?.kind === 'blog-post';
+  const [post, setPost] = useState(hasInitialData ? initialData.post : null);
+  const [status, setStatus] = useState(hasInitialData ? (initialData.post ? 'ready' : 'missing') : 'loading');
   const blogId = getZenblogBlogId();
 
-  const loadPost = useCallback(async () => {
-    setStatus('loading');
+  const loadPost = useCallback(async ({ preserveContent = false } = {}) => {
+    if (!preserveContent) setStatus('loading');
     try {
       const result = await fetchZenblogPost({ blogId, slug: decodeURIComponent(slug || '') });
       setPost(result.post);
       setStatus(result.configured ? (result.post ? 'ready' : 'missing') : 'setup');
     } catch {
-      setStatus('error');
+      if (!preserveContent) setStatus('error');
     }
   }, [blogId, slug]);
 
   useEffect(() => {
-    loadPost();
-  }, [loadPost]);
+    loadPost({ preserveContent: hasInitialData });
+  }, [hasInitialData, loadPost]);
 
   if (status === 'loading') return <div className="page-enter blog-post-page"><LoadingState /></div>;
   if (status === 'setup') return <div className="page-enter blog-post-page"><SetupState /></div>;

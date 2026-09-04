@@ -6,11 +6,10 @@ import { getPrerenderRoutes, getSeoForPath, getSitemapRoutes } from './seo/seo';
 export const renderPage = (pathname, options = {}) => ({
   appHtml: renderToString(
     <StaticRouter location={pathname}>
-      <App />
+      <App initialData={options.initialData} />
     </StaticRouter>,
   ),
   seo: getSeoForPath(pathname, options),
 });
 
 export { getPrerenderRoutes, getSeoForPath, getSitemapRoutes };
-

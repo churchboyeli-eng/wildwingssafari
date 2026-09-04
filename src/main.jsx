@@ -5,10 +5,19 @@ import App from './App.jsx';
 import './index.css';
 
 const rootElement = document.getElementById('root');
+const initialDataElement = document.getElementById('wild-wings-data');
+let initialData = null;
+if (initialDataElement?.textContent) {
+  try {
+    initialData = JSON.parse(initialDataElement.textContent);
+  } catch {
+    initialData = null;
+  }
+}
 const application = (
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <App initialData={initialData} />
     </BrowserRouter>
   </StrictMode>
 );
