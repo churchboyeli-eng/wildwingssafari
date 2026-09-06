@@ -153,6 +153,18 @@ export const zanzibarMedia = {
     src: '/media/zanzibar/beach-bungalows.jpg',
     alt: 'White-sand beach and overwater bungalows on a Zanzibar coast stay.',
   },
+  waterBungalows: {
+    src: '/media/zanzibar/water-bungalows.jpg',
+    alt: 'Overwater bungalows above clear Indian Ocean water.',
+  },
+  coastResort: {
+    src: '/media/zanzibar/coast-resort.jpg',
+    alt: 'Palm-lined beach and bright pool on a tropical coast.',
+  },
+  aerialLagoon: {
+    src: '/media/zanzibar/aerial-lagoon.jpg',
+    alt: 'Aerial view of a turquoise lagoon, sandy beach and island coastline.',
+  },
 };
 
 const packageMedia = {
@@ -175,9 +187,10 @@ const packageMedia = {
   'safari-21-day-grand-tanzania': safariMedia.craterView,
   'safari-7-day-northern-adventure': safariMedia.elephants,
   'safari-8-day-hiking-wildlife': kilimanjaroMedia.highlandRidge,
-  'safari-10-day-northern-zanzibar': zanzibarMedia.beachBungalows,
-  safarizanz: zanzibarMedia.beachBungalows,
-  honeymoon: zanzibarMedia.beachBungalows,
+  'safari-10-day-northern-zanzibar': zanzibarMedia.waterBungalows,
+  safarizanz: zanzibarMedia.coastResort,
+  honeymoon: zanzibarMedia.aerialLagoon,
+  'safari-12-day-family-zanzibar': zanzibarMedia.coastResort,
   kili: kilimanjaroMedia.summitSnow,
 };
 
