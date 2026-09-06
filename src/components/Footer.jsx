@@ -14,10 +14,11 @@ export default function Footer() {
       }}
     >
       <div>
-        <div style={{ fontFamily: 'var(--serif)', fontSize: 24, fontWeight: 600, color: 'var(--forest)' }}>Wild Wings</div>
-        <div style={{ fontSize: 9, letterSpacing: '.36em', textTransform: 'uppercase', color: 'var(--terracotta)', margin: '4px 0 14px' }}>
-          Travel &amp; Tours
-        </div>
+        <img
+          className="footer-brand-logo"
+          src="/media/brand/wild-wings-travel-logo.png"
+          alt="Wild Wings Travel — Wings to the Wilderness"
+        />
         <p style={{ fontSize: 14, color: 'var(--muted)', maxWidth: '32ch', lineHeight: 1.6, margin: 0 }}>
           Your gateway to the wilderness. Locally owned, nationwide across Tanzania.
         </p>

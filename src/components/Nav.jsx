@@ -115,8 +115,11 @@ export default function Nav() {
   return (
     <header className="site-header">
       <Link to="/" className="site-brand" onClick={closeMobileNav} aria-label="Wild Wings home">
-        <span className="brand-mark" aria-hidden="true">W</span>
-        <span><strong>Wild Wings Safari</strong><small>Local experts in Tanzania</small></span>
+        <img
+          className="site-brand-logo"
+          src="/media/brand/wild-wings-travel-logo.png"
+          alt="Wild Wings Travel — Wings to the Wilderness"
+        />
       </Link>
 
       <nav id="primary-navigation" className={`site-links ${mobileOpen ? 'is-open' : ''}`} aria-label="Primary navigation">

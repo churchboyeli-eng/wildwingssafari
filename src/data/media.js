@@ -1,4 +1,44 @@
 export const safariMedia = {
+  fieldLionPortrait: {
+    src: '/media/safari/field/serengeti-lion-portrait.jpg',
+    alt: 'A male lion resting in tall Serengeti grass.',
+  },
+  fieldLionPair: {
+    src: '/media/safari/field/lion-pair-encounter.jpg',
+    alt: 'Two lions meeting in dry Serengeti grassland.',
+  },
+  fieldMigrationPlains: {
+    src: '/media/safari/field/migration-plains.jpg',
+    alt: 'A wildebeest herd moving across open migration plains.',
+  },
+  fieldZebrasAtWater: {
+    src: '/media/safari/field/zebras-at-water.jpg',
+    alt: 'Zebras standing together at a waterhole.',
+  },
+  fieldLionFamily: {
+    src: '/media/safari/field/lion-family.jpg',
+    alt: 'A lioness and cubs resting together in the grass.',
+  },
+  fieldTarangireElephants: {
+    src: '/media/safari/field/tarangire-elephants-acacia.jpg',
+    alt: 'Elephants walking beneath acacia trees in Tarangire.',
+  },
+  fieldRhinoGoldenHour: {
+    src: '/media/safari/field/rhino-golden-hour.jpg',
+    alt: 'A rhinoceros silhouetted in warm golden safari light.',
+  },
+  fieldElephantHerd: {
+    src: '/media/safari/field/elephant-herd-close.jpg',
+    alt: 'A small elephant herd walking through woodland.',
+  },
+  fieldLionInTree: {
+    src: '/media/safari/field/lion-in-tree.jpg',
+    alt: 'A lion resting in the branches of an acacia tree.',
+  },
+  fieldSunsetSafari: {
+    src: '/media/safari/field/sunset-safari-vehicle.jpg',
+    alt: 'A safari vehicle passing acacia trees at sunset.',
+  },
   serengeti: {
     src: '/media/safari/serengeti-cheetah-family.jpg',
     alt: 'A cheetah family watching the Serengeti plains.',
@@ -108,27 +148,36 @@ export const kilimanjaroMedia = {
   },
 };
 
+export const zanzibarMedia = {
+  beachBungalows: {
+    src: '/media/zanzibar/beach-bungalows.jpg',
+    alt: 'White-sand beach and overwater bungalows on a Zanzibar coast stay.',
+  },
+};
+
 const packageMedia = {
-  'tarangire-day-trip': safariMedia.tarangire,
-  'explore-serengeti': safariMedia.serengeti,
-  'serengeti-ngorongoro': safariMedia.ngorongoro,
-  'tarangire-ngorongoro-arusha': safariMedia.tarangireLions,
-  'tanzania-mid-range': safariMedia.giraffes,
-  'tanzania-migration-safari': safariMedia.migrationHerd,
-  serengeti7: safariMedia.lions,
+  'tarangire-day-trip': safariMedia.fieldTarangireElephants,
+  'explore-serengeti': safariMedia.fieldZebrasAtWater,
+  'serengeti-ngorongoro': safariMedia.fieldLionPortrait,
+  'tarangire-ngorongoro-arusha': safariMedia.fieldElephantHerd,
+  'tanzania-mid-range': safariMedia.fieldLionPair,
+  'tanzania-migration-safari': safariMedia.fieldMigrationPlains,
+  serengeti7: safariMedia.fieldLionPair,
   southern: safariMedia.wildDogs,
-  migration: safariMedia.cheetahWalk,
-  family: safariMedia.zebras,
+  migration: safariMedia.fieldMigrationPlains,
+  family: safariMedia.fieldLionFamily,
   'safari-5-day-classic': safariMedia.ngorongoroZebras,
-  'safari-6-day-tanzania-classic': safariMedia.elephants,
+  'safari-6-day-tanzania-classic': safariMedia.fieldElephantHerd,
   'safari-6-day-southern-river': safariMedia.wetlands,
-  'safari-7-day-signature': safariMedia.restingLion,
-  'safari-10-day-serengeti-depth': safariMedia.antelope,
-  'safari-8-day-southern-wild-rivers': safariMedia.buffalo,
+  'safari-7-day-signature': safariMedia.fieldRhinoGoldenHour,
+  'safari-10-day-serengeti-depth': safariMedia.fieldLionInTree,
+  'safari-8-day-southern-wild-rivers': safariMedia.fieldElephantHerd,
   'safari-21-day-grand-tanzania': safariMedia.craterView,
   'safari-7-day-northern-adventure': safariMedia.elephants,
   'safari-8-day-hiking-wildlife': kilimanjaroMedia.highlandRidge,
-  'safari-10-day-northern-zanzibar': safariMedia.migrationHerd,
+  'safari-10-day-northern-zanzibar': zanzibarMedia.beachBungalows,
+  safarizanz: zanzibarMedia.beachBungalows,
+  honeymoon: zanzibarMedia.beachBungalows,
   kili: kilimanjaroMedia.summitSnow,
 };
 

@@ -1138,7 +1138,7 @@ export const galleryItems = [
   { id: 'gal-1', ratio: '4/5', caption: 'Wildlife · Serengeti', src: '/media/safari/serengeti-cheetah-family.jpg', alt: 'A cheetah family watching the Serengeti plains.' },
   { id: 'gal-2', ratio: '1/1', caption: 'Wildlife · Ngorongoro', src: '/media/safari/ngorongoro-buffalo.jpg', alt: 'A buffalo herd grazing in Ngorongoro.' },
   { id: 'gal-3', ratio: '4/5', caption: 'Kilimanjaro', src: '/media/kilimanjaro/trekkers.jpg', alt: 'A mountain crew hiking beneath the Kilimanjaro skyline.' },
-  { id: 'gal-4', ratio: '3/4', caption: 'Zanzibar' },
+  { id: 'gal-4', ratio: '3/4', caption: 'Zanzibar · Indian Ocean', src: '/media/zanzibar/beach-bungalows.jpg', alt: 'White-sand beach and overwater bungalows on a Zanzibar coast stay.' },
   { id: 'gal-5', ratio: '1/1', caption: 'Culture' },
   { id: 'gal-6', ratio: '4/5', caption: 'Mountain light', src: '/media/kilimanjaro/summit-dawn.jpg', alt: 'Sunrise over a high mountain ridge.' },
   { id: 'gal-7', ratio: '3/4', caption: 'Wildlife · Tarangire', src: '/media/safari/tarangire-elephants.jpg', alt: 'Elephants moving through dry Tarangire grassland.' },

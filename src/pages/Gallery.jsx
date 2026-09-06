@@ -1,12 +1,13 @@
 import ImagePlaceholder from '../components/ImagePlaceholder';
 import { ArrowRight } from 'lucide-react';
 import { galleryItems } from '../data/content';
+import { safariMedia } from '../data/media';
 
 export default function Gallery() {
   return (
     <div className="page-enter journal-page">
       <section className="journal-hero" aria-labelledby="journal-heading">
-        <ImagePlaceholder />
+        <img className="journal-hero-image" src={safariMedia.fieldSunsetSafari.src} alt={safariMedia.fieldSunsetSafari.alt} fetchPriority="high" decoding="async" />
         <div className="journal-hero-scrim" aria-hidden="true" />
         <div className="journal-hero-inner">
           <div className="journal-hero-copy">
