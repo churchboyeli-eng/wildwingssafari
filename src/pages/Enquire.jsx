@@ -19,11 +19,14 @@ const bookingSteps = [
   ['03', 'Confirm with confidence', 'Once everything feels right, we secure the arrangements.'],
 ];
 
+const REQUIRED_DETAILS_MESSAGE = 'Please complete your name, email, number of travellers and preferred dates.';
+
 export default function Enquire() {
   const location = useLocation();
   const prefill = location.state?.prefill || '';
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [validationMessage, setValidationMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const requestIdRef = useRef('');
 
@@ -32,6 +35,13 @@ export default function Enquire() {
     if (submitting) return;
 
     const form = event.currentTarget;
+    if (!form.checkValidity()) {
+      setValidationMessage(REQUIRED_DETAILS_MESSAGE);
+      form.reportValidity();
+      return;
+    }
+
+    setValidationMessage('');
     const formData = Object.fromEntries(new FormData(form).entries());
     requestIdRef.current ||= globalThis.crypto?.randomUUID?.()
       || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -94,19 +104,27 @@ export default function Enquire() {
               <Link to="/" className="booking-success-link">Back to home <ArrowRight aria-hidden="true" size={15} /></Link>
             </div>
           ) : (
-            <form className="booking-form" onSubmit={handleSubmit}>
+            <form
+              className={`booking-form${validationMessage ? ' booking-form-validated' : ''}`}
+              noValidate
+              onChange={(event) => {
+                if (validationMessage && event.currentTarget.checkValidity()) setValidationMessage('');
+              }}
+              onSubmit={handleSubmit}
+            >
               <label className="booking-honeypot" aria-hidden="true">Company<input name="company" tabIndex="-1" autoComplete="off" /></label>
+              {validationMessage && <p className="booking-form-error" role="alert">{validationMessage}</p>}
               <div className="booking-form-grid">
-                <label>Full name<input required name="name" autoComplete="name" placeholder="Your name" /></label>
-                <label>Email address<input required type="email" name="email" autoComplete="email" placeholder="you@example.com" /></label>
+                <label>Full name <span className="booking-required">required</span><input required name="name" autoComplete="name" placeholder="Your name" /></label>
+                <label>Email address <span className="booking-required">required</span><input required type="email" name="email" autoComplete="email" placeholder="you@example.com" /></label>
               </div>
               <div className="booking-form-grid">
                 <label>WhatsApp number <span className="booking-optional">optional</span><input name="whatsapp" type="tel" autoComplete="tel" placeholder="+255 …" /></label>
-                <label>Number of travellers<input required name="travellers" type="number" min="1" max="20" inputMode="numeric" placeholder="e.g. 2" /></label>
+                <label>Number of travellers <span className="booking-required">required</span><input required name="travellers" type="number" min="1" max="20" inputMode="numeric" placeholder="e.g. 2" /></label>
               </div>
               <label>Safari or journey<select name="itinerary" defaultValue={itineraryOptions[0]}>{itineraryOptions.map((option) => <option key={option}>{option}</option>)}</select></label>
               <div className="booking-form-grid">
-                <label>Preferred dates <span className="booking-optional">flexible is fine</span><input required name="dates" placeholder="e.g. 12–20 July 2027" /></label>
+                <label>Preferred dates <span className="booking-required">required · flexible is fine</span><input required name="dates" placeholder="e.g. 12–20 July 2027" /></label>
                 <label>Starting point<select name="startingPoint" defaultValue="Arusha or Zanzibar"><option>Arusha or Zanzibar</option><option>Arusha</option><option>Dar es Salaam</option><option>Zanzibar</option><option>Moshi</option></select></label>
               </div>
               <div className="booking-form-grid">
@@ -119,6 +137,7 @@ export default function Enquire() {
                 {submitting ? 'Sending your request…' : 'Send safari request'}
                 {!submitting && <ArrowRight aria-hidden="true" size={16} />}
               </Button>
+              {submitting && <p className="booking-form-progress" role="status">Sending securely. Please keep this page open for a few seconds.</p>}
               <p className="booking-form-note"><ShieldCheck aria-hidden="true" size={15} /> No payment now. We respond with a tailored proposal and a clear price.</p>
             </form>
           )}
