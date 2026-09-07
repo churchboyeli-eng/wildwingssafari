@@ -143,10 +143,14 @@ export default function Home() {
             {homeFaqs.map((item, index) => {
               const open = openFaq === index;
               return <article key={item.q} className={open ? 'is-open' : ''}>
-                <button type="button" onClick={() => setOpenFaq(open ? -1 : index)} aria-expanded={open} aria-controls={`home-faq-${index}`}>
+                <button id={`home-faq-trigger-${index}`} type="button" onClick={() => setOpenFaq(open ? -1 : index)} aria-expanded={open} aria-controls={`home-faq-${index}`}>
                   <span>{item.q}</span>{open ? <Minus aria-hidden="true" size={18} /> : <Plus aria-hidden="true" size={18} />}
                 </button>
-                <div id={`home-faq-${index}`} className="home-report-faq-answer"><p>{item.a}</p></div>
+                {open && (
+                  <div id={`home-faq-${index}`} className="home-report-faq-answer" role="region" aria-labelledby={`home-faq-trigger-${index}`}>
+                    <p>{item.a}</p>
+                  </div>
+                )}
               </article>;
             })}
           </div>

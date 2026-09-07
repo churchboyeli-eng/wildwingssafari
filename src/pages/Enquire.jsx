@@ -1,17 +1,17 @@
 import { useRef, useState } from 'react';
 import { ArrowRight, CalendarDays, Check, ChevronDown, Mail, MapPin, MessageCircle, ShieldCheck, Sparkles } from 'lucide-react';
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input/max';
+import 'react-phone-number-input/style.css';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { contact, enquireFaqs, topPackages, waHref } from '../data/content';
-
-const itineraryOptions = [
-  "I'm not sure yet",
-  ...topPackages.slice(0, 6).map((tourPackage) => tourPackage.name),
-  'Kilimanjaro climb',
-  'Zanzibar beach stay',
-  'Custom route',
-];
+import { contact, enquireFaqs, waHref } from '../data/content';
+import {
+  accommodationOptions,
+  itineraryOptions,
+  startingPointOptions,
+  travelStyleOptions,
+} from '../lib/enquiry-options';
 
 const bookingSteps = [
   ['01', 'Send the essentials', 'Dates, group size and the kind of Tanzania you want to see.'],
@@ -19,14 +19,61 @@ const bookingSteps = [
   ['03', 'Confirm with confidence', 'Once everything feels right, we secure the arrangements.'],
 ];
 
-const REQUIRED_DETAILS_MESSAGE = 'Please complete your name, email, number of travellers and preferred dates.';
+const travellerOptions = Array.from({ length: 20 }, (_, index) => index + 1);
+
+const tanzaniaToday = () => {
+  const parts = new Intl.DateTimeFormat('en', {
+    timeZone: 'Africa/Dar_es_Salaam',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(new Date());
+  const part = (type) => parts.find((item) => item.type === type)?.value;
+  return `${part('year')}-${part('month')}-${part('day')}`;
+};
+
+const FIELD_MESSAGES = {
+  name: 'Enter your full name.',
+  email: 'Enter a valid email address.',
+  whatsapp: 'Choose a country code and enter a valid WhatsApp number, or leave it empty.',
+  travellers: 'Choose the number of travellers.',
+  startDate: 'Choose an arrival date from today onward.',
+  endDate: 'Choose a departure date on or after arrival.',
+};
+
+const FIELD_IDS = {
+  name: 'booking-name',
+  email: 'booking-email',
+  whatsapp: 'booking-whatsapp',
+  travellers: 'booking-travellers',
+  itinerary: 'booking-itinerary',
+  startDate: 'booking-start-date',
+  endDate: 'booking-end-date',
+  startingPoint: 'booking-starting-point',
+  accommodation: 'booking-accommodation',
+  travelStyle: 'booking-travel-style',
+  message: 'booking-message',
+};
+
+const focusField = (field) => document.getElementById(FIELD_IDS[field])?.focus();
+
+const clientFieldErrors = (form, phoneIsValid) => {
+  const errors = {};
+  for (const field of ['name', 'email', 'travellers', 'startDate', 'endDate']) {
+    if (!form.elements.namedItem(field)?.checkValidity()) errors[field] = FIELD_MESSAGES[field];
+  }
+  if (!phoneIsValid) errors.whatsapp = FIELD_MESSAGES.whatsapp;
+  return errors;
+};
 
 export default function Enquire() {
   const location = useLocation();
   const prefill = location.state?.prefill || '';
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [validationMessage, setValidationMessage] = useState('');
+  const [whatsapp, setWhatsapp] = useState();
+  const [arrivalDate, setArrivalDate] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
   const requestIdRef = useRef('');
 
@@ -35,13 +82,15 @@ export default function Enquire() {
     if (submitting) return;
 
     const form = event.currentTarget;
-    if (!form.checkValidity()) {
-      setValidationMessage(REQUIRED_DETAILS_MESSAGE);
-      form.reportValidity();
+    const phoneIsValid = !whatsapp || isValidPhoneNumber(whatsapp);
+    const nextFieldErrors = clientFieldErrors(form, phoneIsValid);
+    if (Object.keys(nextFieldErrors).length) {
+      setFieldErrors(nextFieldErrors);
+      focusField(Object.keys(nextFieldErrors)[0]);
       return;
     }
 
-    setValidationMessage('');
+    setFieldErrors({});
     const formData = Object.fromEntries(new FormData(form).entries());
     requestIdRef.current ||= globalThis.crypto?.randomUUID?.()
       || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -58,6 +107,10 @@ export default function Enquire() {
       const result = await response.json().catch(() => null);
 
       if (!response.ok || !result?.ok) {
+        if (result?.fieldErrors) {
+          setFieldErrors(result.fieldErrors);
+          focusField(Object.keys(result.fieldErrors)[0]);
+        }
         throw new Error(result?.message || 'We could not send your request. Please try again.');
       }
 
@@ -69,6 +122,12 @@ export default function Enquire() {
       setSubmitting(false);
     }
   };
+
+  const errorFor = (field) => fieldErrors[field]
+    ? <span className="booking-field-error" id={`booking-${field}-error`}>{fieldErrors[field]}</span>
+    : null;
+
+  const describedBy = (field) => fieldErrors[field] ? `booking-${field}-error` : undefined;
 
   return (
     <div className="page-enter booking-page">
@@ -105,33 +164,79 @@ export default function Enquire() {
             </div>
           ) : (
             <form
-              className={`booking-form${validationMessage ? ' booking-form-validated' : ''}`}
+              className={`booking-form${Object.keys(fieldErrors).length ? ' booking-form-validated' : ''}`}
               noValidate
               onChange={(event) => {
-                if (validationMessage && event.currentTarget.checkValidity()) setValidationMessage('');
+                const { name } = event.target;
+                if (name && fieldErrors[name] && event.target.checkValidity()) {
+                  setFieldErrors((current) => {
+                    const next = { ...current };
+                    delete next[name];
+                    return next;
+                  });
+                }
               }}
               onSubmit={handleSubmit}
             >
               <label className="booking-honeypot" aria-hidden="true">Company<input name="company" tabIndex="-1" autoComplete="off" /></label>
-              {validationMessage && <p className="booking-form-error" role="alert">{validationMessage}</p>}
+              {Object.keys(fieldErrors).length > 0 && (
+                <div className="booking-form-error booking-validation-summary" role="alert">
+                  <strong>Please correct these details:</strong>
+                  <ul>{Object.entries(fieldErrors).map(([field, message]) => (
+                    <li key={field}>
+                      {FIELD_IDS[field]
+                        ? <a href={`#${FIELD_IDS[field]}`} onClick={(event) => { event.preventDefault(); focusField(field); }}>{message}</a>
+                        : message}
+                    </li>
+                  ))}</ul>
+                </div>
+              )}
               <div className="booking-form-grid">
-                <label>Full name <span className="booking-required">required</span><input required name="name" autoComplete="name" placeholder="Your name" /></label>
-                <label>Email address <span className="booking-required">required</span><input required type="email" name="email" autoComplete="email" placeholder="you@example.com" /></label>
+                <label>Full name <span className="booking-required">required</span><input id={FIELD_IDS.name} aria-describedby={describedBy('name')} aria-invalid={Boolean(fieldErrors.name)} required minLength="2" maxLength="100" name="name" autoComplete="name" placeholder="Your name" />{errorFor('name')}</label>
+                <label>Email address <span className="booking-required">required</span><input id={FIELD_IDS.email} aria-describedby={describedBy('email')} aria-invalid={Boolean(fieldErrors.email)} required maxLength="254" type="email" name="email" autoComplete="email" placeholder="you@example.com" />{errorFor('email')}</label>
               </div>
               <div className="booking-form-grid">
-                <label>WhatsApp number <span className="booking-optional">optional</span><input name="whatsapp" type="tel" autoComplete="tel" placeholder="+255 …" /></label>
-                <label>Number of travellers <span className="booking-required">required</span><input required name="travellers" type="number" min="1" max="20" inputMode="numeric" placeholder="e.g. 2" /></label>
+                <div className="booking-phone-field"><span>WhatsApp number <span className="booking-optional">optional · choose country code</span></span>
+                  <PhoneInput
+                    id={FIELD_IDS.whatsapp}
+                    aria-describedby={describedBy('whatsapp')}
+                    aria-invalid={Boolean(fieldErrors.whatsapp)}
+                    aria-label="WhatsApp number"
+                    autoComplete="tel"
+                    className="booking-phone-input"
+                    countryCallingCodeEditable={false}
+                    defaultCountry="TZ"
+                    international
+                    limitMaxLength
+                    onChange={(value) => {
+                      setWhatsapp(value);
+                      if (fieldErrors.whatsapp && (!value || isValidPhoneNumber(value))) {
+                        setFieldErrors((current) => {
+                          const next = { ...current };
+                          delete next.whatsapp;
+                          return next;
+                        });
+                      }
+                    }}
+                    placeholder="Phone number"
+                    value={whatsapp}
+                  />
+                  <input name="whatsapp" type="hidden" value={whatsapp || ''} />
+                  {errorFor('whatsapp')}
+                </div>
+                <label>Number of travellers <span className="booking-required">required</span><select id={FIELD_IDS.travellers} aria-describedby={describedBy('travellers')} aria-invalid={Boolean(fieldErrors.travellers)} required name="travellers" defaultValue=""><option value="" disabled>Choose travellers</option>{travellerOptions.map((count) => <option key={count} value={count}>{count} {count === 1 ? 'traveller' : 'travellers'}</option>)}</select>{errorFor('travellers')}</label>
               </div>
-              <label>Safari or journey<select name="itinerary" defaultValue={itineraryOptions[0]}>{itineraryOptions.map((option) => <option key={option}>{option}</option>)}</select></label>
+              <label>Safari or journey<select id={FIELD_IDS.itinerary} aria-describedby={describedBy('itinerary')} aria-invalid={Boolean(fieldErrors.itinerary)} name="itinerary" defaultValue={itineraryOptions[0].value}>{itineraryOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select>{errorFor('itinerary')}</label>
               <div className="booking-form-grid">
-                <label>Preferred dates <span className="booking-required">required · flexible is fine</span><input required name="dates" placeholder="e.g. 12–20 July 2027" /></label>
-                <label>Starting point<select name="startingPoint" defaultValue="Arusha or Zanzibar"><option>Arusha or Zanzibar</option><option>Arusha</option><option>Dar es Salaam</option><option>Zanzibar</option><option>Moshi</option></select></label>
+                <label>Arrival date <span className="booking-required">required · today or later</span><input id={FIELD_IDS.startDate} aria-describedby={describedBy('startDate')} aria-invalid={Boolean(fieldErrors.startDate)} required min={tanzaniaToday()} name="startDate" type="date" value={arrivalDate} onChange={(event) => setArrivalDate(event.target.value)} />{errorFor('startDate')}</label>
+                <label>Departure date <span className="booking-required">required · same day or later</span><input id={FIELD_IDS.endDate} aria-describedby={describedBy('endDate')} aria-invalid={Boolean(fieldErrors.endDate)} required min={arrivalDate || tanzaniaToday()} name="endDate" type="date" />{errorFor('endDate')}</label>
               </div>
+              <label>Starting point<select id={FIELD_IDS.startingPoint} aria-describedby={describedBy('startingPoint')} aria-invalid={Boolean(fieldErrors.startingPoint)} name="startingPoint" defaultValue={startingPointOptions[0].value}>{startingPointOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select>{errorFor('startingPoint')}</label>
               <div className="booking-form-grid">
-                <label>Accommodation<select name="accommodation" defaultValue="Comfortable mid-range"><option>Comfortable mid-range</option><option>Simple and great value</option><option>Upper mid-range</option><option>Luxury lodges and camps</option><option>Help me choose</option></select></label>
-                <label>Travel style<select name="travelStyle" defaultValue="Private safari"><option>Private safari</option><option>Safari + Zanzibar</option><option>Kilimanjaro + safari</option><option>Family-friendly pace</option><option>Honeymoon or celebration</option></select></label>
+                <label>Accommodation<select id={FIELD_IDS.accommodation} aria-describedby={describedBy('accommodation')} aria-invalid={Boolean(fieldErrors.accommodation)} name="accommodation" defaultValue={accommodationOptions[0].value}>{accommodationOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select>{errorFor('accommodation')}</label>
+                <label>Travel style<select id={FIELD_IDS.travelStyle} aria-describedby={describedBy('travelStyle')} aria-invalid={Boolean(fieldErrors.travelStyle)} name="travelStyle" defaultValue={travelStyleOptions[0].value}>{travelStyleOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select>{errorFor('travelStyle')}</label>
               </div>
-              <label>Anything you want us to plan<textarea name="message" rows="5" defaultValue={prefill} placeholder="Wildlife priorities, celebrations, dietary needs or anything that would make this trip feel like yours." /></label>
+              <label>Anything you want us to plan<textarea id={FIELD_IDS.message} aria-describedby={describedBy('message')} aria-invalid={Boolean(fieldErrors.message)} maxLength="3000" name="message" rows="5" defaultValue={prefill} placeholder="Wildlife priorities, celebrations, dietary needs or anything that would make this trip feel like yours." />{errorFor('message')}</label>
               {errorMessage && <p className="booking-form-error" role="alert">{errorMessage}</p>}
               <Button type="submit" className="booking-submit" size="lg" disabled={submitting} aria-busy={submitting}>
                 {submitting ? 'Sending your request…' : 'Send safari request'}

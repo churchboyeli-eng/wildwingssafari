@@ -13,11 +13,12 @@ const validPayload = {
   email: 'amina@example.com',
   whatsapp: '+255 700 000 000',
   travellers: '2',
-  itinerary: 'Custom route',
-  dates: '12–20 July 2027',
-  startingPoint: 'Arusha',
-  accommodation: 'Comfortable mid-range',
-  travelStyle: 'Private safari',
+  itinerary: 'custom-route',
+  startDate: '2027-07-12',
+  endDate: '2027-07-20',
+  startingPoint: 'arusha',
+  accommodation: 'comfortable-mid-range',
+  travelStyle: 'private-safari',
   message: 'We would love to see elephants & lions.',
   company: '',
   requestId: 'b07b7312-fc86-47ed-a076-6b6f79a84f38',
@@ -52,6 +53,118 @@ test('rejects invalid enquiry fields without sending email', async () => {
   assert.equal(response.status, 400);
   assert.equal(result.ok, false);
   assert.equal(sendCount, 0);
+});
+
+test('rejects safari dates in the past without sending email', async () => {
+  let sendCount = 0;
+  const handler = createEnquiryHandler({
+    env: configuredEnv,
+    now: () => new Date('2026-09-06T09:00:00Z'),
+    sendEmail: async () => {
+      sendCount += 1;
+      return { data: { id: 'unused' } };
+    },
+  });
+  const response = await handler(makeRequest({
+    ...validPayload,
+    startDate: '2024-01-10',
+    endDate: '2024-01-14',
+  }));
+
+  assert.equal(response.status, 400);
+  assert.equal(sendCount, 0);
+});
+
+test('rejects non-decimal traveller counts without sending email', async () => {
+  let sendCount = 0;
+  const handler = createEnquiryHandler({
+    env: configuredEnv,
+    sendEmail: async () => {
+      sendCount += 1;
+      return { data: { id: 'unused' } };
+    },
+  });
+  const response = await handler(makeRequest({ ...validPayload, travellers: '1e1' }));
+
+  assert.equal(response.status, 400);
+  assert.equal(sendCount, 0);
+});
+
+test('does not repair an over-limit traveller count', async () => {
+  let sendCount = 0;
+  const handler = createEnquiryHandler({
+    env: configuredEnv,
+    sendEmail: async () => {
+      sendCount += 1;
+      return { data: { id: 'unused' } };
+    },
+  });
+  const response = await handler(makeRequest({ ...validPayload, travellers: '200' }));
+
+  assert.equal(response.status, 400);
+  assert.equal(sendCount, 0);
+});
+
+test('rejects unexpected field types and overlong values', async () => {
+  const handler = createEnquiryHandler({ env: configuredEnv, sendEmail: async () => ({ data: { id: 'unused' } }) });
+  const wrongType = await handler(makeRequest({ ...validPayload, name: {} }));
+  const overlong = await handler(makeRequest({ ...validPayload, name: 'a'.repeat(101) }));
+
+  assert.equal(wrongType.status, 400);
+  assert.equal(overlong.status, 400);
+  assert.equal((await overlong.json()).fieldErrors.name, 'Enter a name between 2 and 100 characters.');
+});
+
+test('rejects malformed WhatsApp numbers without sending email', async () => {
+  let sendCount = 0;
+  const handler = createEnquiryHandler({
+    env: configuredEnv,
+    sendEmail: async () => {
+      sendCount += 1;
+      return { data: { id: 'unused' } };
+    },
+  });
+  const response = await handler(makeRequest({ ...validPayload, whatsapp: '0712 wrong number' }));
+
+  assert.equal(response.status, 400);
+  assert.equal(sendCount, 0);
+});
+
+test('rejects forged select values without sending email', async () => {
+  let sendCount = 0;
+  const handler = createEnquiryHandler({
+    env: configuredEnv,
+    sendEmail: async () => {
+      sendCount += 1;
+      return { data: { id: 'unused' } };
+    },
+  });
+  const response = await handler(makeRequest({ ...validPayload, accommodation: 'injected-option' }));
+
+  assert.equal(response.status, 400);
+  assert.equal(sendCount, 0);
+});
+
+test('rejects unsupported JSON-like content types', async () => {
+  const handler = createEnquiryHandler({ env: configuredEnv, sendEmail: async () => ({ data: { id: 'unused' } }) });
+  const request = makeRequest();
+  request.headers.set('content-type', 'application/jsonp');
+  const response = await handler(request);
+
+  assert.equal(response.status, 415);
+});
+
+test('rejects impossible and reversed safari dates', async () => {
+  const handler = createEnquiryHandler({
+    env: configuredEnv,
+    now: () => new Date('2026-09-06T09:00:00Z'),
+    sendEmail: async () => ({ data: { id: 'unused' } }),
+  });
+  const impossible = await handler(makeRequest({ ...validPayload, startDate: '2027-02-30' }));
+  const reversed = await handler(makeRequest({ ...validPayload, endDate: '2027-07-11' }));
+
+  assert.equal(impossible.status, 400);
+  assert.equal(reversed.status, 400);
 });
 
 test('rejects an oversized body even without a content-length header', async () => {
@@ -116,6 +229,9 @@ test('sends a validated, escaped enquiry with a stable idempotency key', async (
   assert.match(message.subject, /New Tanzania trip enquiry/);
   assert.match(message.html, /&lt;Amina &amp; family&gt;/);
   assert.doesNotMatch(message.html, /<script>/);
+  assert.match(message.text, /WhatsApp: \+255700000000/);
+  assert.match(message.text, /Arrival date: 2027-07-12/);
+  assert.match(message.text, /Departure date: 2027-07-20/);
   assert.match(message.text, /Elephants please/);
   assert.equal(options.idempotencyKey, `enquiry-${validPayload.requestId}`);
 });
