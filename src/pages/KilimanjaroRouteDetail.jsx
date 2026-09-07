@@ -16,6 +16,7 @@ import {
   X,
 } from 'lucide-react';
 import { Link, Navigate, useParams } from 'react-router-dom';
+import RouteStopIcon from '../components/RouteStopIcon';
 import { kilimanjaroRoutes, routeDays } from './Kilimanjaro';
 import { kilimanjaroMedia } from '../data/media';
 
@@ -76,7 +77,6 @@ export default function KilimanjaroRouteDetail() {
         <div className="tour-detail-hero-inner">
           <div className="tour-detail-hero-copy">
             <Link className="detail-back-link" to="/itineraries/kilimanjaro"><ArrowLeft aria-hidden="true" size={16} /> All Kilimanjaro routes</Link>
-            <p className="eyebrow">{route.label} · Kilimanjaro itinerary</p>
             <h1>{route.name} route</h1>
             <p className="tour-detail-lead">{route.copy}</p>
             <div className="tour-detail-actions">
@@ -92,7 +92,7 @@ export default function KilimanjaroRouteDetail() {
             <ol>
               {stops.map((stop, index) => (
                 <li key={`${stop}-${index}`}>
-                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <span><RouteStopIcon stop={stop} variant="mountain" /></span>
                   <strong>{stop}</strong>
                 </li>
               ))}

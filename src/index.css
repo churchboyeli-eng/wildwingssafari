@@ -265,7 +265,8 @@ footer:not(.safari-footer) a { transition: color 150ms ease; }
 .tour-route-art ol { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
 .tour-route-art li { position: relative; display: grid; grid-template-columns: 32px 1fr; align-items: center; gap: 12px; min-height: 48px; }
 .tour-route-art li:not(:last-child)::after { position: absolute; top: 33px; bottom: -9px; left: 15px; width: 1px; background: rgb(217 146 46 / .45); content: ''; }
-.tour-route-art li span { display: grid; z-index: 1; width: 32px; height: 32px; place-items: center; border: 1px solid #d9922e; border-radius: 50%; background: #d9922e; color: #d9922e; font-size: 10px; font-weight: 800; }
+.tour-route-art li span { display: grid; z-index: 1; width: 32px; height: 32px; place-items: center; border: 1px solid #d9922e; border-radius: 50%; background: #d9922e; color: #281d16; }
+.tour-route-art li span svg { display: block; }
 .tour-route-art li strong { color: #fff8ef; font-size: 15px; }
 .tour-route-art small { display: block; margin-top: 25px; color: #d9922e; font-size: 11px; line-height: 1.45; }
 .tour-hero-price { margin-top: 22px; border-top: 1px solid rgb(255 248 239 / .16); padding-top: 18px; }.tour-hero-price > span { display: block; color: #d9922e; font-size: 9px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }.tour-hero-price strong { display: block; margin-top: 7px; color: #fff8ef; font: 800 clamp(33px, 4vw, 52px)/.95 var(--serif); letter-spacing: -.04em; }.tour-hero-price small { margin-top: 3px; color: #d9922e; font-size: 11px; font-weight: 700; }.tour-hero-price a { display: inline-flex; align-items: center; gap: 6px; min-height: 34px; margin-top: 10px; color: #d9922e; font-size: 11px; font-weight: 900; }.tour-hero-price a svg { transition: transform 160ms cubic-bezier(.2, 0, 0, 1); }
@@ -317,7 +318,7 @@ footer:not(.safari-footer) a { transition: color 150ms ease; }
 .tour-simple-price-title { display: inline-flex; min-width: 0; align-items: center; gap: 12px; }
 .tour-simple-price-title svg { flex: 0 0 auto; color: #d9922e; }
 .tour-simple-price-title h3 { margin: 0; color: #281d16; font-size: clamp(22px, 2.1vw, 31px); font-weight: 800; letter-spacing: -.03em; }
-.tour-simple-price-period { display: inline-flex; min-height: 42px; align-items: center; border-radius: 999px; background: #d9922e; padding: 0 17px; color: #d9922e; font-size: clamp(14px, 1.4vw, 21px); font-weight: 700; }
+.tour-simple-price-period { color: #6e6259; font-size: 13px; font-weight: 700; }
 .tour-simple-price-help { margin-inline-start: auto; color: #281d16; }
 .tour-simple-price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 .tour-simple-price-cell { min-width: 0; padding: 0 clamp(18px, 2vw, 28px); border-inline-end: 1px solid #fff8ef; }
@@ -685,7 +686,7 @@ footer:not(.safari-footer) a { transition: color 150ms ease; }
   .tour-price-heading > p { max-width: none; }
   .tour-simple-price-card { border-radius: 22px; padding: 22px; }
   .tour-simple-price-head { align-items: flex-start; flex-direction: column; gap: 10px; }
-  .tour-simple-price-period { min-height: 36px; font-size: 14px; }
+  .tour-simple-price-period { font-size: 13px; }
   .tour-simple-price-help { display: none; }
   .tour-simple-price-grid { grid-template-columns: 1fr; }
   .tour-simple-price-cell { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 15px 0; border-inline-end: 0; border-bottom: 1px solid #fff8ef; }

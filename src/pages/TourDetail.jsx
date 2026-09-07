@@ -21,6 +21,7 @@ import {
   X,
 } from 'lucide-react';
 import { Link, Navigate, useParams } from 'react-router-dom';
+import RouteStopIcon from '../components/RouteStopIcon';
 import { getPackageStartingPrice, topPackages, tourPlanningQuestions, waHref } from '../data/content';
 
 const itineraryHighlights = [
@@ -84,7 +85,6 @@ export default function TourDetail() {
         <div className="tour-detail-hero-inner">
           <div className="tour-detail-hero-copy">
             <Link className="detail-back-link" to="/itineraries"><ArrowLeft aria-hidden="true" size={16} /> All itineraries</Link>
-            <p className="eyebrow">{tour.tag} · Sample itinerary</p>
             <h1>{tour.name}</h1>
             <p className="tour-detail-lead">{tour.copy}</p>
             <div className="tour-detail-actions">
@@ -99,7 +99,7 @@ export default function TourDetail() {
             <ol>
               {tour.stops.map((stop, index) => (
                 <li key={`${stop}-${index}`}>
-                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <span><RouteStopIcon stop={stop} /></span>
                   <strong>{stop}</strong>
                 </li>
               ))}
