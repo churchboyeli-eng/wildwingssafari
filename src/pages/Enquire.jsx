@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, CalendarDays, Check, ChevronDown, Mail, MapPin, MessageCircle, ShieldCheck, Sparkles } from 'lucide-react';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input/max';
 import 'react-phone-number-input/style.css';
@@ -55,7 +55,7 @@ const FIELD_IDS = {
   message: 'booking-message',
 };
 
-const focusField = (field) => document.getElementById(FIELD_IDS[field])?.focus();
+const focusField = (field) => document.getElementById(FIELD_IDS[field] || 'booking-error-summary')?.focus();
 
 const clientFieldErrors = (form, phoneIsValid) => {
   const errors = {};
@@ -76,6 +76,13 @@ export default function Enquire() {
   const [fieldErrors, setFieldErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
   const requestIdRef = useRef('');
+  const errorFocusRef = useRef('');
+
+  useEffect(() => {
+    if (!errorFocusRef.current) return;
+    focusField(errorFocusRef.current);
+    errorFocusRef.current = '';
+  }, [fieldErrors]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -85,8 +92,8 @@ export default function Enquire() {
     const phoneIsValid = !whatsapp || isValidPhoneNumber(whatsapp);
     const nextFieldErrors = clientFieldErrors(form, phoneIsValid);
     if (Object.keys(nextFieldErrors).length) {
+      errorFocusRef.current = Object.keys(nextFieldErrors)[0];
       setFieldErrors(nextFieldErrors);
-      focusField(Object.keys(nextFieldErrors)[0]);
       return;
     }
 
@@ -108,8 +115,8 @@ export default function Enquire() {
 
       if (!response.ok || !result?.ok) {
         if (result?.fieldErrors) {
+          errorFocusRef.current = Object.keys(result.fieldErrors)[0] || 'form';
           setFieldErrors(result.fieldErrors);
-          focusField(Object.keys(result.fieldErrors)[0]);
         }
         throw new Error(result?.message || 'We could not send your request. Please try again.');
       }
@@ -180,7 +187,7 @@ export default function Enquire() {
             >
               <label className="booking-honeypot" aria-hidden="true">Company<input name="company" tabIndex="-1" autoComplete="off" /></label>
               {Object.keys(fieldErrors).length > 0 && (
-                <div className="booking-form-error booking-validation-summary" role="alert">
+                <div id="booking-error-summary" className="booking-form-error booking-validation-summary" role="alert" tabIndex="-1">
                   <strong>Please correct these details:</strong>
                   <ul>{Object.entries(fieldErrors).map(([field, message]) => (
                     <li key={field}>
