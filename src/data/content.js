@@ -1072,10 +1072,10 @@ export const tourPlanningQuestions = [
 ];
 
 export const testimonials = [
-  { key: 't1', initials: 'PM', name: 'Pascal M.', country: 'France', source: 'TripAdvisor', sourceColor: '#2E7D46', sourceBg: '#e6f4ea', quote: 'We have just returned from a memorable safari. The guide was outstanding, and we were looked after from the first day to the last.' },
-  { key: 't2', initials: 'LG', name: 'Laura G.', country: 'Germany', source: 'SafariBookings', sourceColor: '#C0512A', sourceBg: '#fbe9e1', quote: 'Wild Wings planned our Serengeti and Ngorongoro trip with patience and care. Every detail was clear before we travelled.' },
-  { key: 't3', initials: 'ET', name: 'Emma T.', country: 'United Kingdom', source: 'Google', sourceColor: '#2b6cb0', sourceBg: '#e6effb', quote: 'Brilliant from start to finish. The team was professional, the vehicle comfortable and the wildlife viewing better than we expected.' },
-  { key: 't4', initials: 'SG', name: 'Sergej G.', country: 'Germany', source: 'TripAdvisor', sourceColor: '#2E7D46', sourceBg: '#e6f4ea', quote: 'We had a great safari and everything was well organised. Our guide explained so much along the way.' },
+  { key: 't1', initials: 'PM', name: 'Pascal M.', country: 'France', source: 'TripAdvisor', sourceColor: '#d9922e', sourceBg: '#fff8ef', quote: 'We have just returned from a memorable safari. The guide was outstanding, and we were looked after from the first day to the last.' },
+  { key: 't2', initials: 'LG', name: 'Laura G.', country: 'Germany', source: 'SafariBookings', sourceColor: '#d9922e', sourceBg: '#fff8ef', quote: 'Wild Wings planned our Serengeti and Ngorongoro trip with patience and care. Every detail was clear before we travelled.' },
+  { key: 't3', initials: 'ET', name: 'Emma T.', country: 'United Kingdom', source: 'Google', sourceColor: '#d9922e', sourceBg: '#fff8ef', quote: 'Brilliant from start to finish. The team was professional, the vehicle comfortable and the wildlife viewing better than we expected.' },
+  { key: 't4', initials: 'SG', name: 'Sergej G.', country: 'Germany', source: 'TripAdvisor', sourceColor: '#d9922e', sourceBg: '#fff8ef', quote: 'We had a great safari and everything was well organised. Our guide explained so much along the way.' },
 ];
 
 export const trustBadges = ['Tripadvisor', 'SafariBookings.com', 'TANAPA', 'TATO', 'ATTA'];
