@@ -19,7 +19,7 @@ const pageCopy = {
     eyebrow: 'Safaris',
     title: 'Tanzania safari itineraries',
     lead: 'Choose the classic Northern Circuit or a quieter southern route. We match the parks, overnight rhythm and guide to your dates and what you want to see.',
-    listTitle: 'Sample safari itineraries',
+    listTitle: 'Explore our safari itineraries',
     afterTitle: 'Leave room for the good sightings.',
     afterCopy: 'We protect game-drive time, keep the driving rhythm sensible and point you to the region that fits your travel month.',
   },
