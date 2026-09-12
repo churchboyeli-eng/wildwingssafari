@@ -11,9 +11,9 @@ const pageCopy = {
     eyebrow: 'Itineraries',
     title: 'Tanzania itineraries',
     lead: 'Choose a private safari, a Kilimanjaro climb or time on Zanzibar. We then set the route around your dates, pace and priorities.',
-    listTitle: 'Sample Tanzania itineraries',
+    listTitle: 'Explore our Tanzania itineraries',
     afterTitle: 'A route that fits your time.',
-    afterCopy: 'Use a sample route as a starting point. We can change the park order, number of nights, accommodation and connections before you book.',
+    afterCopy: 'Choose a route as a starting point. We can change the park order, number of nights, accommodation and connections before you book.',
   },
   safaris: {
     eyebrow: 'Safaris',
@@ -27,7 +27,7 @@ const pageCopy = {
     eyebrow: 'Kilimanjaro',
     title: 'Kilimanjaro climbing itineraries',
     lead: 'A safe climb needs the right route, time to acclimatise and a trained mountain crew. Use these plans as a starting point for your preparation and available days.',
-    listTitle: 'Sample Kilimanjaro itineraries',
+    listTitle: 'Explore our Kilimanjaro itineraries',
     afterTitle: 'Your climb starts before Moshi.',
     afterCopy: 'We help you choose a route, prepare for the days on the mountain and plan the safari or Zanzibar stay that follows.',
   },
@@ -35,7 +35,7 @@ const pageCopy = {
     eyebrow: 'Zanzibar',
     title: 'Zanzibar holiday itineraries',
     lead: 'Make time for Stone Town, the beach or both. We can pair Zanzibar with a safari and plan the domestic connections as one booking.',
-    listTitle: 'Sample Zanzibar itineraries',
+    listTitle: 'Explore our Zanzibar itineraries',
     afterTitle: 'Give Zanzibar enough time.',
     afterCopy: 'Plan the island as part of the trip. We leave room to slow down and connect it cleanly with your safari or onward flight.',
   },
@@ -86,7 +86,7 @@ export default function Tours() {
   if (categoryKey && !activeCategory) return <Navigate to="/itineraries" replace />;
 
   const activeDurationLabel = durationFilters.find((filter) => filter.key === durationFilter)?.label;
-  const resultCount = `${matchingPackages.length} ${matchingPackages.length === 1 ? 'sample itinerary' : 'sample itineraries'}`;
+  const resultCount = `${matchingPackages.length} ${matchingPackages.length === 1 ? 'itinerary' : 'itineraries'}`;
 
   return (
     <div className="page-enter itinerary-listing-page">
@@ -135,9 +135,6 @@ export default function Tours() {
         </aside>
 
         <div className="itinerary-list-area">
-          <div className="itinerary-list-banner">
-            <p><strong>These are sample itineraries.</strong> We adjust the route, number of nights and accommodation to fit your dates, interests and travel style.</p>
-          </div>
           <header className="itinerary-list-heading">
             <div>
               <p className="eyebrow">{copy.eyebrow}</p>
@@ -211,7 +208,7 @@ export default function Tours() {
       </section>
 
       <section className="itinerary-listing-after">
-        <div><p className="eyebrow">Beyond the sample route</p><h2>{copy.afterTitle}</h2></div>
+        <div><p className="eyebrow">Make the route your own</p><h2>{copy.afterTitle}</h2></div>
         <p>{copy.afterCopy}</p>
         <Link to="/enquire" className="btn-dark">Start planning <ArrowRight aria-hidden="true" size={16} /></Link>
       </section>

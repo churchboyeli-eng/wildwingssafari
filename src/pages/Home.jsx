@@ -56,7 +56,7 @@ export default function Home() {
               <h2 id="offerings-heading">Choose your safari starting point.</h2>
             </div>
             <div>
-              <p>Start with a sample route. Each page sets out the daily plan, what is included and a clear price guide.</p>
+              <p>Start with an itinerary. Each page sets out the daily plan, what is included and a clear price guide.</p>
               <Link to="/itineraries" className="home-report-text-link">View all trips <ArrowRight aria-hidden="true" size={16} /></Link>
             </div>
           </header>
