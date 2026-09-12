@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import FloatingActions from './components/FloatingActions';
 import Footer from './components/Footer';
@@ -40,10 +41,12 @@ function LegacyGuideRedirect() {
 }
 
 export default function App({ initialData = null }) {
+  const [clientBlogPost, setClientBlogPost] = useState(null);
+
   return (
     <div className="site-shell">
       <a className="skip-link" href="#main-content">Skip to content</a>
-      <SeoHead initialData={initialData} />
+      <SeoHead initialData={initialData} blogPost={clientBlogPost} />
       <ScrollToTop />
       <Nav />
       <main id="main-content" tabIndex="-1">
@@ -64,7 +67,7 @@ export default function App({ initialData = null }) {
           <Route path="/plan-a-journey" element={<JourneyBuilder />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/blog" element={<Blog initialData={initialData?.kind === 'blog-index' ? initialData : null} />} />
-          <Route path="/blog/:slug" element={<BlogPost initialData={initialData?.kind === 'blog-post' ? initialData : null} />} />
+          <Route path="/blog/:slug" element={<BlogPost initialData={initialData?.kind === 'blog-post' ? initialData : null} onPostChange={setClientBlogPost} />} />
           <Route path="/about" element={<About />} />
           <Route path="/booking" element={<Navigate to="/enquire" replace />} />
           <Route path="/enquire" element={<Enquire />} />

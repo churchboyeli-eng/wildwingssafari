@@ -9,6 +9,15 @@ const projectRoot = path.dirname(fileURLToPath(import.meta.url))
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  server: {
+    proxy: {
+      '/zenblog-api': {
+        target: 'https://zenblog.com',
+        changeOrigin: true,
+        rewrite: (requestPath) => requestPath.replace(/^\/zenblog-api/, '/api/public/blogs'),
+      },
+    },
+  },
   build: {
     rolldownOptions: {
       output: {

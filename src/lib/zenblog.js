@@ -1,4 +1,6 @@
-const API_ORIGIN = 'https://zenblog.com/api/public/blogs';
+const API_ORIGIN = typeof window !== 'undefined' && import.meta.env?.DEV
+  ? '/zenblog-api'
+  : 'https://zenblog.com/api/public/blogs';
 const DEFAULT_LIMIT = 12;
 
 export const getZenblogBlogId = () => import.meta.env.VITE_ZENBLOG_BLOG_ID?.trim() || '';
@@ -65,13 +67,32 @@ export const normalizePost = (post = {}) => {
     tags,
     authors,
     publishedAt: post.published_at || post.publishedAt || '',
-    imageUrl: post.image_url || post.imageUrl || post.cover_image_url || post.coverImageUrl || post.featured_image_url || post.featuredImageUrl || '',
+    imageUrl: post.image_url || post.imageUrl || post.cover_image || post.cover_image_url || post.coverImageUrl || post.featured_image_url || post.featuredImageUrl || '',
     readTime: Math.max(1, Math.ceil(wordCount / 200)),
   };
 };
 
+const requestPost = async ({ blogId, slug, signal } = {}) => {
+  const response = await fetch(`${API_ORIGIN}/${encodeURIComponent(blogId)}/posts/${encodeURIComponent(slug)}`, {
+    headers: { Accept: 'application/json' },
+    signal,
+  });
+
+  if (!response.ok) {
+    if (response.status === 404) return null;
+    throw new Error(`Zenblog returned ${response.status}.`);
+  }
+
+  const payload = await response.json();
+  const post = payload?.data || payload;
+  return post && typeof post === 'object' ? normalizePost(post) : null;
+};
+
 const requestPosts = async ({ blogId, limit = DEFAULT_LIMIT, signal } = {}) => {
-  const url = new URL(`${API_ORIGIN}/${encodeURIComponent(blogId)}/posts`);
+  const url = new URL(
+    `${API_ORIGIN}/${encodeURIComponent(blogId)}/posts`,
+    typeof window === 'undefined' ? undefined : window.location.origin,
+  );
   url.searchParams.set('limit', String(limit));
   const response = await fetch(url, {
     headers: { Accept: 'application/json' },
@@ -95,10 +116,9 @@ export const fetchZenblogPosts = async ({ blogId = getZenblogBlogId(), limit = D
 
 export const fetchZenblogPost = async ({ blogId = getZenblogBlogId(), slug, signal } = {}) => {
   if (!blogId) return { post: null, configured: false };
-  const result = await requestPosts({ blogId, limit: 100, signal });
   return {
-    post: result.posts.find((post) => post.slug === slug) || null,
-    total: result.total,
+    post: await requestPost({ blogId, slug, signal }),
+    total: null,
     configured: true,
   };
 };

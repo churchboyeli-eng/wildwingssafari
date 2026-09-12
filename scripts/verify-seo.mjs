@@ -57,10 +57,16 @@ assert.deepEqual(duplicateCanonicals, [], 'Prerendered pages contain duplicate c
 const notFound = pages.find((page) => page.file === '404.html');
 const enquiry = pages.find((page) => page.file === 'enquire.html');
 const blog = pages.find((page) => page.file === 'blog.html');
+const blogPosts = pages.filter((page) => /^blog\/.+\.html$/.test(page.file));
 assert.match(notFound?.robots || '', /noindex/, '404.html must be noindex.');
 assert.match(enquiry?.robots || '', /noindex/, 'enquire.html must be noindex.');
 if (!buildEnv.VITE_ZENBLOG_BLOG_ID?.trim()) {
   assert.match(blog?.robots || '', /noindex/, 'The unconfigured blog must be noindex.');
+} else {
+  assert.ok(blogPosts.length > 0, 'The configured blog must prerender at least one published post.');
+  blogPosts.forEach((page) => {
+    assert.doesNotMatch(page.html, /class="blog-post-body"><\/div>/, `${page.file} has an empty article body.`);
+  });
 }
 
 const home = pages.find((page) => page.file === 'index.html');

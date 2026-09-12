@@ -192,7 +192,7 @@ export default function Blog({ initialData = null }) {
   );
 }
 
-export function BlogPost({ initialData = null }) {
+export function BlogPost({ initialData = null, onPostChange = null }) {
   const { slug } = useParams();
   const hasInitialData = initialData?.kind === 'blog-post';
   const [post, setPost] = useState(hasInitialData ? initialData.post : null);
@@ -213,6 +213,11 @@ export function BlogPost({ initialData = null }) {
   useEffect(() => {
     loadPost({ preserveContent: hasInitialData });
   }, [hasInitialData, loadPost]);
+
+  useEffect(() => {
+    onPostChange?.(status === 'ready' ? post : null);
+    return () => onPostChange?.(null);
+  }, [onPostChange, post, status]);
 
   if (status === 'loading') return <div className="page-enter blog-post-page"><LoadingState /></div>;
   if (status === 'setup') return <div className="page-enter blog-post-page"><SetupState /></div>;

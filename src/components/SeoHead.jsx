@@ -12,11 +12,13 @@ const appendElement = (tagName, attributes, textContent) => {
   document.head.append(element);
 };
 
-export default function SeoHead({ initialData = null }) {
+export default function SeoHead({ initialData = null, blogPost = null }) {
   const location = useLocation();
 
   useEffect(() => {
-    const blogPosts = initialData?.kind === 'blog-index'
+    const blogPosts = blogPost
+      ? [blogPost]
+      : initialData?.kind === 'blog-index'
       ? initialData.posts
       : (initialData?.kind === 'blog-post' && initialData.post ? [initialData.post] : []);
     const seo = getSeoForPath(location.pathname, {
@@ -43,7 +45,7 @@ export default function SeoHead({ initialData = null }) {
     seo.schema.forEach((schema) => {
       appendElement('script', { type: 'application/ld+json' }, JSON.stringify(schema));
     });
-  }, [initialData, location.pathname]);
+  }, [blogPost, initialData, location.pathname]);
 
   return null;
 }

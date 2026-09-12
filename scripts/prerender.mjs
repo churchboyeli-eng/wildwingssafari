@@ -2,7 +2,7 @@ import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { loadEnv } from 'vite';
-import { fetchZenblogPosts } from '../src/lib/zenblog.js';
+import { fetchZenblogPost, fetchZenblogPosts } from '../src/lib/zenblog.js';
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const outputDirectory = path.join(projectRoot, 'dist');
@@ -43,7 +43,13 @@ const blogConfigured = Boolean(blogId);
 const blogResult = blogConfigured
   ? await fetchZenblogPosts({ blogId, limit: 100 })
   : { posts: [], total: 0 };
-const blogPosts = blogResult.posts;
+const blogPosts = blogConfigured
+  ? await Promise.all(blogResult.posts.map(async (summary) => {
+    const result = await fetchZenblogPost({ blogId, slug: summary.slug });
+    if (!result.post) throw new Error(`Zenblog post ${summary.slug} was listed but could not be loaded.`);
+    return result.post;
+  }))
+  : [];
 if (blogResult.total > blogPosts.length) {
   throw new Error(`Zenblog returned ${blogPosts.length} of ${blogResult.total} posts; raise the build limit before deploying.`);
 }
